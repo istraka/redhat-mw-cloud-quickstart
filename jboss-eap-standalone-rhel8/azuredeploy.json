@@ -12,11 +12,11 @@
       "type": "string",	
       "defaultValue": "password",	
       "allowedValues": [	
-        "sshPublicKey",	
-        "password"	
+        "password",	
+        "sshPublicKey"	
       ],	
       "metadata": {	
-        "description": "Type of authentication to use on the Virtual Machine. SSH key is recommended."	
+        "description": "Type of authentication to use on the Virtual Machine."	
       }	
     },	
     "adminPasswordOrKey": {	
@@ -81,11 +81,17 @@
       "metadata": {
         "description": "Location for all resources."
       }
+    },
+    "vmSize": {
+      "type": "string",
+      "defaultValue": "Standard_F1",
+      "metadata": {
+        "description": "The size of the Virtual Machine."
+      }
     }
   },
   "variables": {
     "singlequote": "'",
-    "escapedQuote": "\"",
     "imagePublisher": "redhat",
     "imageOffer": "rhel",
     "imageSKU": "8",
@@ -97,7 +103,6 @@
     "publicIPAddressName": "[concat('myIP8',variables('baseName'))]",
     "publicIPAddressType": "Dynamic",
     "vmName": "[parameters('dnsLabelPrefix')]",
-    "vmSize": "Standard_F1",
     "virtualNetworkName": "MyVNET8",
     "frontEndNSGName": "[concat(parameters('dnsLabelPrefix'),'-nsg8')]",
     "storageAccountType": "Standard_LRS",
@@ -121,7 +126,7 @@
     {
       "type": "Microsoft.Storage/storageAccounts",
       "name": "[variables('StorageAccountName')]",
-      "apiVersion": "2016-01-01",
+      "apiVersion": "2019-06-01",
       "location": "[parameters('location')]",
       "sku": {
         "name": "[variables('storageAccountType')]"
@@ -130,7 +135,7 @@
       "properties": {}
     },
     {
-      "apiVersion": "2017-10-01",
+      "apiVersion": "2019-11-01",
       "type": "Microsoft.Network/publicIPAddresses",
       "name": "[variables('publicIPAddressName')]",
       "location": "[parameters('location')]",
@@ -142,7 +147,7 @@
       }
     },
     {
-      "apiVersion": "2017-10-01",
+      "apiVersion": "2019-11-01",
       "type": "Microsoft.Network/networkSecurityGroups",
       "name": "[variables('frontEndNSGName')]",
       "location": "[parameters('location')]",
@@ -197,7 +202,7 @@
       }
     },
     {
-      "apiVersion": "2017-10-01",
+      "apiVersion": "2019-11-01",
       "type": "Microsoft.Network/virtualNetworks",
       "name": "[variables('virtualNetworkName')]",
       "location": "[parameters('location')]",
@@ -224,7 +229,7 @@
       }
     },
     {
-      "apiVersion": "2017-10-01",
+      "apiVersion": "2019-11-01",
       "type": "Microsoft.Network/networkInterfaces",
       "name": "[variables('nicName')]",
       "location": "[parameters('location')]",
@@ -254,7 +259,7 @@
       }
     },
     {
-      "apiVersion":  "2017-03-30", 
+      "apiVersion":  "2019-12-01", 
       "type": "Microsoft.Compute/virtualMachines",
       "name": "[variables('vmName')]",
       "location": "[parameters('location')]",
@@ -264,7 +269,7 @@
       ],
       "properties": {
         "hardwareProfile": {
-          "vmSize": "[variables('vmSize')]"
+          "vmSize": "[parameters('vmSize')]"
         },
         "osProfile": {
           "computerName": "[variables('vmName')]",
@@ -298,7 +303,7 @@
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
       "name": "[concat(variables('vmName'),'/newuserscript')]",
-      "apiVersion": "2017-12-01",
+      "apiVersion": "2019-12-01",
       "location": "[parameters('location')]",
       "dependsOn": [
         "[concat('Microsoft.Compute/virtualMachines/', variables('vmName'))]"
