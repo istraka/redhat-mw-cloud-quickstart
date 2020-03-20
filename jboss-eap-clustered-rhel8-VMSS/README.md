@@ -30,6 +30,7 @@ This template creates all of the compute resources to run EAP 7.2 on top of RHEL
 - Virtual Network with 2 subnets
 - EAP 7.2 on RHEL 8.0
 - Sample application deployed to JBoss EAP 7
+- Security Configuration
 
 Following is the Architecture :
 <img src="image/arch.png" width="800">
@@ -90,4 +91,6 @@ The deployment takes approx. 10 minutes to complete.
 
 <img src="image/eap-admin-console.png" width="800">
 
+If you want to access the LB App UI console go to  **http://<LBPUBLICIP_DNS/eap-session-replication/** and if you want to access the VM App UI console go to **http://<VMPUBLICIP_DNS>:9990/eap-session-replication/**. This fetches the VM private IP and updates the session counter upon clicking on the Increament counter. Note that the session ID of all the 3 App UI console is different.
 
+<img src="image/eap-session-rep.png" width="800">	<img src="image/eap-session-rep.png" width="800">
