@@ -92,7 +92,6 @@
   },
   "variables": {
     "singlequote": "'",
-    "escapedQuote": "\"",
     "imagePublisher": "redhat",
     "imageOffer": "rhel",
     "imageSKU": "7.7",
