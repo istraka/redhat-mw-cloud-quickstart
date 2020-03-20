@@ -60,8 +60,10 @@ echo "export JBOSS_HOME="/opt/rh/jboss-eap-7.2/"" >>/bin/jbossservice.sh
 echo "$JBOSS_HOME/bin/standalone.sh -bprivate $IP_ADDR --server-config=standalone-azure-ha.xml -Djboss.jgroups.azure_ping.storage_account_name=$STORAGE_ACCOUNT_NAME -Djboss.jgroups.azure_ping.storage_access_key=$STORAGE_ACCESS_KEY -Djboss.jgroups.azure_ping.container=$CONTAINER_NAME -Djava.net.preferIPv4Stack=true &" > /bin/jbossservice.sh
 chmod +x /bin/jbossservice.sh
 
-echo "@reboot sleep 120 && /bin/jbossservice.sh" >>  /etc/crontab	
+yum install cronie cronie-anacron
+service crond start
 chkconfig crond on
+echo "@reboot sleep 90 && /bin/jbossservice.sh" >>  /etc/crontab	
 
 echo "deploy an applicaiton " >> /home/$1/install.log
 git clone https://github.com/danieloh30/eap-session-replication.git
