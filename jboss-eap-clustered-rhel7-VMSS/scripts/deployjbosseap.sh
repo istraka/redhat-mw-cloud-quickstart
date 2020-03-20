@@ -33,7 +33,7 @@ echo "Install openjdk, wget, git, unzip, vim"  >> /home/$1/install.log
 sudo yum install java-1.8.0-openjdk wget unzip vim git -y
 
 echo "Downlaod jboss-eap-7.2"  >> /home/$1/install.log 
-wget https://vmuagstore.blob.core.windows.net/software/jboss-eap-7.2.0.zip
+wget https://experienceazure.blob.core.windows.net/templates/EAP7.2/jboss-eap-7.2.0.zip
 
 echo "unzip jboss-eap"  >> /home/$1/install.log 
 
