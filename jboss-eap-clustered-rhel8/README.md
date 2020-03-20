@@ -29,7 +29,7 @@ Red Hat Subscription Management (RHSM) is a customer-driven, end-to-end solution
 This template deploys a web applicaton deployed on JBoss EAP 7.2 cluster running on RHEL 8.
 
 ## Template Solution Architecture
-This template creates all of the compute resources to run JBoss EAP 7 on top of RHEL 7.2, deploying the following components:
+This template creates all of the compute resources to run JBoss EAP 7 on top of RHEL 8.0, deploying the following components:
 
 - RHEL 8.0 VM 
 - Public DNS 
@@ -130,7 +130,7 @@ The deployment takes about 10 minutes to complete.
 
 - The web application displays the Session ID, Session `counter` and `timestamp` (these are variables stored in the session that are replicated) and the container name that the web page and session is being hosted from.
 
-- Now, select the **Increment Counter** link. The session variable will increase.
+- Now, select the **Increment Counter** link. The session variable will increase. Note that the session variable increases simultaneously on both App UIs.
 
 <img src="images/session-replication-increment.png" width="800">
 
