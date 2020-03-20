@@ -30,6 +30,7 @@ This template creates all of the compute resources to run EAP 7.2 on top of RHEL
 - Virtual Network with 2 subnets
 - EAP 7.2 on RHEL 7.7
 - Sample application deployed to JBoss EAP 7
+- Security Configuration
 
 Following is the Architecture :
 <img src="image/arch.png" width="800">
