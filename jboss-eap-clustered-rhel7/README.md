@@ -131,7 +131,7 @@ The deployment takes about 10 minutes to complete.
 
 - The web application displays the Session ID, Session `counter` and `timestamp` (these are variables stored in the session that are replicated) and the container name that the web page and session is being hosted from.
 
-- Now, select the **Increment Counter** link. The session variable will increase.
+- Now, select the **Increment Counter** link. The session variable will increase. Note that the session variable increases simultaneously on both App UIs.
 
 <img src="images/session-replication-increment.png" width="800">
 
