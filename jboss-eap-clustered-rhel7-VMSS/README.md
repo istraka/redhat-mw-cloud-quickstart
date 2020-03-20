@@ -91,3 +91,8 @@ The deployment takes approx. 10 minutes to complete.
 
 <img src="image/eap-admin-console.png" width="800">
 
+- If you want to access the LB App UI console go to  **http://<PUBLICIP_DNS/eap-session-replication/** and if you want to access the VM App UI console go to **http://<VMPUBLICIP_DNS>:9990/eap-sessionreplication/**. This fetches the VM private IP and updates the session counter upon clicking on the Increament counte
+
+<img src="image/eap-session-rep.png" width="800">
+
+-
