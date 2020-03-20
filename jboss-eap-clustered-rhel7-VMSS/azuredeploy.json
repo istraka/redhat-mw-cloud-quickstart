@@ -38,21 +38,20 @@
           "description": "User name for the JBOSS EAP."
         }
       },
-        "EAPPassword": {
-          "type": "securestring",
-          "minLength": 10,
-          "metadata": {
-            "description": "Password for the JBOSS EAP"
-          }
+       "EAPPassword": {
+         "type": "securestring",
+         "minLength": 10,
+         "metadata": {
+           "description": "Password for the JBOSS EAP"
+        }
+      },
+       "baseUrl": {
+         "type": "string",
+         "metadata": {
+         "description": "Base URL for Marketplace Deployment"
         },
-          "baseUrl": {
-            "type": "string",
-            "metadata": {
-              "description": "Base URL for Marketplace Deployment",
-              "artifactsBaseUrl": ""
-            },
-            "defaultValue": "https://raw.githubusercontent.com/SpektraSystems/redhat-mw-cloud-quickstart/suraj-rhel77/jboss-eap-clustered-rhel7-VMSS/"
-        },
+        "defaultValue": "https://raw.githubusercontent.com/SpektraSystems/redhat-mw-cloud-quickstart/suraj-rhel77/jboss-eap-clustered-rhel7-VMSS/"
+      },
       "jbosseapstrgType": {
         "type": "string",
         "defaultValue": "Standard_LRS",
@@ -63,11 +62,17 @@
           "Standard_RAGRS",
           "Premium_LRS"
         ]
+      },
+      "vmSize": {
+        "type": "string",
+        "defaultValue": "Standard_DS2_v2",
+        "metadata": {
+          "description": "The size of the Virtual Machine."
+        }
       }
-        },
+    },
     "variables": {
       "scriptFileName": "deployjbosseap.sh",
-      "storageAccountId": "[resourceId('Microsoft.Storage/storageAccounts', variables('jbosseapstrgName'))]",
       "containerName": "azureping",
       "scriptStart": "su -c'sh ",
       "customScriptCommand": "[concat(variables('scriptStart'), variables('scriptFileName'), ' ')]",
@@ -94,12 +99,7 @@
       "publicIPAddress1DNSName" : "[concat('pipvm1-', uniqueString(resourceGroup().id))]",
       "publicIPAddress2DNSName" : "[concat('pipvm2-', uniqueString(resourceGroup().id))]",
       "publicIPAddressType": "Dynamic",
-      "vmSize": "Standard_DS2_v2",
-      "numberOfInstances": 2,
       "virtualNetworkName": "jbosseap72-vnet",
-      "subnet1Ref": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnet1Name'))]",
-      "subnet2Ref": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnet2Name'))]",
-      "dnsNameforLBIP":"[concat('dns',uniqueString(resourceGroup().id))]",
       "linuxConfiguration": {
         "disablePasswordAuthentication": true,
         "ssh": {
@@ -116,7 +116,7 @@
     },
     "resources": [
       {
-        "apiVersion": "2015-06-15",
+        "apiVersion": "2019-11-01",
         "type": "Microsoft.Network/publicIPAddresses",
         "name": "[variables('publicIPAddress1Name')]",
         "location": "[parameters('location')]",
@@ -128,7 +128,7 @@
         }
       },
       {
-        "apiVersion": "2015-06-15",
+        "apiVersion": "2019-11-01",
         "type": "Microsoft.Network/publicIPAddresses",
         "name": "[variables('publicIPAddress2Name')]",
         "location": "[parameters('location')]",
@@ -140,7 +140,7 @@
         }
       },
       {
-        "apiVersion": "2015-06-15",
+        "apiVersion": "2019-11-01",
         "type": "Microsoft.Network/publicIPAddresses",
         "name": "[variables('publicIPAddresslb')]",
         "location": "[parameters('location')]",
@@ -254,7 +254,7 @@
         }
       },
       {
-        "apiVersion": "2015-06-15",
+        "apiVersion": "2019-11-01",
         "type": "Microsoft.Network/virtualNetworks",
         "name": "[variables('virtualNetworkName')]",
         "location": "[parameters('location')]",
@@ -290,7 +290,7 @@
         }
       },
       {
-        "apiVersion": "2015-06-15",
+        "apiVersion": "2019-11-01",
         "type": "Microsoft.Network/networkInterfaces",
         "name": "[variables('nic1Name')]",
         "location": "[parameters('location')]",
@@ -309,7 +309,7 @@
                     "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddress1Name'))]"
                   },
                 "subnet": {
-                  "id": "[variables('subnet1Ref')]"
+                  "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnet1Name'))]"
                 },
                 "loadBalancerBackendAddressPools": [
                   {
@@ -322,7 +322,7 @@
         }
       },
       {
-        "apiVersion": "2015-06-15",
+        "apiVersion": "2019-11-01",
         "type": "Microsoft.Network/networkInterfaces",
         "name": "[variables('nic2Name')]",
         "location": "[parameters('location')]",
@@ -341,7 +341,7 @@
                     "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddress2Name'))]"
                   },
                 "subnet": {
-                  "id": "[variables('subnet2Ref')]"
+                  "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnet2Name'))]"
                 },
                 "loadBalancerBackendAddressPools": [
                   {
@@ -354,7 +354,7 @@
         }
       },
       {
-        "apiVersion": "2016-04-30-preview",
+        "apiVersion": "2019-12-01",
         "type": "Microsoft.Compute/virtualMachines",
         "name": "[variables('vm1Name')]",
         "location": "[parameters('location')]",
@@ -371,7 +371,7 @@
             "id": "[resourceId('Microsoft.Compute/availabilitySets',variables('asName'))]"
           },
           "hardwareProfile": {
-            "vmSize": "[variables('vmSize')]"
+            "vmSize": "[parameters('vmSize')]"
           },
           "networkProfile": {
             "networkInterfaces": [
@@ -402,7 +402,7 @@
           {
             "type": "extensions",
             "name": "jbosseap-extension",
-            "apiVersion": "2016-04-30-preview",
+            "apiVersion": "2019-12-01",
             "location": "[parameters('location')]",
             "comments": "These VM Extensions are Install JBOSSEAP",
             "tags": {
@@ -422,14 +422,14 @@
                 ]
               },
               "protectedSettings": {
-                "commandToExecute": "[concat(variables('customScriptCommand'), parameters('adminUsername'),' ',parameters('EAPUser'),' ',parameters('EAPPassword'),' ',reference(variables('nic1Name')).ipConfigurations[0].properties.privateIPAddress,' ',variables('jbosseapstrgName'),' ',variables('containerName'),' ',base64(listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('jbosseapstrgName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value), variables('scriptClose'))]"
+                "commandToExecute": "[concat(variables('customScriptCommand'), parameters('adminUsername'),' ',parameters('EAPUser'),' ',parameters('EAPPassword'),' ',reference(variables('nic1Name')).ipConfigurations[0].properties.privateIPAddress,' ',variables('jbosseapstrgName'),' ',variables('containerName'),' ',base64(listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('jbosseapstrgName')), '2019-04-01').keys[0].value), variables('scriptClose'))]"
               }
             }
           }
         ]
       },
       {
-        "apiVersion": "2016-04-30-preview",
+        "apiVersion": "2019-12-01",
         "type": "Microsoft.Compute/virtualMachines",
         "name": "[variables('vm2Name')]",
         "location": "[parameters('location')]",
@@ -446,7 +446,7 @@
             "id": "[resourceId('Microsoft.Compute/availabilitySets',variables('asName'))]"
           },
           "hardwareProfile": {
-            "vmSize": "[variables('vmSize')]"
+            "vmSize": "[parameters('vmSize')]"
           },
           "osProfile": {
             "computerName": "[variables('vm2Name')]",
@@ -477,7 +477,7 @@
           {
             "type": "extensions",
             "name": "jbosseap-extension",
-            "apiVersion": "2016-04-30-preview",
+            "apiVersion": "2019-12-01",
             "location": "[parameters('location')]",
             "comments": "These VM Extensions are Install JBOSSEAP",
             "tags": {
@@ -497,7 +497,7 @@
                 ]
               },
               "protectedSettings": {
-                "commandToExecute": "[concat(variables('customScriptCommand'), parameters('adminUsername'),' ',parameters('EAPUser'),' ',parameters('EAPPassword'),' ',reference(variables('nic2Name')).ipConfigurations[0].properties.privateIPAddress,' ',variables('jbosseapstrgName'),' ',variables('containerName'),' ',base64(listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('jbosseapstrgName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value), variables('scriptClose'))]"
+                "commandToExecute": "[concat(variables('customScriptCommand'), parameters('adminUsername'),' ',parameters('EAPUser'),' ',parameters('EAPPassword'),' ',reference(variables('nic2Name')).ipConfigurations[0].properties.privateIPAddress,' ',variables('jbosseapstrgName'),' ',variables('containerName'),' ',base64(listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('jbosseapstrgName')), '2019-04-01').keys[0].value), variables('scriptClose'))]"
               }
             }
           }
@@ -599,7 +599,7 @@
       {
         "name": "[Variables('asName')]",
         "type": "Microsoft.Compute/availabilitySets",
-        "location": "[resourceGroup().location]",
+        "location": "[parameters('location')]",
         "apiVersion": "2019-03-01",
         "tags": {
           "displayName": "jbosseap-as"
@@ -615,12 +615,11 @@
       {
         "name": "[variables('jbosseapstrgName')]",
         "type": "Microsoft.Storage/storageAccounts",
-        "location": "[resourceGroup().location]",
-        "apiVersion": "2018-07-01",
+        "location": "[parameters('location')]",
+        "apiVersion": "2019-04-01",
         "sku": {
           "name": "[parameters('jbosseapstrgType')]"
         },
-        "dependsOn": [],
         "tags": {
           "displayName": "jbosseapstrg"
         },
