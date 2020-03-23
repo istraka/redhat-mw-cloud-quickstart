@@ -51,7 +51,7 @@ This uses CentOS 8 image which is a PAY AS YOU GO image and doesn't require the 
 
 ## Prerequisites 
 
-1. Azure Subscription with specified payment method (CentOS-Based 8.0 is an Azure MArketplace product and requires the payment method to be specified in Azure Subscription)
+1. Azure Subscription with specified payment method (CentOS-Based 8.0 is an [Azure Marketplace](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/openlogic.centos?tab=Overview) product and requires the payment method to be specified in Azure Subscription)
 
 2. To create the VM, you will need to:
 
