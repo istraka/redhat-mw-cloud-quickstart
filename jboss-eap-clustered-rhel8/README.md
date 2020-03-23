@@ -52,11 +52,11 @@ This uses RHEL 8.0 image which is a PAY AS YOU GO image and doesn't require the 
 
 ## Prerequisites
 
-1. Azure Subscription with specified payment method (RHEL 8 is a Azure Marketplace product and requires the payment method to be specified in Azure Subscription)
+1. Azure Subscription with specified payment method (RHEL 8 is an [Azure Marketplace](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/RedHat.RedHatEnterpriseLinux80-ARM?tab=Overview) product and requires the payment method to be specified in Azure Subscription)
 
 2. To deploy the template, you will need to:
 
-   - Choose an admin user name and password for your VM.
+   - Choose an admin username and password for your VM.
     
    - Choose a name for your VM.
 
@@ -68,7 +68,7 @@ This uses RHEL 8.0 image which is a PAY AS YOU GO image and doesn't require the 
 
 ## Deployment Steps
 
-Build your environment with EAP 7.2 on top of RHEL 8.0 on Azure in a few simple steps:
+Build your environment with EAP 7.2 on top of RHEL 8.0 on Azure by clicking the Deploy to Azure button and fill in the following parameter values:
 
    - **Subscription** - Choose the right subscription where you would like to deploy.
 
@@ -82,7 +82,7 @@ Build your environment with EAP 7.2 on top of RHEL 8.0 on Azure in a few simple 
    
    - **DNS Label Prefix** - DNS Label for the Public IP. Must be lowercase. It should match with the following regular expression: ^[a-z][a-z0-9-]{1,61}[a-z0-9]$ or it will raise an error.
 
-   - **EAP Username** - User name for EAP Console.
+   - **EAP Username** - Username for EAP Console.
 
    - **EAP Password** - User account password for EAP Console.
     
@@ -96,7 +96,7 @@ Build your environment with EAP 7.2 on top of RHEL 8.0 on Azure in a few simple 
    
    - **VM Size** - Choose the size of the VM from the options in dropdown
 
-   - Leave the rest of the Parameter Value as it is and proceed.
+   - Leave the rest of the Parameter Value as it is and accept the terms and conditions before clicking on Purchase.
 
 <img src="images/parameters.png" width="800">
 
