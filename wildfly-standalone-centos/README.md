@@ -24,7 +24,7 @@
 ## Solution Overview
 WildFly 18 is the latest release in a series of JBoss open-source application server offerings. WildFly 18 is an exceptionally fast, lightweight and powerful implementation of the Jakarta Platform specifications. The state-of-the-art architecture built on the Modular Service Container enables services on-demand when your application requires them.
 
-This Azure quickstart template deploys a web applicaton deployed on WildFly 18.0.1.Final running on CentOS 8.
+This Azure quickstart template deploys a web application deployed on WildFly 18.0.1.Final running on CentOS 8.
 
 Red Hat Subscription Management (RHSM) is a customer-driven, end-to-end solution that provides tools for subscription status and management and integrates with Red Hat's system management tools. To obtain a rhsm account go to: www.redhat.com and sign in.
 
