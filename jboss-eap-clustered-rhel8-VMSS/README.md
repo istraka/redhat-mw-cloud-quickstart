@@ -2,6 +2,7 @@
 
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FSpektraSystems%2Fredhat-mw-cloud-quickstart%2Fmaster%2Fjboss-eap-clustered-rhel-VMSS%2Fazuredeploy.json" target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
+</a>
 
 `Tags: JBoss, EAP, Red Hat,EAP7, Load Balancer`
 
@@ -29,6 +30,7 @@ This template creates all of the compute resources to run EAP 7.2 on top of RHEL
 
 - 2 RHEL 8.0 VMs
 - 1 Load balancer
+- Public DNS
 - Virtual Network with 2 subnets
 - EAP 7.2 on RHEL 8.0
 - Sample application deployed to JBoss EAP 7
@@ -46,7 +48,7 @@ This uses RHEL 8.0 image which is a PAY AS YOU GO image and doesn't require the 
 
 ## Prerequisites
 
-1. Azure Subscription with specified payment method (RHEL 8 is a Azure Marketplace product and requires payment method to be specified in Azure Subscription)
+1. Azure Subscription with specified payment method (RHEL 8 is an [Azure Marketplace](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/RedHat.RedHatEnterpriseLinux80-ARM?tab=Overview) product and requires payment method to be specified in Azure Subscription)
 
 2. To deploy the template, you will need to:
 
@@ -57,8 +59,8 @@ This uses RHEL 8.0 image which is a PAY AS YOU GO image and doesn't require the 
 ## Deployment Steps
 
 Build your environment with EAP 7.2 on top of RHEL 8.0 which is added to the backend pool of the Load Balancer on Azure in a few simple steps:  
-1. Launch the Template by click on Deploy to Azure button.  
-2. Fill in the following parameter values. Then accept the terms and condition before clicking on Purchase.
+1. Launch the Template by clicking Deploy to Azure button.  
+2. Fill in the following parameter values and accept the terms and condition before clicking on Purchase.
 
     - **Subscription** - Choose the right subscription where you would like to deploy.
 
@@ -84,7 +86,7 @@ The deployment takes approx. 10 minutes to complete.
 
 ## Post Deployment Steps
 
-- Once the deployment is successful, go the VM and copy the Public IP of the VM which is the Public IP of the Load Balancer.
+- Once the deployment is successful, go to the VM and copy the Public IP of the VM which is the Public IP of the Load Balancer.
 - Open a web browser and go to **http://<PUBLIC_HOSTNAME>** and you should see the web page:
 
 <img src="image/eap.png" width="800">
@@ -93,6 +95,6 @@ The deployment takes approx. 10 minutes to complete.
 
 <img src="image/eap-admin-console.png" width="800">
 
-If you want to access the LB App UI console go to  **http://<LBPUBLICIP_DNS/eap-session-replication/** and if you want to access the VM App UI console go to **http://<VMPUBLICIP_DNS>:9990/eap-session-replication/**. This fetches the VM private IP and updates the session counter upon clicking on the Increament counter. Note that the session ID of all the 3 App UI console is different.
+If you want to access the LB App UI console go to  **http://<LB_PUBLICIP_DNS/eap-session-replication/** and if you want to access the VM App UI console go to **http://<VM_PUBLICIP_DNS>:9990/eap-session-replication/**. This fetches the VM private IP and updates the session counter upon clicking on the Increament counter. Note that the session ID of all the 3 App UI console is different.
 
 <img src="image/eap-session-rep.png" width="800">	<img src="image/eap-session-rep.png" width="800">
