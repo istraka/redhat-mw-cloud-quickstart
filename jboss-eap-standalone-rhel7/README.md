@@ -50,7 +50,7 @@ This uses RHEL 7.7 image which is a PAY AS YOU GO image and doesn't require the 
 
 ## Prerequisites
 
-1. Azure Subscription with specified payment method (RHEL 7 is a Azure Marketplace product and requires the payment method to be specified in Azure Subscription)
+1. Azure Subscription with specified payment method (RHEL 7 is a [Azure Marketplace](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/RedHat.RedHatEnterpriseLinux77-ARM?tab=Overview) product and requires the payment method to be specified in Azure Subscription)
 
 2. To deploy the template, you will need to:
 
@@ -64,7 +64,7 @@ This uses RHEL 7.7 image which is a PAY AS YOU GO image and doesn't require the 
 
 ## Deployment Steps
 
-Build your environment with EAP 7.2 on top of RHEL 7.7 on Azure in a few simple steps:
+Build your environment with EAP 7.2 on top of RHEL 7.7 on Azure by clicking the Deploy to Azure button and fill in the following parameter values:
 
    - **Subscription** - Choose the right subscription where you would like to deploy.
 
@@ -86,7 +86,7 @@ Build your environment with EAP 7.2 on top of RHEL 7.7 on Azure in a few simple 
 
    - **RHSM Password** - User account password for RedHat account.
 
-   - Leave the rest of the Parameter Value as it is and proceed.
+   - Leave the rest of the Parameter Value as it is and accept the terms and conditions before clicking on Purchase.
     
 ## Deployment Time 
 
@@ -94,6 +94,6 @@ The deployment takes less than 10 minutes to complete.
 
 ## Post Deployment Steps
 
-- Once the deployment is successful, go the VM and copy the Public IP of the VM.
+- Once the deployment is successful, go to the VM and copy the Public IP of the VM.
 - Open a web browser and go to http://<PUBLIC_HOSTNAME>:8080/dukes/ and you should see the application running
 If you want to access the administration console go to http://<PUBLIC_HOSTNAME>:8080 and click on the link Administration Console and enter EAP username and password to see the console.
