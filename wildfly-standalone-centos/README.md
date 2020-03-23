@@ -26,7 +26,7 @@ WildFly 18 is the latest release in a series of JBoss open-source application se
 
 This Azure quickstart template deploys a web applicaton deployed on WildFly 18.0.1.Final running on CentOS 8.
 
-To obtain a rhsm account go to: www.redhat.com and sign in.
+Red Hat Subscription Management (RHSM) is a customer-driven, end-to-end solution that provides tools for subscription status and management and integrates with Red Hat's system management tools. To obtain a rhsm account go to: www.redhat.com and sign in.
 
 ## Template Solution Architecture 
 
@@ -47,15 +47,15 @@ https://docs.wildfly.org/18/
 
 ## Licenses and Costs 
 
-This uses CentOS 8 image which is a PAY AS YOU GO image and doesn't require the user to license it, it will be licensed automatically after the instance is launched first time and user will be charged hourly in addition to Microsoft's Linux VM rates.  Click [here](https://azure.microsoft.com/en-gb/pricing/details/virtual-machines/linux/#red-hat) for pricing details.
+This uses CentOS 8 image which is a PAY AS YOU GO image and doesn't require the user to license it; it will be licensed automatically after the instance is launched the first time and the user will be charged hourly in addition to Microsoft's Linux VM rates.  Click [here](https://azure.microsoft.com/en-gb/pricing/details/virtual-machines/linux/#red-hat) for pricing details.
 
 ## Prerequisites 
 
-1. Azure Subscription with specified payment method (CentOS-Based 8.0 is a market place product and requires payment method to be specified in Azure Subscription)
+1. Azure Subscription with specified payment method (CentOS-Based 8.0 is an Azure MArketplace product and requires the payment method to be specified in Azure Subscription)
 
 2. To create the VM, you will need to:
 
-    - Choose an admin user name and password for your VM.  
+    - Choose an admin username and password for your VM.  
 
     - Choose a name for your VM. 
 
@@ -66,8 +66,8 @@ This uses CentOS 8 image which is a PAY AS YOU GO image and doesn't require the 
 ## Deployment Steps  
 
 Build your environment with WILDFLY 18.0.1 on top of CentOS 8.0 on Azure in a few simple steps:  
-1. Launch the Template by click on Deploy to Azure button.  
-2. Fill in the following parameter values. Then accept the terms and condition before clicking on Purchase.
+1. Launch the Template by clicking Deploy to Azure button.  
+2. Fill in the following parameter values and accept the terms and conditions before clicking on Purchase.
 
     - **Subscription** - Choose the right subscription where you would like to deploy.
 
@@ -95,8 +95,8 @@ The deployment takes less than 10 minutes to complete.
 
 ## Post Deployment Steps
 
-- Once the deployment is successfull, go the VM and copy the Public IP of the VM.
-- Open a web browser and go to **http://<PUBLIC_HOSTNAME>:8080/dukes/** and you should see the applicaiton running:
+- Once the deployment is successful, go to the VM and copy the Public IP of the VM.
+- Open a web browser and go to **http://<PUBLIC_HOSTNAME>:8080/dukes/** and you should see the application running:
 
 <img src="images/app.png" width="800">
 
