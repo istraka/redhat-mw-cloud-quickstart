@@ -98,7 +98,7 @@ The deployment takes less than 10 minutes to complete.
 - Once the deployment is successful, go to the VM and copy the Public IP of the VM.
 - Open a web browser and go to **http://<PUBLIC_HOSTNAME>:8080/dukes/** and you should see the application running:
 
-<img src="images/app.png" width="800">
+  <img src="images/app1.png" width="800">
 
 - If you want to access the administration console go to **http://<PUBLIC_HOSTNAME>:8080** and click on the link Administration Console:
 
