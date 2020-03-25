@@ -50,18 +50,6 @@ echo "Open Red Hat software firewall for port 22..." >> /home/$1/install.log
 firewall-cmd --zone=public --add-port=22/tcp --permanent
 firewall-cmd --reload
 
-echo "Create an RSA public and private key for SSH..." >> /home/$1/install.log
-cd /home/$1
-mkdir /home/$1/.ssh
-ssh-keygen -q -N $4 -f /home/$1/.ssh/id_rsa
-cd /home/$1/.ssh
-cp id_rsa.pub authorized_keys
-echo "SSH User name:  "$1 > /home/$1/vsts_ssh_info
-echo "SSH passphrase: "$4 >> /home/$1/vsts_ssh_info
-echo "SSH Private key:" >> /home/$1/vsts_ssh_info
-cat id_rsa >> /home/$1/vsts_ssh_info
-
-
 echo "Configure SELinux to use Linux ACL's for file protection..." >> /home/$1/install.log
 setsebool -P allow_ftpd_full_access 1
 
