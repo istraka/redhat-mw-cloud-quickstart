@@ -8,17 +8,16 @@ export NODENAME1="node1"
 export NODENAME2="node2"
 export SVR_CONFIG="standalone-ha.xml"
 export PORT_OFFSET=100
-export ssh_key=$7
 export EAP_USER=$2
 export EAP_PASSWORD=$3
 export RHSM_USER=$4
 export RHSM_PASSWORD=$5
 export RHSM_POOL=$6
-export IP_ADDR_NAME=$8
-export IP_ADDR=$9
+export IP_ADDR_NAME=$7
+export IP_ADDR=$8
 
-export STORAGE_ACCOUNT_NAME=${10}
-export STORAGE_ACCESS_KEY=${11}
+export STORAGE_ACCOUNT_NAME=${9}
+export STORAGE_ACCESS_KEY=${10}
 export CONTAINER_NAME="eapblobcontainer"
 
 echo "EAP_USER: " ${EAP_USER} >> /home/$1/install.log
@@ -88,20 +87,6 @@ systemctl enable sshd.service
 echo "Open Red Hat software firewall for port 22..." >> /home/$1/install.log
 firewall-cmd --zone=public --add-port=22/tcp --permanent
 firewall-cmd --reload
-
-echo "Create an RSA public and private key for SSH..." >> /home/$1/install.log
-cd /home/$1
-mkdir /home/$1/.ssh
-ssh-keygen -q -N $4 -f /home/$1/.ssh/id_rsa
-cd /home/$1/.ssh
-cp id_rsa.pub authorized_keys
-echo $ssh_key >> authorized_keys
-chown -R $1.jboss .
-chown -R $1.jboss *
-echo "SSH User name:  "$1 > /home/$1/vsts_ssh_info
-echo "SSH passphrase: "$4 >> /home/$1/vsts_ssh_info
-echo "SSH Private key:" >> /home/$1/vsts_ssh_info
-cat id_rsa >> /home/$1/vsts_ssh_info
 
 echo "Configure SELinux to use Linux ACL's for file protection..." >> /home/$1/install.log
 setsebool -P allow_ftpd_full_access 1
