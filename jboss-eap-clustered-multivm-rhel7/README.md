@@ -37,7 +37,7 @@ This template creates all of the compute resources to run EAP 7.2 on top of RHEL
 - Security Configuration
 
 Following is the Architecture :
-<img src="image/arch.png" width="800">
+<img src="image/arch1.png" width="800">
 
 To learn more about JBoss Enterprise Application Platform, check out:
 https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/
