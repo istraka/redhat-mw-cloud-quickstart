@@ -8,17 +8,16 @@ export NODENAME1="node1"
 export NODENAME2="node2"
 export SVR_CONFIG="standalone-ha.xml"
 export PORT_OFFSET=100
-export ssh_key=$7
 export EAP_USER=$2
 export EAP_PASSWORD=$3
 export RHSM_USER=$4
 export RHSM_PASSWORD=$5
 export RHSM_POOL=$6
-export IP_ADDR_NAME=$8
-export IP_ADDR=$9
+export IP_ADDR_NAME=$7
+export IP_ADDR=$8
 
-export STORAGE_ACCOUNT_NAME=${10}
-export STORAGE_ACCESS_KEY=${11}
+export STORAGE_ACCOUNT_NAME=${9}
+export STORAGE_ACCESS_KEY=${10}
 export CONTAINER_NAME="eapblobcontainer"
 
 echo "EAP_USER: " ${EAP_USER} >> /home/$1/install.log
