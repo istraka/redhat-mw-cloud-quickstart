@@ -12,12 +12,17 @@ export IP_ADDR=$4
 export STORAGE_ACCOUNT_NAME=${5}
 export CONTAINER_NAME=$6
 export STORAGE_ACCESS_KEY=$(echo "${7}" | openssl enc -d -base64)
+RHSM_USER=$8
+RHSM_PASSWORD=$9
+export RHSM_POOL=$10
 
 echo "EAP admin user"+${EAP_USER} >> /home/$1/install.log
 echo "Private IP Address of VM"+${IP_ADDR} >> /home/$1/install.log
 echo "Storage Account Name"+${STORAGE_ACCOUNT_NAME} >> /home/$1/install.log
 echo "Storage Container Name"+${CONTAINER_NAME} >> /home/$1/install.log
 echo "Storage Account Access Key"+${STORAGE_ACCESS_KEY} >> /home/$1/install.log
+echo "RHSM_USER: " ${RHSM_USER} >> /home/$1/install.log
+echo "RHSM_POOL: " ${RHSM_POOL} >> /home/$1/install.log
 
 echo "Configure firewall for ports 8080, 8180, 9990, 10090..." >> /home/$1/install.log 
 
