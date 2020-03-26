@@ -4,19 +4,25 @@
 
 echo "Red Hat JBoss EAP 7 Cluster Intallation Start: " | /bin/date +%H:%M:%S  >> /home/$1/install.log
 
-export JBOSS_HOME="/opt/rh/jboss-eap-7.2/"
+export EAP_HOME="/opt/rh/eap7/root/usr/share"	
+export EAP_RPM_CONF_STANDALONE="/etc/opt/rh/eap7/wildfly/eap7-standalone.conf"
 export EAP_USER=$2
 export EAP_PASSWORD=$3
-export IP_ADDR=$4
-export STORAGE_ACCOUNT_NAME=${5}
-export CONTAINER_NAME=$6
-export STORAGE_ACCESS_KEY=$(echo "${7}" | openssl enc -d -base64)
+export RHSM_USER=$4	
+export RHSM_PASSWORD=$5	
+export RHSM_POOL=$6	
+export IP_ADDR=$7	
+export STORAGE_ACCOUNT_NAME=${8}	
+export CONTAINER_NAME=$9	
+export STORAGE_ACCESS_KEY=$(echo "${10}" | openssl enc -d -base64)
 
 echo "EAP admin user"+${EAP_USER} >> /home/$1/install.log
 echo "Private IP Address of VM"+${IP_ADDR} >> /home/$1/install.log
 echo "Storage Account Name"+${STORAGE_ACCOUNT_NAME} >> /home/$1/install.log
 echo "Storage Container Name"+${CONTAINER_NAME} >> /home/$1/install.log
 echo "Storage Account Access Key"+${STORAGE_ACCESS_KEY} >> /home/$1/install.log
+echo "RHSM_USER: " ${RHSM_USER} >> /home/$1/install.log	
+echo "RHSM_POOL: " ${RHSM_POOL} >> /home/$1/install.log
 
 echo "Configure firewall for ports 8080, 8180, 9990, 10090..." >> /home/$1/install.log 
 
@@ -32,32 +38,44 @@ sudo iptables-save
 echo "Install openjdk, wget, git, unzip, vim"  >> /home/$1/install.log 
 sudo yum install java-1.8.0-openjdk wget unzip vim git -y
 
-echo "Downlaod jboss-eap-7.2"  >> /home/$1/install.log 
-wget https://experienceazure.blob.core.windows.net/templates/EAP7.2/jboss-eap-7.2.0.zip
+echo "Initial EAP7.2 setup" >> /home/$1/install.log
 
-echo "unzip jboss-eap"  >> /home/$1/install.log 
+subscription-manager register --username $RHSM_USER --password $RHSM_PASSWORD	
+subscription-manager attach --pool=${RHSM_POOL}	
+echo "Subscribing the system to get access to EAP 7.2 repos" >> /home/$1/install.log
 
-sudo unzip jboss-eap-7.2.0.zip -d /opt/rh/
+# Install EAP7.2 	
+subscription-manager repos --enable=jb-eap-7.2-for-rhel-8-x86_64-rpms >> /home/$1/install.out.txt 2>&1
 
+echo "Installing EAP7.2 repos" >> /home/$1/install.log	
+yum groupinstall -y jboss-eap7 >> /home/$1/install.log
 
-echo "Copy the standalone-azure-ha.xml from JBOSS_HOME/docs/examples/configs folder tp JBOSS_HOME/standalone/configuration folder" >> /home/$1/install.log
-cp $JBOSS_HOME/docs/examples/configs/standalone-azure-ha.xml $JBOSS_HOME/standalone/configuration/
+echo "Enabling EAP7.2 service" >> /home/$1/install.log	
+systemctl enable eap7-standalone.service
+
+echo "Configure EAP7.2 RPM file" >> /home/$1/install.log
+
+echo "WILDFLY_SERVER_CONFIG=standalone-full.xml" >> ${EAP_RPM_CONF_STANDALONE}	
+echo 'WILDFLY_OPTS="-Djboss.bind.address.management=0.0.0.0"' >> ${EAP_RPM_CONF_STANDALONE}
+
+echo "Copy the standalone-azure-ha.xml from EAP_HOME/doc/wildfly/examples/configs folder to EAP_HOME/wildfly/standalone/configuration folder" >> /home/$1/install.log
+cp $EAP_HOME/doc/wildfly/examples/configs/standalone-azure-ha.xml $EAP_HOME/wildfly/standalone/configuration/	
 
 echo "change the jgroups stack from UDP to TCP " >> /home/$1/install.log
 
-sed -i 's/stack="udp"/stack="tcp"/g'  $JBOSS_HOME/standalone/configuration/standalone-azure-ha.xml
+sed -i 's/stack="udp"/stack="tcp"/g'  $EAP_HOME/wildfly/standalone/configuration/standalone-azure-ha.xml
 
 echo "Update interfaces section update jboss.bind.address.management, jboss.bind.address and jboss.bind.address.private from 127.0.0.1 to 0.0.0.0" >> /home/$1/install.log
-sed -i 's/jboss.bind.address.management:127.0.0.1/jboss.bind.address.management:0.0.0.0/g'  $JBOSS_HOME/standalone/configuration/standalone-azure-ha.xml
-sed -i 's/jboss.bind.address:127.0.0.1/jboss.bind.address:0.0.0.0/g'  $JBOSS_HOME/standalone/configuration/standalone-azure-ha.xml
-sed -i 's/jboss.bind.address.private:127.0.0.1/jboss.bind.address.private:0.0.0.0/g'  $JBOSS_HOME/standalone/configuration/standalone-azure-ha.xml
+sed -i 's/jboss.bind.address.management:127.0.0.1/jboss.bind.address.management:0.0.0.0/g'  $EAP_HOME/wildfly/standalone/configuration/standalone-azure-ha.xml
+sed -i 's/jboss.bind.address:127.0.0.1/jboss.bind.address:0.0.0.0/g'  $EAP_HOME/wildfly/standalone/configuration/standalone-azure-ha.xml
+sed -i 's/jboss.bind.address.private:127.0.0.1/jboss.bind.address.private:0.0.0.0/g'  $EAP_HOME/wildfly/standalone/configuration/standalone-azure-ha.xml
 
 echo "start jboss server" >> /home/$1/install.log
 
-$JBOSS_HOME/bin/standalone.sh -bprivate $IP_ADDR --server-config=standalone-azure-ha.xml -Djboss.jgroups.azure_ping.storage_account_name=$STORAGE_ACCOUNT_NAME -Djboss.jgroups.azure_ping.storage_access_key=$STORAGE_ACCESS_KEY -Djboss.jgroups.azure_ping.container=$CONTAINER_NAME -Djava.net.preferIPv4Stack=true &
+$EAP_HOME/wildfly/bin/standalone.sh -bprivate $IP_ADDR --server-config=standalone-azure-ha.xml -Djboss.jgroups.azure_ping.storage_account_name=$STORAGE_ACCOUNT_NAME -Djboss.jgroups.azure_ping.storage_access_key=$STORAGE_ACCESS_KEY -Djboss.jgroups.azure_ping.container=$CONTAINER_NAME -Djava.net.preferIPv4Stack=true &
 
-echo "export JBOSS_HOME="/opt/rh/jboss-eap-7.2/"" >>/bin/jbossservice.sh
-echo "$JBOSS_HOME/bin/standalone.sh -bprivate $IP_ADDR --server-config=standalone-azure-ha.xml -Djboss.jgroups.azure_ping.storage_account_name=$STORAGE_ACCOUNT_NAME -Djboss.jgroups.azure_ping.storage_access_key=$STORAGE_ACCESS_KEY -Djboss.jgroups.azure_ping.container=$CONTAINER_NAME -Djava.net.preferIPv4Stack=true &" > /bin/jbossservice.sh
+echo "export EAP_HOME="/opt/rh/eap7/root/usr/share"" >>/bin/jbossservice.sh
+echo "$EAP_HOME/wildfly/bin/standalone.sh -bprivate $IP_ADDR --server-config=standalone-azure-ha.xml -Djboss.jgroups.azure_ping.storage_account_name=$STORAGE_ACCOUNT_NAME -Djboss.jgroups.azure_ping.storage_access_key=$STORAGE_ACCESS_KEY -Djboss.jgroups.azure_ping.container=$CONTAINER_NAME -Djava.net.preferIPv4Stack=true &" > /bin/jbossservice.sh
 chmod +x /bin/jbossservice.sh
 
 yum install cronie cronie-anacron
@@ -67,11 +85,11 @@ echo "@reboot sleep 90 && /bin/jbossservice.sh" >>  /etc/crontab
 
 echo "deploy an applicaiton " >> /home/$1/install.log
 git clone https://github.com/danieloh30/eap-session-replication.git
-cp eap-session-replication/target/eap-session-replication.war $JBOSS_HOME/standalone/deployments/
-touch $JBOSS_HOME/standalone/deployments/eap-session-replication.war.dodeploy
+cp eap-session-replication/target/eap-session-replication.war $EAP_HOME/wildfly/standalone/deployments/
+touch $EAP_HOME/wildfly/standalone/deployments/eap-session-replication.war.dodeploy
 
 echo "Configuring EAP managment user..." >> /home/$1/install.log 
-$JBOSS_HOME/bin/add-user.sh  -u $EAP_USER -p $EAP_PASSWORD -g 'guest,mgmtgroup'
+$EAP_HOME/wildfly/bin/add-user.sh  -u $EAP_USER -p $EAP_PASSWORD -g 'guest,mgmtgroup'
 
 
 echo "Configure SELinux to use Linux ACL's for file protection..." >> /home/$1/install.log
