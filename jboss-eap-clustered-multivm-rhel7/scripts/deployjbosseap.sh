@@ -5,6 +5,7 @@
 echo "Red Hat JBoss EAP 7 Cluster Intallation Start: " | /bin/date +%H:%M:%S  >> /home/$1/install.log
 
 export JBOSS_HOME="/opt/rh/jboss-eap-7.2/"
+export EAP_RPM_CONF_STANDALONE="/etc/opt/rh/eap7/wildfly/eap7-standalone.conf"
 export EAP_USER=$2
 export EAP_PASSWORD=$3
 export IP_ADDR=$4
@@ -29,8 +30,28 @@ sudo firewall-cmd --zone=public --add-port=45688/tcp --permanent
 sudo firewall-cmd --reload
 sudo iptables-save
 
-echo "Install openjdk, wget, git, unzip, vim"  >> /home/$1/install.log 
+echo "Install openjdk, wget, git, unzip, vim"  >> /home/$1/install.log
 sudo yum install java-1.8.0-openjdk wget unzip vim git -y
+
+echo "Initial EAP7.2 setup" >> /home/$1/install.log
+subscription-manager register --username $RHSM_USER --password $RHSM_PASSWORD
+subscription-manager attach --pool=${RHSM_POOL}
+echo "Subscribing the system to get access to EAP 7.2 repos" >> /home/$1/install.log
+
+# Install EAP7.2 
+subscription-manager repos --enable=jb-eap-7-for-rhel-7-server-rpms >> /home/$1/install.log
+yum-config-manager --disable rhel-7-server-htb-rpms
+
+echo "Installing EAP7.2 repos" >> /home/$1/install.log
+yum groupinstall -y jboss-eap7 >> /home/$1/install.log
+
+echo "Enabling EAP7.2 service" >> /home/$1/install.progress.txt
+systemctl enable eap7-standalone.service
+
+echo "Configure EAP7.2 RPM file" >> /home/$1/install.progress.txt
+
+echo "WILDFLY_SERVER_CONFIG=standalone-full.xml" >> ${EAP_RPM_CONF_STANDALONE}
+echo 'WILDFLY_OPTS="-Djboss.bind.address.management=0.0.0.0"' >> ${EAP_RPM_CONF_STANDALONE}
 
 echo "Downlaod jboss-eap-7.2"  >> /home/$1/install.log 
 wget https://experienceazure.blob.core.windows.net/templates/EAP7.2/jboss-eap-7.2.0.zip
@@ -38,7 +59,6 @@ wget https://experienceazure.blob.core.windows.net/templates/EAP7.2/jboss-eap-7.
 echo "unzip jboss-eap"  >> /home/$1/install.log 
 
 sudo unzip jboss-eap-7.2.0.zip -d /opt/rh/
-
 
 echo "Copy the standalone-azure-ha.xml from JBOSS_HOME/docs/examples/configs folder tp JBOSS_HOME/standalone/configuration folder" >> /home/$1/install.log
 cp $JBOSS_HOME/docs/examples/configs/standalone-azure-ha.xml $JBOSS_HOME/standalone/configuration/
