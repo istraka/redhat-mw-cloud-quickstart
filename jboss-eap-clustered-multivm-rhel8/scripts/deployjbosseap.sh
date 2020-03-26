@@ -39,27 +39,26 @@ echo "Install openjdk, wget, git, unzip, vim"  >> /home/$1/install.log
 sudo yum install java-1.8.0-openjdk wget unzip vim git -y
 
 echo "Initial EAP7.2 setup" >> /home/$1/install.log
-
-subscription-manager register --username $RHSM_USER --password $RHSM_PASSWORD	
-subscription-manager attach --pool=${RHSM_POOL}	
+subscription-manager register --username $RHSM_USER --password $RHSM_PASSWORD
+subscription-manager attach --pool=${RHSM_POOL}
 echo "Subscribing the system to get access to EAP 7.2 repos" >> /home/$1/install.log
 
 # Install EAP7.2 	
-subscription-manager repos --enable=jb-eap-7.2-for-rhel-8-x86_64-rpms >> /home/$1/install.out.txt 2>&1
+subscription-manager repos --enable=jb-eap-7.2-for-rhel-8-x86_64-rpms >> /home/$1/install.log
 
-echo "Installing EAP7.2 repos" >> /home/$1/install.log	
+echo "Installing EAP7.2 repos" >> /home/$1/install.log
 yum groupinstall -y jboss-eap7 >> /home/$1/install.log
 
-echo "Enabling EAP7.2 service" >> /home/$1/install.log	
+echo "Enabling EAP7.2 service" >> /home/$1/install.log
 systemctl enable eap7-standalone.service
 
 echo "Configure EAP7.2 RPM file" >> /home/$1/install.log
 
-echo "WILDFLY_SERVER_CONFIG=standalone-full.xml" >> ${EAP_RPM_CONF_STANDALONE}	
+echo "WILDFLY_SERVER_CONFIG=standalone-full.xml" >> ${EAP_RPM_CONF_STANDALONE}
 echo 'WILDFLY_OPTS="-Djboss.bind.address.management=0.0.0.0"' >> ${EAP_RPM_CONF_STANDALONE}
 
 echo "Copy the standalone-azure-ha.xml from EAP_HOME/doc/wildfly/examples/configs folder to EAP_HOME/wildfly/standalone/configuration folder" >> /home/$1/install.log
-cp $EAP_HOME/doc/wildfly/examples/configs/standalone-azure-ha.xml $EAP_HOME/wildfly/standalone/configuration/	
+cp $EAP_HOME/doc/wildfly/examples/configs/standalone-azure-ha.xml $EAP_HOME/wildfly/standalone/configuration/
 
 echo "change the jgroups stack from UDP to TCP " >> /home/$1/install.log
 
