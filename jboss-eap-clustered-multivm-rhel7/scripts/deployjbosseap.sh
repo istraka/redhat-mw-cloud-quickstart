@@ -45,20 +45,13 @@ yum-config-manager --disable rhel-7-server-htb-rpms
 echo "Installing EAP7.2 repos" >> /home/$1/install.log
 yum groupinstall -y jboss-eap7 >> /home/$1/install.log
 
-echo "Enabling EAP7.2 service" >> /home/$1/install.progress.txt
+echo "Enabling EAP7.2 service" >> /home/$1/install.log
 systemctl enable eap7-standalone.service
 
-echo "Configure EAP7.2 RPM file" >> /home/$1/install.progress.txt
+echo "Configure EAP7.2 RPM file" >> /home/$1/install.log
 
 echo "WILDFLY_SERVER_CONFIG=standalone-full.xml" >> ${EAP_RPM_CONF_STANDALONE}
 echo 'WILDFLY_OPTS="-Djboss.bind.address.management=0.0.0.0"' >> ${EAP_RPM_CONF_STANDALONE}
-
-echo "Downlaod jboss-eap-7.2"  >> /home/$1/install.log 
-wget https://experienceazure.blob.core.windows.net/templates/EAP7.2/jboss-eap-7.2.0.zip
-
-echo "unzip jboss-eap"  >> /home/$1/install.log 
-
-sudo unzip jboss-eap-7.2.0.zip -d /opt/rh/
 
 echo "Copy the standalone-azure-ha.xml from JBOSS_HOME/docs/examples/configs folder tp JBOSS_HOME/standalone/configuration folder" >> /home/$1/install.log
 cp $JBOSS_HOME/docs/examples/configs/standalone-azure-ha.xml $JBOSS_HOME/standalone/configuration/
