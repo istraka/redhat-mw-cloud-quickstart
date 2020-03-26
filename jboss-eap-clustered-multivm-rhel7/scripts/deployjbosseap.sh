@@ -8,13 +8,13 @@ export JBOSS_HOME="/opt/rh/jboss-eap-7.2/"
 export EAP_RPM_CONF_STANDALONE="/etc/opt/rh/eap7/wildfly/eap7-standalone.conf"
 export EAP_USER=$2
 export EAP_PASSWORD=$3
-export IP_ADDR=$4
-export STORAGE_ACCOUNT_NAME=${5}
-export CONTAINER_NAME=$6
-export STORAGE_ACCESS_KEY=$(echo "${7}" | openssl enc -d -base64)
-RHSM_USER=$8
-RHSM_PASSWORD=$9
-export RHSM_POOL=$10
+export RHSM_USER=$4
+export RHSM_PASSWORD=$5
+export RHSM_POOL=$6
+export IP_ADDR=$7
+export STORAGE_ACCOUNT_NAME=${8}
+export CONTAINER_NAME=$9
+export STORAGE_ACCESS_KEY=$(echo "${10}" | openssl enc -d -base64)
 
 echo "EAP admin user"+${EAP_USER} >> /home/$1/install.log
 echo "Private IP Address of VM"+${IP_ADDR} >> /home/$1/install.log
