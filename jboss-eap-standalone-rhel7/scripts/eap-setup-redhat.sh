@@ -60,60 +60,12 @@ firewall-cmd --reload  >> /home/$1/install.out.txt 2>&1
 echo "Done." >> /home/$1/install.progress.txt
 /bin/date +%H:%M:%S >> /home/$1/install.progress.txt
 
-echo "Configuring SSH" >> /home/$1/install.progress.txt
-echo "Done." >> /home/$1/install.progress.txt
-/bin/date +%H:%M:%S >> /home/$1/install.progress.txt
-
-# Update SSHd config to not use passwords and set default umask to be 002
-cp /etc/ssh/sshd_config /etc/ssh/ORIG_sshd_config
-sed -i 's,PasswordAuthentication yes,PasswordAuthentication no,g' /etc/ssh/sshd_config
-echo "Match User "$1 >> /etc/ssh/sshd_config
-echo "    ForceCommand internal-sftp -u 002" >> /etc/ssh/sshd_config
-
-# Change group of user to same as JBoss
-echo "Changing group of user "$1  >> /home/$1/install.out.txt 2>&1
-#gpasswd -d $1 jboss >> /home/$1/install.out.txt 2>&1
-#gpasswd -a $1 jboss >> /home/$1/install.out.txt 2>&1
-#usermod -g jboss $1 >> /home/$1/install.out.txt 2>&1
-
-
-# Configure the default umask for SSH to enable RW for user and group
-cp /etc/pam.d/sshd /etc/pam.d/ORIG_sshd
-echo "session optional pam_umask.so umask=002" >> /etc/pam.d/sshd
-
-# Then start the SSH daemon:
-systemctl daemon-reload >> /home/$1/install.out.txt 2>&1
-systemctl start sshd.service >> /home/$1/install.out.txt 2>&1
-systemctl enable sshd.service >> /home/$1/install.out.txt 2>&1
-
 # Open Red Hat software firewall for port 22:
 firewall-cmd --zone=public --add-port=22/tcp --permanent >> /home/$1/install.out.txt 2>&1
 firewall-cmd --reload >> /home/$1/install.out.txt 2>&1
 
-# Create an RSA public and private key for SSH
-cd /home/$1
-mkdir /home/$1/.ssh
-ssh-keygen -q -N $4 -f /home/$1/.ssh/id_rsa >> /home/$1/install.out.txt 2>&1
-cd /home/$1/.ssh
-cp id_rsa.pub authorized_keys
-chown -R $1.jboss .
-chown -R $1.jboss *
-echo "SSH User name:  "$1 > /home/$1/vsts_ssh_info
-echo "SSH passphrase: "$4 >> /home/$1/vsts_ssh_info
-echo "SSH Private key:" >> /home/$1/vsts_ssh_info
-cat id_rsa >> /home/$1/vsts_ssh_info
-chown $1.tomcat /home/$1/vsts_ssh_info
-
-
-# Configure SELinux to use Linux ACL's for file protection
-setsebool -P allow_ftpd_full_access 1 >> /home/$1/install.out.txt 2>&1
-
-# Seeing a race condition timing error so sleep to deplay
+# Seeing a race condition timing error so sleep to delay
 sleep 20
 
 echo "ALL DONE!" >> /home/$1/install.progress.txt
 /bin/date +%H:%M:%S >> /home/$1/install.progress.txt
-
-
-chown $1.jboss /home/$1/install.progress.txt
-chown $1.jboss /home/$1/install.out.txt
