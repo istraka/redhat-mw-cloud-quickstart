@@ -2,7 +2,8 @@
 
 # $1 - VM Host User Name
 
-echo "Red Hat JBoss EAP 7 Cluster Intallation Start: " | /bin/date +%H:%M:%S  >> /home/$1/install.log
+echo "Red Hat JBoss EAP 7 Cluster Intallation Start " >> /home/$1/install.log
+/bin/date +%H:%M:%S  >> /home/$1/install.log
 
 export EAP_HOME="/opt/rh/eap7/root/usr/share"
 export EAP_RPM_CONF_STANDALONE="/etc/opt/rh/eap7/wildfly/eap7-standalone.conf"
@@ -91,12 +92,8 @@ touch $EAP_HOME/wildfly/standalone/deployments/eap-session-replication.war.dodep
 echo "Configuring EAP managment user..." >> /home/$1/install.log 
 $EAP_HOME/wildfly/bin/add-user.sh  -u $EAP_USER -p $EAP_PASSWORD -g 'guest,mgmtgroup'
 
-
-echo "Configure SELinux to use Linux ACL's for file protection..." >> /home/$1/install.log
-setsebool -P allow_ftpd_full_access 1
-
-# Seeing a race condition timing error so sleep to deplay
+# Seeing a race condition timing error so sleep to delay
 sleep 20
-chown $1.jboss /home/$1/install.log
 
-echo "Red Hat JBoss EAP 7 Cluster Intallation End: " | /bin/date +%H:%M:%S  >> /home/$1/install.log
+echo "Red Hat JBoss EAP 7 Cluster Intallation End " >> /home/$1/install.log
+/bin/date +%H:%M:%S  >> /home/$1/install.log
