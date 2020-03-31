@@ -31,27 +31,27 @@ firewall-cmd --zone=public --add-port=8080/tcp --permanent
 firewall-cmd --zone=public --add-port=9990/tcp --permanent 
 firewall-cmd --reload 
 
-echo "Update SSHd config to not use passwords and set default umask to be 002..." >> /home/$1/install.log
-/bin/cp /etc/ssh/sshd_config /etc/ssh/ORIG_sshd_config
-sed -i 's,PasswordAuthentication yes,PasswordAuthentication no,g' /etc/ssh/sshd_config
-echo "Match User "$1 >> /etc/ssh/sshd_config
-echo "    ForceCommand internal-sftp -u 002" >> /etc/ssh/sshd_config
+#echo "Update SSHd config to not use passwords and set default umask to be 002..." >> /home/$1/install.log
+#/bin/cp /etc/ssh/sshd_config /etc/ssh/ORIG_sshd_config
+#sed -i 's,PasswordAuthentication yes,PasswordAuthentication no,g' /etc/ssh/sshd_config
+#echo "Match User "$1 >> /etc/ssh/sshd_config
+#echo "    ForceCommand internal-sftp -u 002" >> /etc/ssh/sshd_config
 
-echo "Configure the default umask for SSH to enable RW for user and group..." >> /home/$1/install.log
-/bin/cp /etc/pam.d/sshd /etc/pam.d/ORIG_sshd
-echo "session optional pam_umask.so umask=002" >> /etc/pam.d/sshd
+#echo "Configure the default umask for SSH to enable RW for user and group..." >> /home/$1/install.log
+#/bin/cp /etc/pam.d/sshd /etc/pam.d/ORIG_sshd
+#echo "session optional pam_umask.so umask=002" >> /etc/pam.d/sshd
 
-echo "Start the SSH daemon..." >> /home/$1/install.log
-systemctl daemon-reload
-systemctl start sshd.service
-systemctl enable sshd.service
+#echo "Start the SSH daemon..." >> /home/$1/install.log
+#systemctl daemon-reload
+#systemctl start sshd.service
+#systemctl enable sshd.service
 
 echo "Open Red Hat software firewall for port 22..." >> /home/$1/install.log
 firewall-cmd --zone=public --add-port=22/tcp --permanent
 firewall-cmd --reload
 
-echo "Configure SELinux to use Linux ACL's for file protection..." >> /home/$1/install.log
-setsebool -P allow_ftpd_full_access 1
+#echo "Configure SELinux to use Linux ACL's for file protection..." >> /home/$1/install.log
+#setsebool -P allow_ftpd_full_access 1
 
 echo "Red Hat WILDFLY 18.0.1.Final Standalone Intallation End..." >> /home/$1/install.log
 /bin/date +%H:%M:%S >> /home/$1/install.log
