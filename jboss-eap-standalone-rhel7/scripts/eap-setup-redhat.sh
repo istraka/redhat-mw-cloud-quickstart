@@ -6,9 +6,6 @@
 echo "ooooo      REDHAT EAP7.2 RPM INSTALL      ooooo" >> /home/$1/install.progress.txt
 
 export EAP_HOME="/opt/rh/eap7/root/usr/share/wildfly"
-export EAP_RPM_CONF_STANDALONE="/etc/opt/rh/eap7/wildfly/eap7-standalone.conf"
-export EAP_RPM_CONF_DOMAIN="/etc/opt/rh/eap7/wildfly/eap7-domain.conf"
-
 EAP_USER=$2
 EAP_PASSWORD=$3
 RHSM_USER=$4
@@ -31,11 +28,6 @@ yum groupinstall -y jboss-eap7 >> /home/$1/install.out.txt 2>&1
 
 echo "Enabling EAP7.2 service" >> /home/$1/install.progress.txt
 systemctl enable eap7-standalone.service
-
-echo "Configure EAP7.2 RPM file" >> /home/$1/install.progress.txt
-
-echo "WILDFLY_SERVER_CONFIG=standalone-full.xml" >> ${EAP_RPM_CONF_STANDALONE}
-echo 'WILDFLY_OPTS="-Djboss.bind.address.management=0.0.0.0"' >> ${EAP_RPM_CONF_STANDALONE}
 
 echo "Installing GIT" >> /home/$1/install.progress.txt
 yum install -y git >> /home/$1/install.out.txt 2>&1
