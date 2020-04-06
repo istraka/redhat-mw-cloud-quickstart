@@ -8,12 +8,23 @@
         "description": "Linux VM user account name"
       }
     },
-    "adminPassword": {
-      "type": "securestring",
+    "authenticationType": {
+      "type": "string",
+      "defaultValue": "password",
+      "allowedValues": [
+        "password",
+        "sshPublicKey"
+      ],
       "metadata": {
-        "description": "Administrator password for Linux VM user account"
+        "description": "Type of authentication to use on the Virtual Machine."
       }
     },
+    "adminPasswordOrKey": {
+      "type": "securestring",
+      "metadata": {
+        "description": "SSH Key or password for the Virtual Machine."
+      }
+   },
     "dnsLabelPrefix": {
       "type": "string",
       "metadata": {
@@ -30,12 +41,6 @@
       "type": "securestring",
       "metadata": {
         "description": "Password for WildFly manager"
-      }
-    },
-    "sshKeyData": {
-      "type": "securestring",
-      "metadata": {
-        "description": "SSH RSA public key file as a string."
       }
     },
     "_artifactsLocation": {
@@ -69,7 +74,6 @@
   },
   "variables": {
     "singlequote": "'",
-    "escapedQuote": "\"",
     "imagePublisher": "OpenLogic",
     "imageOffer": "CentOS",
     "imageSKU": "8.0",
@@ -83,24 +87,22 @@
     "vmName": "[parameters('dnsLabelPrefix')]",
     "virtualNetworkName": "MyVNET8",
     "frontEndNSGName": "[concat(parameters('dnsLabelPrefix'),'-nsg8')]",
-    "storageAccountType": "Standard_LRS",
-    "storageAccountName": "[concat('vsts8',variables('baseName'))]",
     "ScriptFolder": "scripts",
-    "ScriptFileName": "wildfly-setup-redhat.sh",
+    "ScriptFileName": "wildfly-setup.sh",
+    "linuxConfiguration": {
+      "disablePasswordAuthentication": true,
+      "ssh": {
+        "publicKeys": [
+          {
+            "path": "[concat('/home/', parameters('adminUsername'), '/.ssh/authorized_keys')]",
+            "keyData": "[parameters('adminPasswordOrKey')]"
+          }
+        ]
+      }
+    },
     "subnet1Ref": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnet1Name'))]"
   },
   "resources": [
-    {
-      "type": "Microsoft.Storage/storageAccounts",
-      "name": "[variables('StorageAccountName')]",
-      "apiVersion": "2019-06-01",
-      "location": "[parameters('location')]",
-      "sku": {
-        "name": "[variables('storageAccountType')]"
-      },
-      "kind": "Storage",
-      "properties": {}
-    },
     {
       "apiVersion": "2019-11-01",
       "type": "Microsoft.Network/publicIPAddresses",
@@ -231,7 +233,6 @@
       "name": "[variables('vmName')]",
       "location": "[parameters('location')]",
       "dependsOn": [
-        "[concat('Microsoft.Storage/storageAccounts/', variables('StorageAccountName'))]",
         "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'))]"
       ],
       "properties": {
@@ -241,8 +242,8 @@
         "osProfile": {
           "computerName": "[variables('vmName')]",
           "adminUsername": "[parameters('adminUsername')]",
-          "adminPassword": "[parameters('adminPassword')]",
-          "customData": "[base64(variables('publicIPAddressName'))]"
+          "adminPassword": "[parameters('adminPasswordOrKey')]",
+          "linuxConfiguration": "[if(equals(parameters('authenticationType'), 'password'), json('null'), variables('linuxConfiguration'))]"
         },
         "storageProfile": {
           "imageReference": {
@@ -281,9 +282,9 @@
         "autoUpgradeMinorVersion": true,
         "settings": {
           "fileUris": [
-            "[concat(parameters('_artifactsLocation'), '/', variables('ScriptFolder'), '/', variables('ScriptFileName'), parameters('_artifactsLocationSasToken'))]"
+            "[concat(parameters('_artifactsLocation'), variables('ScriptFolder'), '/', variables('ScriptFileName'), parameters('_artifactsLocationSasToken'))]"
           ],
-          "commandToExecute": "[concat('sh wildfly-setup-redhat.sh',' ',parameters('adminUsername'),' ',parameters('wildflyUserName'),' ',variables('singlequote'),parameters('wildflyPassword'),variables('singlequote'),' ',variables('escapedQuote'),parameters('sshKeyData'),variables('escapedQuote'))]"
+          "commandToExecute": "[concat('sh wildfly-setup.sh',' ',parameters('adminUsername'),' ',parameters('wildflyUserName'),' ',variables('singlequote'),parameters('wildflyPassword'),variables('singlequote'))]"
         }
       }
     }

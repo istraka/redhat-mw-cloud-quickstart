@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo "Red Hat WILDFLY 18.0.1.Final Standalone Intallation Start..." >> /home/$1/install.log
+echo "WILDFLY 18.0.1.Final Standalone Intallation Start..." >> /home/$1/install.log
 /bin/date +%H:%M:%S  >> /home/$1/install.log
 
 export WILDFLY_USER=$2
@@ -17,7 +17,7 @@ wget https://download.jboss.org/wildfly/$WILDFLY_RELEASE.Final/wildfly-$WILDFLY_
 tar xvf wildfly-$WILDFLY_RELEASE.Final.tar.gz
 
 echo "Sample app deploy..." >> /home/$1/install.log 
-git clone https://github.com/danieloh30/dukes.git
+git clone https://github.com/Suraj2093/dukes.git
 /bin/cp -rf /home/$1/dukes/target/dukes.war /home/$1/wildfly-$WILDFLY_RELEASE.Final/standalone/deployments/
 
 echo "Configuring WILDFLY managment user..." >> /home/$1/install.log 
@@ -31,9 +31,9 @@ firewall-cmd --zone=public --add-port=8080/tcp --permanent
 firewall-cmd --zone=public --add-port=9990/tcp --permanent 
 firewall-cmd --reload
 
-echo "Open Red Hat software firewall for port 22..." >> /home/$1/install.log
+echo "Open WILDFLY software firewall for port 22..." >> /home/$1/install.log
 firewall-cmd --zone=public --add-port=22/tcp --permanent
 firewall-cmd --reload
 
-echo "Red Hat WILDFLY 18.0.1.Final Standalone Intallation End..." >> /home/$1/install.log
+echo "WILDFLY 18.0.1.Final Standalone Intallation End..." >> /home/$1/install.log
 /bin/date +%H:%M:%S >> /home/$1/install.log
