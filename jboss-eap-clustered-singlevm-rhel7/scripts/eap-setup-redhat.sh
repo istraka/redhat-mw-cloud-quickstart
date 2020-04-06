@@ -1,7 +1,7 @@
 #!/bin/sh
 
-/bin/date +%H:%M:%S > /home/$1/install.log
-echo "Red Hat JBoss EAP 7 Cluster Installation Start"  >> /home/$1/install.log
+/bin/date +%H:%M:%S >> /home/$1/install.log
+echo "Red Hat JBoss EAP 7.2 Cluster Installation Start"  >> /home/$1/install.log
 
 export JBOSS_HOME="/opt/rh/eap7/root/usr/share/wildfly"
 export NODENAME1="node1"
@@ -34,11 +34,11 @@ subscription-manager register --username ${RHSM_USER} --password ${RHSM_PASSWORD
 subscription-manager attach --pool=${RHSM_POOL}
 subscription-manager repos --enable=jb-eap-7-for-rhel-7-server-rpms 
 
-echo "JBoss EAP RPM installating..." >> /home/$1/install.log
+echo "JBoss EAP RPM installing..." >> /home/$1/install.log
 yum-config-manager --disable rhel-7-server-htb-rpms 
 yum groupinstall -y jboss-eap7 
 
-echo "Create 2 EAP nodes on AZure..." >> /home/$1/install.log 
+echo "Create 2 EAP nodes on Azure..." >> /home/$1/install.log 
 /bin/cp  -rL  $JBOSS_HOME/standalone $JBOSS_HOME/$NODENAME1
 /bin/cp  -rL  $JBOSS_HOME/standalone $JBOSS_HOME/$NODENAME2
 
@@ -57,7 +57,7 @@ echo "Configuring EAP managment user..." >> /home/$1/install.log
 $JBOSS_HOME/bin/add-user.sh -sc $JBOSS_HOME/$NODENAME1/configuration -u $EAP_USER -p $EAP_PASSWORD -g 'guest,mgmtgroup' 
 $JBOSS_HOME/bin/add-user.sh -sc $JBOSS_HOME/$NODENAME2/configuration -u $EAP_USER -p $EAP_PASSWORD -g 'guest,mgmtgroup' 
 
-echo "Start EAP 7 instances..." >> /home/$1/install.log 
+echo "Start EAP 7.2 instances..." >> /home/$1/install.log 
 $JBOSS_HOME/bin/standalone.sh -Djboss.node.name=$NODENAME1 -Djboss.server.base.dir=$JBOSS_HOME/$NODENAME1 -c $SVR_CONFIG -b $IP_ADDR -bmanagement $IP_ADDR -bprivate $IP_ADDR -Djboss.jgroups.azure_ping.storage_account_name=$STORAGE_ACCOUNT_NAME -Djboss.jgroups.azure_ping.storage_access_key=$STORAGE_ACCESS_KEY -Djboss.jgroups.azure_ping.container=$CONTAINER_NAME > /dev/null 2>&1 &
 $JBOSS_HOME/bin/standalone.sh -Djboss.node.name=$NODENAME2 -Djboss.server.base.dir=$JBOSS_HOME/$NODENAME2 -c $SVR_CONFIG -b $IP_ADDR -bmanagement $IP_ADDR -bprivate $IP_ADDR -Djboss.jgroups.azure_ping.storage_account_name=$STORAGE_ACCOUNT_NAME -Djboss.jgroups.azure_ping.storage_access_key=$STORAGE_ACCESS_KEY -Djboss.jgroups.azure_ping.container=$CONTAINER_NAME -Djboss.socket.binding.port-offset=$PORT_OFFSET > /dev/null 2>&1 &
 
@@ -66,14 +66,14 @@ firewall-cmd --zone=public --add-port=8080/tcp --permanent
 firewall-cmd --zone=public --add-port=8180/tcp --permanent 
 firewall-cmd --zone=public --add-port=9990/tcp --permanent 
 firewall-cmd --zone=public --add-port=10090/tcp --permanent 
-firewall-cmd --reload
+firewall-cmd --reload 
 
 echo "Open Red Hat software firewall for port 22..." >> /home/$1/install.log
 firewall-cmd --zone=public --add-port=22/tcp --permanent
 firewall-cmd --reload
 
-# Seeing a race condition timing error so sleep to deplay
+# Seeing a race condition timing error so sleep to delay
 sleep 20
 
-echo "Red Hat JBoss EAP 7 Cluster Intallation End: " >> /home/$1/install.log
+echo "Red Hat JBoss EAP 7.2 Cluster Intallation End " >> /home/$1/install.log
 /bin/date +%H:%M:%S  >> /home/$1/install.log
