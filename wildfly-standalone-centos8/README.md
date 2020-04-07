@@ -10,9 +10,9 @@
 
 <!-- TOC -->
 
-1. [Solution Overview ](#solution-overview)
-2. [Template Solution Architecture ](#template-solution-architecture)
-3. [Licenses and Costs ](#licenses-and-costs)
+1. [Solution Overview](#solution-overview)
+2. [Template Solution Architecture](#template-solution-architecture)
+3. [Licenses, Subscriptions and Costs ](#licenses,-subscriptions-and-costs)
 4. [Prerequisites](#prerequisites)
 5. [Deployment Steps](#deployment-steps)
 6. [Deployment Time](#deployment-time)
@@ -45,7 +45,7 @@ Following is the Architecture :
 To learn more about WildFly 18.0.0.Final, check out:
 https://docs.wildfly.org/18/
 
-## Licenses and Costs 
+## Licenses, Subscriptions and Costs 
 
 This uses CentOS 8 image which is a PAY AS YOU GO image and doesn't require the user to license it; it will be licensed automatically after the instance is launched the first time and the user will be charged hourly in addition to Microsoft's Linux VM rates.  Click [here](https://azure.microsoft.com/en-gb/pricing/details/virtual-machines/linux/#red-hat) for pricing details.
 
