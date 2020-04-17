@@ -15,7 +15,7 @@ export RHSM_USER=$5
 export RHSM_PASSWORD=$6
 export RHSM_POOL=$7
 export IP_ADDR_NAME=$9
-export IP_ADDR=$10
+export IP_ADDR=${10}
 
 export STORAGE_ACCOUNT_NAME=${11}
 export STORAGE_ACCESS_KEY=${12}
@@ -35,8 +35,8 @@ subscription-manager register --username ${RHSM_USER} --password ${RHSM_PASSWORD
 subscription-manager attach --pool=${RHSM_POOL}
 if [ $OFFER == "BYOS" ] 
 then 
-    echo "Attaching Pool ID for RHEL OS" >> /home/$1/install.progress.txt
-    subscription-manager attach --pool=$8 >> /home/$1/install.progress.txt 2>&1
+    echo "Attaching Pool ID for RHEL OS" >> /home/$1/install.log
+    subscription-manager attach --pool=$8 >> /home/$1/install.log
 fi 
 subscription-manager repos --enable=jb-eap-7-for-rhel-7-server-rpms 
 
