@@ -41,8 +41,8 @@ sudo yum install java-1.8.0-openjdk wget unzip vim git -y
 
 echo "Initial JBoss EAP 7.2 setup" >> /home/$1/install.log
 subscription-manager register --username $RHSM_USER --password $RHSM_PASSWORD
-subscription-manager attach --pool=${RHEL_POOL}
 subscription-manager attach --pool=${RHSM_POOL}
+subscription-manager attach --pool=${RHEL_POOL}
 echo "Subscribing the system to get access to EAP 7.2 repos" >> /home/$1/install.log
 
 # Install JBoss EAP 7.2 
