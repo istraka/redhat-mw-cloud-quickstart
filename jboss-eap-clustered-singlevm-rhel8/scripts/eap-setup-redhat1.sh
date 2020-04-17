@@ -10,15 +10,15 @@ export SVR_CONFIG="standalone-ha.xml"
 export PORT_OFFSET=100
 export EAP_USER=$2
 export EAP_PASSWORD=$3
-export RHSM_USER=$4
-export RHSM_PASSWORD=$5
-export RHSM_POOL=$6
-export IP_ADDR_NAME=$7
-export IP_ADDR=$8
+OFFER=$4
+export RHSM_USER=$5
+export RHSM_PASSWORD=$6
+export RHSM_POOL=$7
+export IP_ADDR_NAME=$8
+export IP_ADDR=$9
 
-export STORAGE_ACCOUNT_NAME=${9}
-export STORAGE_ACCESS_KEY=${10}
-export RHEL_POOL=${11}
+export STORAGE_ACCOUNT_NAME=${10}
+export STORAGE_ACCESS_KEY=${11}
 export CONTAINER_NAME="eapblobcontainer"
 
 echo "EAP_USER: " ${EAP_USER} >> /home/$1/install.log
@@ -32,8 +32,12 @@ echo "IP_ADDR: " ${IP_ADDR} >> /home/$1/install.log
 
 echo "subscription-manager register..." >> /home/$1/install.log
 subscription-manager register --username ${RHSM_USER} --password ${RHSM_PASSWORD}
-subscription-manager attach --pool=${RHEL_POOL}
 subscription-manager attach --pool=${RHSM_POOL}
+if [ $OFFER == "BYOS" ] 
+then 
+    echo "Attaching Pool ID for RHEL OS" >> /home/$1/install.log
+    subscription-manager attach --pool=${12} >> /home/$1/install.log
+fi 
 subscription-manager repos --enable=jb-eap-7.2-for-rhel-8-x86_64-rpms 
 
 echo "JBoss EAP RPM installing..." >> /home/$1/install.log
