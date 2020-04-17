@@ -18,7 +18,6 @@ PROFILE=standalone
 echo "JBoss EAP admin user"+${EAP_USER} >> /home/$1/install.progress.txt
 echo "Initial JBoss EAP7.2 setup" >> /home/$1/install.progress.txt
 subscription-manager register --username $RHSM_USER --password $RHSM_PASSWORD  >> /home/$1/install.progress.txt 2>&1
-subscription-manager attach --pool=${RHEL_POOL} >> /home/$1/install.progress.txt 2>&1
 subscription-manager attach --pool=${RHSM_POOL} >> /home/$1/install.progress.txt 2>&1
 if [ $OFFER == "BYOS" ] 
 then 
