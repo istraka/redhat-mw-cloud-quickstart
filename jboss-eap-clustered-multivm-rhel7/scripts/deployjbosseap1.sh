@@ -36,14 +36,14 @@ sudo firewall-cmd --zone=public --add-port=45688/tcp --permanent
 sudo firewall-cmd --reload
 sudo iptables-save
 
-echo "Install openjdk, wget, git, unzip, vim"  >> /home/$1/install.log
-sudo yum install java-1.8.0-openjdk wget unzip vim git -y
-
 echo "Initial JBoss EAP 7.2 setup" >> /home/$1/install.log
 subscription-manager register --username $RHSM_USER --password $RHSM_PASSWORD
 subscription-manager attach --pool=${RHSM_POOL}
 subscription-manager attach --pool=${RHEL_POOL}
 echo "Subscribing the system to get access to EAP 7.2 repos" >> /home/$1/install.log
+
+echo "Install openjdk, wget, git, unzip, vim"  >> /home/$1/install.log
+sudo yum install java-1.8.0-openjdk wget unzip vim git -y
 
 # Install JBoss EAP 7.2 
 subscription-manager repos --enable=jb-eap-7-for-rhel-7-server-rpms >> /home/$1/install.log
