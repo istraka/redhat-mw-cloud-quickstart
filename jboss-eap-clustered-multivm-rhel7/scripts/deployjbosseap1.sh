@@ -15,7 +15,6 @@ export IP_ADDR=$7
 export STORAGE_ACCOUNT_NAME=${8}
 export CONTAINER_NAME=$9
 export STORAGE_ACCESS_KEY=$(echo "${10}" | openssl enc -d -base64)
-export RHEL_POOL=${11}
 
 echo "EAP admin user"+${EAP_USER} >> /home/$1/install.log
 echo "Private IP Address of VM"+${IP_ADDR} >> /home/$1/install.log
@@ -39,7 +38,11 @@ sudo iptables-save
 echo "Initial JBoss EAP 7.2 setup" >> /home/$1/install.log
 subscription-manager register --username $RHSM_USER --password $RHSM_PASSWORD
 subscription-manager attach --pool=${RHSM_POOL}
-subscription-manager attach --pool=${RHEL_POOL}
+if [ $OFFER == "BYOS" ] 
+then 
+    echo "Attaching Pool ID for RHEL OS" >> /home/$1/install.log
+    subscription-manager attach --pool=${11} >> /home/$1/install.log
+fi
 echo "Subscribing the system to get access to EAP 7.2 repos" >> /home/$1/install.log
 
 echo "Install openjdk, wget, git, unzip, vim"  >> /home/$1/install.log
