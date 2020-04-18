@@ -8,13 +8,14 @@ echo "Red Hat JBoss EAP 7.2 Intallation Start " >> /home/$1/install.log
 export EAP_HOME="/opt/rh/eap7/root/usr/share"
 export EAP_USER=$2
 export EAP_PASSWORD=$3
-export RHSM_USER=$4
-export RHSM_PASSWORD=$5
-export RHSM_POOL=$6
-export IP_ADDR=$7
-export STORAGE_ACCOUNT_NAME=${8}
-export CONTAINER_NAME=$9
-export STORAGE_ACCESS_KEY=$(echo "${10}" | openssl enc -d -base64)
+OFFER=$4
+export RHSM_USER=$5
+export RHSM_PASSWORD=$6
+export RHSM_POOL=$7
+export IP_ADDR=$8
+export STORAGE_ACCOUNT_NAME=${9}
+export CONTAINER_NAME=${10}
+export STORAGE_ACCESS_KEY=$(echo "${11}" | openssl enc -d -base64)
 
 echo "EAP admin user"+${EAP_USER} >> /home/$1/install.log
 echo "Private IP Address of VM"+${IP_ADDR} >> /home/$1/install.log
@@ -41,7 +42,7 @@ subscription-manager attach --pool=${RHSM_POOL}
 if [ $OFFER == "BYOS" ] 
 then 
     echo "Attaching Pool ID for RHEL OS" >> /home/$1/install.log
-    subscription-manager attach --pool=${11} >> /home/$1/install.log
+    subscription-manager attach --pool=${12} >> /home/$1/install.log
 fi
 echo "Subscribing the system to get access to EAP 7.2 repos" >> /home/$1/install.log
 
