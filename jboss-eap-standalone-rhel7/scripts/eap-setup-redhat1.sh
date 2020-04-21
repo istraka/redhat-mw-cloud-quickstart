@@ -41,14 +41,6 @@ sed -i 's/jboss.bind.address:127.0.0.1/jboss.bind.address:0.0.0.0/g'  $EAP_ROOT/
 
 /opt/rh/eap7/root/usr/share/wildfly/bin/standalone.sh -c standalone-full.xml -b $IP_ADDR
 
-echo "Enabling JBoss EAP7.2 service" >> /home/$1/install.progress.txt
-systemctl enable eap7-standalone.service
-
-echo "Configure JBoss EAP 7.2 RPM file" >> /home/$1/install.progress.txt
-
-echo "WILDFLY_SERVER_CONFIG=standalone-full.xml" >> ${EAP_RPM_CONF_STANDALONE}
-echo 'WILDFLY_OPTS="-Djboss.bind.address.management=0.0.0.0"' >> ${EAP_RPM_CONF_STANDALONE}
-
 echo "Installing GIT" >> /home/$1/install.progress.txt
 yum install -y git >> /home/$1/install.out.txt 2>&1
 
@@ -60,9 +52,6 @@ cat > $EAP_HOME/standalone/deployments/dukes.war.dodeploy
 
 echo "Configuring JBoss EAP management user" >> /home/$1/install.progress.txt
 $EAP_HOME/bin/add-user.sh -u $EAP_USER -p $EAP_PASSWORD -g 'guest,mgmtgroup'
-
-echo "Start JBoss EAP 7.2" >> /home/$1/install.progress.txt
-systemctl restart eap7-standalone.service 
 
 # Open Red Hat software firewall for port 8080 and 9990:
 firewall-cmd --zone=public --add-port=8080/tcp --permanent  >> /home/$1/install.out.txt 2>&1
