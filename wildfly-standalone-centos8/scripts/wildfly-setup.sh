@@ -28,7 +28,7 @@ echo "Configuring WILDFLY managment user..." >> /home/$1/install.log
 /home/$1/wildfly-$WILDFLY_RELEASE.Final/bin/add-user.sh -u $WILDFLY_USER -p $WILDFLY_PASSWORD -g 'guest,mgmtgroup' 
 
 echo "Start WILDFLY 18.0.1.Final instance..." >> /home/$1/install.log 
-/home/$1/wildfly-$WILDFLY_RELEASE.Final/bin/standalone.sh -b $Public_IP -bmanagement $Public_IP > /dev/null 2>&1 &
+/home/$1/wildfly-$WILDFLY_RELEASE.Final/bin/standalone.sh -b $IP_ADDR -bmanagement $IP_ADDR > /dev/null 2>&1 &
 
 echo "Configure firewall for ports 8080, 9990..." >> /home/$1/install.log 
 firewall-cmd --zone=public --add-port=8080/tcp --permanent 
