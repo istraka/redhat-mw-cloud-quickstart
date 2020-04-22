@@ -13,11 +13,13 @@ EAP_PASSWORD=$3
 RHSM_USER=$4
 RHSM_PASSWORD=$5
 OFFER=$6
-export RHSM_POOL=$7
-export IP_ADDR=$(hostname -I)
+RHSM_POOL=$7
+IP_ADDR=$(hostname -I)
+Public_IP=$(curl ifconfig.me)
 
 PROFILE=standalone
 echo "JBoss EAP admin user"+${EAP_USER} >> /home/$1/install.progress.txt
+echo "Public IP Address: " ${Public_IP} >> /home/$1/install.progress.txt
 echo "Initial JBoss EAP7.2 setup" >> /home/$1/install.progress.txt
 subscription-manager register --username $RHSM_USER --password $RHSM_PASSWORD  >> /home/$1/install.progress.txt 2>&1
 subscription-manager attach --pool=${RHSM_POOL} >> /home/$1/install.progress.txt 2>&1
@@ -39,7 +41,7 @@ echo "Update interfaces section update jboss.bind.address.management, jboss.bind
 sed -i 's/jboss.bind.address.management:127.0.0.1/jboss.bind.address.management:0.0.0.0/g'  $EAP_ROOT/wildfly/standalone/configuration/standalone-full.xml
 sed -i 's/jboss.bind.address:127.0.0.1/jboss.bind.address:0.0.0.0/g'  $EAP_ROOT/wildfly/standalone/configuration/standalone-full.xml
 
-/opt/rh/eap7/root/usr/share/wildfly/bin/standalone.sh -c standalone-full.xml -b $IP_ADDR &
+/opt/rh/eap7/root/usr/share/wildfly/bin/standalone.sh -c standalone-full.xml -b $Public_IP -bmanagement $Public_IP &
 
 echo "Installing GIT" >> /home/$1/install.progress.txt
 yum install -y git >> /home/$1/install.out.txt 2>&1
