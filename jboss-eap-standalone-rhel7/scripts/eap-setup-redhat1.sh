@@ -37,11 +37,7 @@ yum-config-manager --disable rhel-7-server-htb-rpms
 echo "Installing JBoss EAP7.2 repos" >> /home/$1/install.progress.txt
 yum groupinstall -y jboss-eap7 >> /home/$1/install.out.txt 2>&1
 
-echo "Update interfaces section update jboss.bind.address.management, jboss.bind.address and jboss.bind.address.private from 127.0.0.1 to 0.0.0.0" >> /home/$1/install.log
-sed -i 's/jboss.bind.address.management:127.0.0.1/jboss.bind.address.management:0.0.0.0/g'  $EAP_ROOT/wildfly/standalone/configuration/standalone-full.xml
-sed -i 's/jboss.bind.address:127.0.0.1/jboss.bind.address:0.0.0.0/g'  $EAP_ROOT/wildfly/standalone/configuration/standalone-full.xml
-
-/opt/rh/eap7/root/usr/share/wildfly/bin/standalone.sh -c standalone-full.xml -b $Public_IP -bmanagement $Public_IP &
+/opt/rh/eap7/root/usr/share/wildfly/bin/standalone.sh -c standalone-full.xml -b $IP_ADDR -bmanagement $IP_ADDR &
 
 echo "Installing GIT" >> /home/$1/install.progress.txt
 yum install -y git >> /home/$1/install.out.txt 2>&1
