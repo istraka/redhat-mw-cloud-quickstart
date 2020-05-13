@@ -16,8 +16,11 @@ IP_ADDR=$(hostname -I)
 echo "JBoss EAP admin user"+${JBOSS_EAP_USER} >> install.progress.txt
 echo "Initial JBoss EAP 7.2 setup" >> install.progress.txt
 subscription-manager register --username $RHSM_USER --password $RHSM_PASSWORD  >> install.out.txt 2>&1
-echo $? >> install.progress.txt
-if [ $? != 0 ] ; then exit $? ; fi
+if [ $? != 0 ]
+then 
+     echo $? >> install.progress.txt
+     exit $?
+fi
 subscription-manager attach --pool=${RHSM_POOL} >> install.out.txt 2>&1
 if [ $? != 0 ] ; then exit $? ; fi
 if [ $RHEL_OS_LICENSE_TYPE == "BYOS" ] 
