@@ -37,7 +37,7 @@ yum groupinstall -y jboss-eap7 >> install.out.txt 2>&1
 if [ $? != 0 ] ; then exit $? ; fi
 
 echo "Start JBoss-EAP service" >> install.progress.txt
-$EAP_HOME/bin/standalone.sh -c standalone-full.xml -b $IP_ADDR -bmanagement $IP_ADDR &
+$EAP_HOME/bin/standalone.sh -c standalone-full.xml -b $IP_ADDR -bmanagement $IP_ADDR & >> install.out.txt 2>&1
 if [ $? != 0 ] ; then exit $? ; fi
 
 echo "Installing GIT" >> install.progress.txt
