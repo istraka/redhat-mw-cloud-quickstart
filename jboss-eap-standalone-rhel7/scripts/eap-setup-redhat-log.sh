@@ -44,7 +44,7 @@ echo "Installing GIT" >> install.progress.txt
 yum install -y git >> install.out.txt 2>&1
 
 echo "Getting the sample JBoss-EAP on Azure app to install" >> install.progress.txt
-git clone https://github.com/Suraj2093/duks.git >> install.out.txt 2>&1
+git clone https://github.com/Suraj2093/dukes.git >> install.out.txt 2>&1
 flag=$?; if [ $flag != 0 ] ; then echo  "Git clone Failed" >> install.progress.txt; exit $flag;  fi
 mv ./dukes/target/JBoss-EAP_on_Azure.war $EAP_HOME/standalone/deployments/JBoss-EAP_on_Azure.war >> install.out.txt 2>&1
 cat > $EAP_HOME/standalone/deployments/JBoss-EAP_on_Azure.war.dodeploy >> install.out.txt 2>&1
