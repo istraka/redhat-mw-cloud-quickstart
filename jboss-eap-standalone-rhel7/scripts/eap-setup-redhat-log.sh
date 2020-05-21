@@ -21,15 +21,18 @@ echo "JBoss EAP admin user : " ${JBOSS_EAP_USER} | adddate >> jbosseap.install.l
 echo "Initial JBoss EAP 7.2 setup" | adddate >> jbosseap.install.log
 echo "subscription-manager register --username RHSM_USER --password RHSM_PASSWORD" | adddate >> jbosseap.install.log
 subscription-manager register --username $RHSM_USER --password $RHSM_PASSWORD | adddate >> jbosseap.install.log 2>&1
+subscription-manager register --username $RHSM_USER --password $RHSM_PASSWORD
 flag=$?; if [ $flag != 0 ] ; then echo  "ERROR! Red Hat Subscription Manager Registration Failed" | adddate >> jbosseap.install.log; exit $flag;  fi
 echo "subscription-manager attach --pool=EAP_POOL" | adddate >> jbosseap.install.log
 subscription-manager attach --pool=${RHSM_POOL} | adddate >> jbosseap.install.log 2>&1
+subscription-manager attach --pool=${RHSM_POOL}
 flag=$?; if [ $flag != 0 ] ; then echo  "ERROR! Pool Attach for JBoss EAP Failed" | adddate >> jbosseap.install.log; exit $flag;  fi
 if [ $RHEL_OS_LICENSE_TYPE == "BYOS" ] 
 then 
     echo "Attaching Pool ID for RHEL OS" | adddate >> jbosseap.install.log
     echo "subscription-manager attach --pool=RHEL_POOL" | adddate  >> jbosseap.install.log
     subscription-manager attach --pool=$7 | adddate >> jbosseap.install.log 2>&1
+    subscription-manager attach --pool=$7
     flag=$?; if [ $flag != 0 ] ; then echo  "ERROR! Pool Attach for RHEL OS Failed" | adddate >> jbosseap.install.log; exit $flag;  fi
 fi
 echo "Subscribing the system to get access to JBoss EAP 7.2 repos" | adddate >> jbosseap.install.log
@@ -37,6 +40,7 @@ echo "Subscribing the system to get access to JBoss EAP 7.2 repos" | adddate >> 
 # Install JBoss EAP 7.2
 echo "subscription-manager repos --enable=jb-eap-7-for-rhel-7-server-rpms" | adddate >> jbosseap.install.log
 subscription-manager repos --enable=jb-eap-7-for-rhel-7-server-rpms | adddate >> jbosseap.install.log 2>&1
+subscription-manager repos --enable=jb-eap-7-for-rhel-7-server-rpms
 flag=$?; if [ $flag != 0 ] ; then echo  "ERROR! Enabling repos for JBoss EAP Failed" | adddate >> jbosseap.install.log; exit $flag;  fi
 echo "yum-config-manager --disable rhel-7-server-htb-rpms" | adddate >> jbosseap.install.log
 yum-config-manager --disable rhel-7-server-htb-rpms | adddate >> jbosseap.install.log
@@ -44,11 +48,13 @@ yum-config-manager --disable rhel-7-server-htb-rpms | adddate >> jbosseap.instal
 echo "Installing JBoss EAP 7.2 repos" | adddate >> jbosseap.install.log
 echo "yum groupinstall -y jboss-eap7" | adddate >> jbosseap.install.log
 yum groupinstall -y jboss-eap7 | adddate >> jbosseap.install.log 2>&1
+yum groupinstall -y jboss-eap7
 flag=$?; if [ $flag != 0 ] ; then echo  "ERROR! JBoss EAP installation Failed" | adddate >> jbosseap.install.log; exit $flag;  fi
 
 echo "Start JBoss-EAP service" | adddate >> jbosseap.install.log
 echo "$EAP_HOME/bin/standalone.sh -c standalone-full.xml -b $IP_ADDR -bmanagement $IP_ADDR &" | adddate >> jbosseap.install.log
-$EAP_HOME/bin/standalone.sh -c standalone-full.xml -b $IP_ADDR -bmanagement $IP_ADDR & | adddate >> jbosseap.install.log 2>&1
+$EAP_HOME/bin/standalone.sh -c standalone-full.xml -b $IP_ADDR -bmanagement $IP_ADDR | adddate >> jbosseap.install.log 2>&1 &
+$EAP_HOME/bin/standalone.sh -c standalone-full.xml -b $IP_ADDR -bmanagement $IP_ADDR &
 flag=$?; if [ $flag != 0 ] ; then echo  "ERROR! Starting JBoss EAP service Failed" | adddate >> jbosseap.install.log; exit $flag;  fi
 
 echo "Installing GIT" | adddate >> jbosseap.install.log
@@ -58,6 +64,7 @@ yum install -y git | adddate >> jbosseap.install.log 2>&1
 echo "Getting the sample JBoss-EAP on Azure app to install" | adddate >> jbosseap.install.log
 echo "git clone https://github.com/Suraj2093/dukes.git" | adddate >> jbosseap.install.log
 git clone https://github.com/Suraj2093/dukes.git | adddate >> jbosseap.install.log 2>&1
+git clone https://github.com/Suraj2093/dukes.git
 flag=$?; if [ $flag != 0 ] ; then echo  "ERROR! Git clone Failed" | adddate >> jbosseap.install.log; exit $flag;  fi
 echo "mv ./dukes/target/JBoss-EAP_on_Azure.war $EAP_HOME/standalone/deployments/JBoss-EAP_on_Azure.war" | adddate >> jbosseap.install.log
 mv ./dukes/target/JBoss-EAP_on_Azure.war $EAP_HOME/standalone/deployments/JBoss-EAP_on_Azure.war | adddate >> jbosseap.install.log 2>&1
@@ -67,6 +74,7 @@ cat > $EAP_HOME/standalone/deployments/JBoss-EAP_on_Azure.war.dodeploy | adddate
 echo "Configuring JBoss EAP management user" | adddate >> jbosseap.install.log
 echo "$EAP_HOME/bin/add-user.sh -u JBOSS_EAP_USER -p JBOSS_EAP_PASSWORD -g 'guest,mgmtgroup'" | adddate >> jbosseap.install.log
 $EAP_HOME/bin/add-user.sh -u $JBOSS_EAP_USER -p $JBOSS_EAP_PASSWORD -g 'guest,mgmtgroup' | adddate >> jbosseap.install.log 2>&1
+$EAP_HOME/bin/add-user.sh -u $JBOSS_EAP_USER -p $JBOSS_EAP_PASSWORD -g 'guest,mgmtgroup'
 flag=$?; if [ $flag != 0 ] ; then echo  "ERROR! JBoss EAP management user configuration Failed" | adddate >> jbosseap.install.log; exit $flag;  fi
 
 # Open Red Hat software firewall for port 8080 and 9990:
