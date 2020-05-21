@@ -21,7 +21,7 @@ echo "JBoss EAP admin user : " ${JBOSS_EAP_USER} | adddate >> jbosseap.install.l
 echo "Initial JBoss EAP 7.2 setup" | adddate >> jbosseap.install.log
 echo "subscription-manager register --username RHSM_USER --password RHSM_PASSWORD" | adddate >> jbosseap.install.log
 subscription-manager register --username $RHSM_USER --password $RHSM_PASSWORD | adddate >> jbosseap.install.log 2>&1
-subscription-manager register --username $RHSM_USER --password $RHSM_PASSWORD
+subscription-manager register --username $RHSM_USER --password $RHSM_PASSWORD --force
 flag=$?; if [ $flag != 0 ] ; then echo  "ERROR! Red Hat Subscription Manager Registration Failed" | adddate >> jbosseap.install.log; exit $flag;  fi
 echo "subscription-manager attach --pool=EAP_POOL" | adddate >> jbosseap.install.log
 subscription-manager attach --pool=${RHSM_POOL} | adddate >> jbosseap.install.log 2>&1
