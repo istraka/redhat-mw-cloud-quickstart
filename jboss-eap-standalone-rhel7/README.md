@@ -79,7 +79,7 @@ In order to use BYOS for RHEL OS Licensing, you need to have a valid Red Hat sub
 
 4. Your subscription is now ready to deploy RHEL 7.7 BYOS virtual machines.
 
-#### Using RHEL EAP with BYOS Model
+#### Using Red Hat EAP with BYOS Model
 
 RHEL EAP is available on Azure through BYOS model only, You need to supply your RHSM credentials along with RHSM pool id having valid EAP entitlements when deploying this template. You can get an evaluation account for EAP from [here](https://access.redhat.com/products/red-hat-jboss-enterprise-application-platform/evaluation). No additional steps are required for this. 
 
