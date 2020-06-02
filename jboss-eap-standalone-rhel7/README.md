@@ -27,8 +27,6 @@
 
 JBoss EAP (Enterprise Application Platform) is an open source platform for highly transactional, web-scale Java applications. EAP combines the familiar and popular Jakarta EE specifications with the latest technologies, like Microprofile, to modernize your applications from traditional Java EE into the new world of DevOps, cloud, containers, and microservices. EAP includes everything needed to build, run, deploy, and manage enterprise Java applications in a variety of environments, including on-premise, virtual environments, and in private, public, and hybrid clouds.
 
-Red Hat Subscription Management (RHSM) is a customer-driven, end-to-end solution that provides tools for subscription status and management and integrates with Red Hat's system management tools. To obtain an rhsm account for JBoss EAP, go to: www.redhat.com.
-
 This Azure quickstart template deploy JBoss EAP 7.2 in your Azure account with a sample application. To learn more about the JBoss Enterprise Application Platform, visit:
 https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/
 
