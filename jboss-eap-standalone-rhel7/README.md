@@ -198,7 +198,14 @@ Follow the below mentioned process to troubleshoot this further
 
     `more jbosseap.install.log`
 
-This log file should have details that include deployment failure reason and possible solutions. If your deployment failed due to RHSM account or entitlements, please refer to 'Licenses, Subscriptions and Costs' section to complete the pre-requisite and try again. 
+This log file should have details that include deployment failure reason and possible solutions. If your deployment failed due to RHSM account or entitlements, please refer to 'Licenses, Subscriptions and Costs' section to complete the pre-requisite and try again. Also note after your Azure subscription receives access to Red Hat Gold Images, you can locate them in the Azure portal. Go to **Create a Resource** > **See all**. At the top of the page, you'll see that you have private offers.
+
+![alt text](images/private-offer.png)
+
+Select the purple link, to view your private offers.
+
+![alt text](images/rhel-byos.png)
+
 Please refer to this [documentation](https://docs.microsoft.com/en-us/azure/virtual-machines/extensions/custom-script-linux) for more details on troubleshooting VM custom script extensions.
 
 ## Support 

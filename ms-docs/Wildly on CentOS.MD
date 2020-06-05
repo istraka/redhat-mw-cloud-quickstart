@@ -17,9 +17,9 @@ This Quickstart shows you how to deploy the standalone node of WildFly on top of
 
 ## Use case
 
-WildFly is ideal for development and testing of enterprise Java applications on Azure. List of technologies available in WildFly 18 server configuration profiles are available in the [Wildfly Getting Started Guide](https://docs.wildfly.org/18/Getting_Started_Guide.html#getting-started-with-wildfly).
+WildFly is ideal for development and testing of enterprise Java applications on Azure. List of technologies available in WildFly 18 server configuration profiles are available in the [WildFly Getting Started Guide](https://docs.wildfly.org/18/Getting_Started_Guide.html#getting-started-with-wildfly).
 
-You can  use WildFly in either Standalone mode or Cluster mode per your use case. You can ensure high availability of critical Jakarta EE applications by WildFly on a cluster of nodes, making a small number of application configuration changes, and then deploying the application in the cluster. To learn more on this please check the [Wildfly High Availability Guide}(https://docs.wildfly.org/18/High_Availability_Guide.html).
+You can  use WildFly in either Standalone mode or Cluster mode per your use case. You can ensure high availability of critical Jakarta EE applications by WildFly on a cluster of nodes, making a small number of application configuration changes, and then deploying the application in the cluster. To learn more on this please check the [WildFly High Availability Guide](https://docs.wildfly.org/18/High_Availability_Guide.html).
 
 ## Configuration choice
 
@@ -67,7 +67,7 @@ Similarly to start an alternate configuration in domain mode:
 
 `./domain.sh --domain-config=my-domain-configuration.xml`
 
-To learn more on the configurations check the [Wildfly Getting Started Guide] (https://docs.wildfly.org/18/Getting_Started_Guide.html#wildfly-10-configurations).
+To learn more on the configurations check the [WildFly Getting Started Guide] (https://docs.wildfly.org/18/Getting_Started_Guide.html#wildfly-10-configurations).
 
 > Note that this template deploys a WildFly in Standalone mode.
 
@@ -95,7 +95,7 @@ You can deploy the template in three following ways :
 
 ## ARM template
 
-<a href="https://github.com/SpektraSystems/redhat-mw-cloud-quickstart/tree/master/wildfly-standalone-centos8" target="_blank"> WildFly 18 on CentOS 8 (stand-alone VM)</a> - This is a Quickstart template that creates a standalone node of WildFly 18.0.1.Final on CentOS 8 VM in your Resource Group (RG) which includes a Public DNS name, Virtual Network and Network Security Group. It also deploys Java Sample Application named JBoss-EAP on Azure on Wildfly.
+<a href="https://github.com/SpektraSystems/redhat-mw-cloud-quickstart/tree/master/wildfly-standalone-centos8" target="_blank"> WildFly 18 on CentOS 8 (stand-alone VM)</a> - This is a Quickstart template that creates a standalone node of WildFly 18.0.1.Final on CentOS 8 VM in your Resource Group (RG) which includes a Public DNS name, Virtual Network and Network Security Group. It also deploys Java Sample Application named JBoss-EAP on Azure on WildFly.
 
 ## Resource Links:
 
@@ -103,7 +103,7 @@ Learn more about [WildFly](https://wildfly.org/)
 
 ## Next steps
 
-Visit [Wildfly18](https://docs.wildfly.org/18/) to learn more about Wildfly 18.
+Visit [WildFly18](https://docs.wildfly.org/18/) to learn more about WildFly 18.
 
 If you're interested in Red Hat JBoss EAP Azure Quickstart templates, you can find it here:
 

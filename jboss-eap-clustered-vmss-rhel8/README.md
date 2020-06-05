@@ -38,7 +38,7 @@ This template creates all the Azure compute resources to run JBoss EAP 7.2 clust
 - RHEL 8.0 VMSS instances
 - 1 Load Balancer
 - Public IP for Load Balancer
-- Virtual Network with single subnet
+- Virtual Network with a single subnet
 - JBoss EAP 7.2
 - Sample application called eap-session-replication deployed on JBoss EAP 7.2
 - Network Security Group
@@ -109,7 +109,7 @@ Build your environment with JBoss EAP 7.2 cluster setup on RHEL 8.0 VMSS instanc
    
     - **RHSM Pool ID for EAP** - Red Hat Subscription Manager Pool ID (Should have EAP entitlement)
 
-    - **RHSM Pool ID for RHEL OS** - Red Hat Subscription Manager Pool ID (Should have RHEL entitlement). This is mandatory hwen selecting  BYOS RHEL OS as License Type.  This should be left blank when sleecting RHEL OS License Type PAYG.
+    - **RHSM Pool ID for RHEL OS** - Red Hat Subscription Manager Pool ID (Should have RHEL entitlement). This is mandatory when selecting  BYOS RHEL OS as License Type.  This should be left blank when selecting RHEL OS License Type PAYG.
 
     - **Storage Replication** - Choose the [Replication Strategy](https://docs.microsoft.com/en-us/azure/storage/common/storage-redundancy) for your Storage account.
 

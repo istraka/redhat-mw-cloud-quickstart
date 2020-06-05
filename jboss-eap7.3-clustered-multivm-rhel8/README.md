@@ -38,7 +38,7 @@ This template creates all the Azure compute resources to run JBoss EAP 7.3 clust
 - RHEL 8.0 VMs
 - 1 Load Balancer
 - Public IPs for Load Balancer and VMs
-- Virtual Network with single subnet
+- Virtual Network with a single subnet
 - JBoss EAP 7.3
 - Sample application called eap-session-replication deployed on JBoss EAP 7.3
 - Network Security Group

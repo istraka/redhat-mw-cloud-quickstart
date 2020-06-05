@@ -302,32 +302,6 @@
               "sourcePortRange": "*",
               "destinationAddressPrefix": "*"
             }
-          },
-          {
-            "name": "Port_55200",
-            "properties": {
-              "priority": 390,
-              "access": "Allow",
-              "direction": "Inbound",
-              "destinationPortRange": "55200",
-              "protocol": "Tcp",
-              "sourceAddressPrefix": "*",
-              "sourcePortRange": "*",
-              "destinationAddressPrefix": "*"
-            }
-          },
-          {
-            "name": "Port_45688",
-            "properties": {
-              "priority": 400,
-              "access": "Allow",
-              "direction": "Inbound",
-              "destinationPortRange": "45688",
-              "protocol": "Tcp",
-              "sourceAddressPrefix": "*",
-              "sourcePortRange": "*",
-              "destinationAddressPrefix": "*"
-            }
           }
         ]
       }
