@@ -69,8 +69,8 @@ sed -i 's/<wsdl-host>${jboss.bind.address:127.0.0.1}/<wsdl-host>'$Public_IP'/g' 
 sed -i '/<\/outbound-socket-binding>/a <outbound-socket-binding name="http-public">\n<remote-destination host="'$Public_IP'" port="${jboss.http.port:8080}"/>\n</outbound-socket-binding>' /etc/opt/rh/eap7/wildfly/standalone/standalone-full.xml
 
 echo "Start JBoss-EAP service" | adddate >> jbosseap.install.log
-echo "$EAP_HOME/bin/standalone.sh -c standalone-full.xml -bmanagement $IP_ADDR &" | adddate >> jbosseap.install.log
-$EAP_HOME/bin/standalone.sh -c standalone-full.xml -b $IP_ADDR & >> jbosseap.install.log 2>&1
+echo "$EAP_HOME/bin/standalone.sh -c standalone-full.xml &" | adddate >> jbosseap.install.log
+$EAP_HOME/bin/standalone.sh -c standalone-full.xml & >> jbosseap.install.log 2>&1
 flag=$?; if [ $flag != 0 ] ; then echo  "ERROR! Starting JBoss EAP service Failed" | adddate >> jbosseap.install.log; exit $flag;  fi
 
 echo "Installing GIT" | adddate >> jbosseap.install.log
