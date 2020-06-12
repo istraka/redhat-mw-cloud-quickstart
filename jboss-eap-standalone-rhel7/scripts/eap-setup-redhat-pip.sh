@@ -66,8 +66,7 @@ firewall-cmd --reload | adddate >> jbosseap.install.log 2>&1
 sed -i '/<in-vm-connector name="in-vm" server-id="0">/i <http-connector name="http-public-connector" socket-binding="http-public" endpoint="http-acceptor"/>' /etc/opt/rh/eap7/wildfly/standalone/standalone-full.xml
 sed -i 's/connectors="http-connector"/connectors="http-public-connector"/g' /etc/opt/rh/eap7/wildfly/standalone/standalone-full.xml
 sed -i 's/<wsdl-host>${jboss.bind.address:127.0.0.1}/<wsdl-host>'$Public_IP'/g' /etc/opt/rh/eap7/wildfly/standalone/standalone-full.xml
-sed -i '/<\/outbound-socket-binding>/a <outbound-socket-binding name="http-public">\n<remote-destination host="'$Public_IP'" port="${jboss.http.port:8080}"/>\n</outbound-socket-binding>' /etc/opt
-/rh/eap7/wildfly/standalone/standalone-full.xml
+sed -i '/<\/outbound-socket-binding>/a <outbound-socket-binding name="http-public">\n<remote-destination host="'$Public_IP'" port="${jboss.http.port:8080}"/>\n</outbound-socket-binding>' /etc/opt/rh/eap7/wildfly/standalone/standalone-full.xml
 
 echo "Start JBoss-EAP service" | adddate >> jbosseap.install.log
 echo "$EAP_HOME/bin/standalone.sh -c standalone-full.xml -b $IP_ADDR -bmanagement $IP_ADDR &" | adddate >> jbosseap.install.log
