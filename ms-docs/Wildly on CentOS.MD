@@ -67,7 +67,7 @@ Similarly to start an alternate configuration in domain mode:
 
 `./domain.sh --domain-config=my-domain-configuration.xml`
 
-To learn more on the configurations check the [WildFly Getting Started Guide] (https://docs.wildfly.org/18/Getting_Started_Guide.html#wildfly-10-configurations).
+To learn more on the configurations check the [WildFly Getting Started Guide](https://docs.wildfly.org/18/Getting_Started_Guide.html#wildfly-10-configurations).
 
 > Note that this template deploys a WildFly in Standalone mode.
 

@@ -47,8 +47,6 @@ In addition to providing functionality and APIs to its applications, JBoss EAP h
     
 JBoss EAP can also work in Cluster, please check [JBoss EAP Clustering](https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html/configuring_messaging/clusters_overview) to learn more. JBoss EAP messaging clusters allow groups of JBoss EAP messaging servers to be grouped together in order to share message processing load. Each active node in the cluster is an active JBoss EAP messaging server which manages its own messages and handles its own connections.
 
-> Note that this quickstart tells you how to deploy 11 templates mentioned below in *ARM Template* section and none of them deploy JBoss EAP in Domain Server mode.
-
 ## Support and subscription notes
 
 This quickstart is designed to give multiple choice in terms of RHEL OS licensing. 
