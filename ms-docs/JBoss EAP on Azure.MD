@@ -31,9 +31,9 @@ You can develop the following applications with JBoss EAP 7.2:
 
 ## Configuration choice
 
-For deployment of Red Hat Enterprise Linux (RHEL) VM you can either choose between Pay-As-You-Go (PAYG) or Bring-Your-Own-Subscription (BYOS)  If you choose the VM image from the [Azure Marketplace](https://azuremarketplace.microsoft.com/en-us) this defaults to a PAYG image.  If you have a RHEL OS that you want to use, then you can deploy a RHEL VM of BYOS license type and use your license to register for RHEL OS.
+For deployment of Red Hat Enterprise Linux (RHEL) VM you can either choose between Pay-As-You-Go (PAYG) or Bring-Your-Own-Subscription (BYOS). If you choose the VM image from the [Azure Marketplace](https://azuremarketplace.microsoft.com/en-us) this defaults to a PAYG image.  If you have a RHEL OS that you want to use, then you can deploy a RHEL VM of BYOS license type and use your license to register for RHEL OS.
 
-In addition to providing functionality and APIs to its applications, JBoss EAP has powerful management capabilities. These management capabilities differ depending on which operating mode is used to start JBoss EAP. JBoss EAP is supported on RHEL, Windows Server, and Oracle Solaris. JBoss EAP offers a standalone server operating mode for managing discrete instances and a managed domain operating mode for managing groups of instances from a single control point. The environment variable named *EAP_HOME* is used to denote the path to the JBoss EAP installation. 
+In addition to providing functionality and APIs to its applications, JBoss EAP has powerful management capabilities. These management capabilities differ depending on which operating mode is used to start JBoss EAP. JBoss EAP is supported on RHEL, Windows Server, and Oracle Solaris. JBoss EAP offers a standalone server operating mode for managing discrete instances and a managed domain operating mode for managing groups of instances from a single control point. Note that JBoss EAP managed domains are not supported in Microsoft Azure. The environment variable named *EAP_HOME* is used to denote the path to the JBoss EAP installation. 
 
 - **Start JBoss EAP as a Standalone Server** - Following is the command to start EAP service in Standalone Mode.
 
@@ -45,29 +45,58 @@ In addition to providing functionality and APIs to its applications, JBoss EAP h
     
     For a complete listing of all available startup script arguments and their purposes, use the --help argument or see the [Server Runtime Arguments](https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html/configuration_guide/reference_material#reference_of_switches_and_arguments_to_pass_at_server_runtime) section.
     
-- **Start JBoss EAP in a Managed Domain** - The domain controller must be started before the servers in any of the server groups in the domain. Use the following script to first start the domain controller, and then for each associated host controller.
-
-    `$EAP_HOME/bin/domain.sh`
-    
-    This startup script uses the EAP_HOME/bin/domain.conf file, to set some default preferences, such as JVM options.  These settings can be customized in the file.  JBoss EAP uses the host.xml host configuration file to start on managed domain by default, but can be started using a different mode. For details on the available managed domain configuration files and how to use them, see the [Managed Domain Configuration Files](https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html/configuration_guide/jboss_eap_management#managed_domain_configuration_files) section. To start JBoss EAP with a different configuration, use the --host-config argument. For example:
-    
-    `$EAP_HOME/bin/domain.sh --host-config=host-master.xml`
-    
-    When setting up a managed domain, additional arguments will need to be passed into the startup script. For a complete listing of all available startup script arguments and their purposes, use the --help argument or see the [Server Runtime Arguments](https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html/configuration_guide/reference_material#reference_of_switches_and_arguments_to_pass_at_server_runtime) section.
-    
-JBoss EAP can also work in Cluster, please check [JBoss EAP Clustering](https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html/configuring_messaging/clusters_overview) to learn more.
+JBoss EAP can also work in Cluster, please check [JBoss EAP Clustering](https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html/configuring_messaging/clusters_overview) to learn more. JBoss EAP messaging clusters allow groups of JBoss EAP messaging servers to be grouped together in order to share message processing load. Each active node in the cluster is an active JBoss EAP messaging server which manages its own messages and handles its own connections.
 
 > Note that this quickstart tells you how to deploy 11 templates mentioned below in *ARM Template* section and none of them deploy JBoss EAP in Domain Server mode.
 
 ## Support and subscription notes
 
-By default, this template uses the On-Demand Red Hat Enterprise Linux image from the Azure Gallery. When using the On-Demand image, there is an additional hourly RHEL subscription charge for using this image on top of the normal compute, network and storage costs. At the same time, the instance will be registered to your Red Hat subscription, so you will also be using one of your entitlements. This will lead to "double billing". To avoid this, you need to build your own RHEL image, which is defined in [this Red Hat KB article](https://access.redhat.com/articles/uploading-rhel-image-to-azure). Check [Red Hat Enterprise Linux pricing](https://azure.microsoft.com/en-us/pricing/details/virtual-machines/red-hat/) for details on the VM price.
+This quickstart is designed to give multiple choice in terms of RHEL OS licensing. 
 
-In addition you also need to have a Red Hat account to register to Red Hat Subscription Manager (RHSM) and install JBoss EAP. If you have a valid Red Hat subscription, register for Cloud Access, [request access](http://aka.ms/rhel-byos) to the BYOS RHEL image in the Private Azure Marketplace to avoid the double billing and follow the below mentioned steps.
+- Red Hat Enterprise Linux OS as PAYG (Pay-As-You-Go) or BYOS (Bring-Your-Own-Subscription).
+- Red Hat JBoss Enterprise Application Platform (EAP) is available through BYOS (Bring-Your-Own-Subscription) only.
 
-You can select the RHEL OS License type as BYOS (Bring-Your-Own-Subscription) for deploying the template to avoid double billing. Your RHSM account must have both Red Hat Enterprise Linux entitlement (for subscribing the RHEL OS for the VM) and EAP entitlement and you will have to enter both the pool IDs as mentioned in the template. To provision the RHEL-BYOS VM in your subscription, you will have to enable it for Cloud Access from the Red Hat Customer Portal and activate Red Hat Gold Images for your subscription. You can enable your subscription for cloud access by following the instructions in this Red Hat KB article: [Enabling and Maintaining Subscriptions for Cloud Access](https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/red_hat_cloud_access_reference_guide/con-enable-subs) and activate the Red Hat Gold Images by following the instructions defined in this Red Hat KB articile for [enabling Azure Access](https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/red_hat_cloud_access_reference_guide/using_red_hat_gold_images#con-azure-access). Once your Azure subscription is enabled follow the Microsoft instructions for [Azure Marketplace terms](https://docs.microsoft.com/en-us/azure/virtual-machines/workloads/redhat/byos) to accept the Marketplace terms for RHEL-BYOS image from your Azure subscriptions.Note that in both cases your RHSM account needs EAP entitlement to use the Enterprise Application Platform. If you don't have EAP entitlement, obtain a [JBoss EAP evaluation subscription](https://access.redhat.com/products/red-hat-jboss-enterprise-application-platform/evaluation) before you get started.
+#### Using RHEL OS with PAYG Model
 
-Click this [Red Hat KB article on RHSM](https://access.redhat.com/products/red-hat-subscription-management) to learn more about Red Hat Subscription Manager.
+By default the quickstart template uses the On-Demand Red Hat Enterprise Linux 7.7 Pay-As-You-Go (PAYG) image from the Azure Gallery. When using this On-Demand image, there is an additional hourly RHEL subscription charge for using this image on top of the normal compute, network and storage costs. At the same time, the instance will be registered to your Red Hat subscription, so you will also be using one of your entitlements. This will lead to "double billing". To avoid this, you would need to build your own RHEL image, which is defined in this [Red Hat KB article](https://access.redhat.com/articles/uploading-rhel-image-to-azure).
+
+Check [Red Hat Enterprise Linux pricing](https://azure.microsoft.com/en-us/pricing/details/virtual-machines/red-hat/) for details on the RHEL VMs pricing for PAYG model. In order to use RHEL in PAYG model, you will need an Azure Subscription with the specified payment method (RHEL 7.7 is an [Azure Marketplace](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/RedHat.RedHatEnterpriseLinux77-ARM?tab=Overview) product and requires a payment method to be specified in the Azure Subscription). 
+
+#### Using RHEL OS with BYOS Model
+
+In order to use BYOS for RHEL OS Licensing, you need to have a valid Red Hat subscription with entitlements to use RHEL OS in Azure. Please complete the following prerequisites in order to use RHEL OS through BYOS model before you deploy this quickstart template.
+
+1. Ensure you have RHEL OS and JBoss EAP entitlements attached to your Red Hat Subscription.
+2. Authorize your Azure Subscription ID to use RHEL BYOS images. Please follow [Red Hat Subscription Management documentation](https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/red_hat_cloud_access_reference_guide/con-enable-subs) to complete this process. This includes multiple steps including:
+
+    2.1 Enable Microsoft Azure as provider in your Red Hat Cloud Access Dashboard.
+
+    2.2 Add your Azure Subscription IDs.
+
+    2.3 Enable new products for Cloud Access on Microsoft Azure.
+    
+    2.4 Activate Red Hat Gold Images for your Azure Subscription. Refer to [Red Hat Subscription Management](https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/red_hat_cloud_access_reference_guide/using_red_hat_gold_images#con-gold-image-azure) for more details.
+
+    2.5 Wait for Red Hat Gold Images to be available in your Azure subscription. These are typically available within 3 hours.
+    
+3. Accept the Marketplace Terms and Conditions in Azure for the RHEL BYOS Images. You can complete this by running Azure CLI commands, as given below. Refer to [Red Hat Enterprise Linux BYOS Gold Images in Azure documentation](https://docs.microsoft.com/en-us/azure/virtual-machines/workloads/redhat/byos) for more details on this.
+
+    3.1 Launch an Azure CLI session and authenticate with your Azure account. Refer to [Signing in with Azure CLI](https://docs.microsoft.com/en-us/cli/azure/authenticate-azure-cli?view=azure-cli-latest) for assistance.
+
+    3.2 Verify the RHEL BYOS images are available in your subscription by running the following CLI command. If you don't get any results here, please refer to #2 and ensure that your Azure subscription is activated for RHEL BYOS images.
+
+    `az vm image list --offer rhel-byos --all`
+
+    3.3 Run the following command to accept the Marketplace Terms for RHEL 7.7 BYOS.
+
+    `az vm image terms accept --publisher redhat --offer rhel-byos --plan rhel-lvm77`
+
+4. Your subscription is now ready to deploy RHEL 7.7 BYOS virtual machines.
+
+#### Using JBoss EAP with BYOS Model
+
+JBoss EAP is available on Azure through BYOS model only; you need to supply your RHSM credentials along with RHSM pool id having valid EAP entitlements when deploying this template. If you don't have EAP entitlement, obtain a [JBoss EAP evaluation subscription](https://access.redhat.com/products/red-hat-jboss-enterprise-application-platform/evaluation) before you get started.
+No additional steps are required for this.
 
 ## How to consume
 
