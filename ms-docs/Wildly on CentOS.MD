@@ -23,13 +23,9 @@ You can  use WildFly in either Standalone mode or Cluster mode per your use case
 
 ## Configuration choice
 
-WildFly can be booted in two different modes.
+WildFly can be booted in **Standalone Server** mode - A standalone server instance is an independent process, much like an JBoss Application Server 3, 4, 5, or 6 instance is. Standalone instances can be launched via the standalone.sh or standalone.bat launch scripts. If more than one standalone instance is launched and multi-server management is desired, it is the user’s responsibility to coordinate management across the servers.
 
-* **Standalone Server** - A standalone server instance is an independent process, much like an JBoss Application Server 3, 4, 5, or 6 instance is. Standalone instances can be launched via the standalone.sh or standalone.bat launch scripts. If more than one standalone instance is launched and multi-server management is desired, it is the user’s responsibility to coordinate management across the servers.
-
-* **Managed Domain** - A collection of servers is referred to as the members of a "domain" with a single Domain Controller process acting as the central management control point. All of the WildFly instances in the domain share a common management policy, with the Domain Controller acting to ensure that each server is configured according to that policy. Domains can span multiple physical (or virtual) machines, with all WildFly instances on a given host under the control of a special Host Controller process. One Host Controller instance is configured to act as the central Domain Controller. The Host Controller on each host interacts with the Domain Controller to control the lifecycle of the application server instances running on its host and to assist the Domain Controller in managing them. When you launch a WildFly managed domain on a host via the domain.sh or domain.bat launch scripts you launch a Host Controller and usually at least one WildFly instance.
-
-You can also start WildFly instance with Alternate Configuration by using configuration files available in configuration folder.
+You can also start WildFly instance with alternate configuration by using configuration files available in configuration folder.
 
 Following are the Standalone Server Configuration files
 
@@ -48,14 +44,6 @@ Following are the Standalone Server Configuration files
 - standalone-full-ha.xml
 
    - Jakarta Full Platform certified configuration with high availability
-   
-Following are the Domain Server Configuration files
- 
-- domain.xml
-   
-   - Jakarta full and web profiles available with or without high availability
-
-It is very important to note that the domain and standalone modes determine how the servers are managed and not what capabilities they provide.
 
 If you choose to start your WildFly Standalone server with one of the other provided configurations, they can be accessed by passing the --server-config argument with the server-config file to be used. 
 
@@ -63,13 +51,7 @@ For example, to use the Full Platform with clustering capabilities use the follo
 
 `./standalone.sh --server-config=standalone-full-ha.xml`
 
-Similarly to start an alternate configuration in domain mode:
-
-`./domain.sh --domain-config=my-domain-configuration.xml`
-
 To learn more on the configurations check the [WildFly Getting Started Guide](https://docs.wildfly.org/18/Getting_Started_Guide.html#wildfly-10-configurations).
-
-> Note that this template deploys a WildFly in Standalone mode.
 
 ## Support and subscription notes
 
