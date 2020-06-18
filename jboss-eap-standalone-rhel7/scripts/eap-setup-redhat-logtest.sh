@@ -32,6 +32,7 @@ then
     echo "Attaching Pool ID for RHEL OS" | adddate  >> jbosseap.install.log
     echo "subscription-manager attach --pool=RHEL_POOL" | adddate >> jbosseap.install.log
     subscription-manager attach --pool=$7 >> jbosseap.install.log 2>&1
+    flag=$?; if [ $flag != 0 ] ; then echo  "ERROR! Pool Attach for RHEL OS Failed" | adddate >> jbosseap.install.log; exit $flag;  fi
 fi
 echo "Subscribing the system to get access to JBoss EAP 7.2 repos" | adddate >> jbosseap.install.log
 
@@ -49,8 +50,7 @@ flag=$?; if [ $flag != 0 ] ; then echo  "ERROR! JBoss EAP installation Failed" |
 
 echo "Start JBoss-EAP service" | adddate >> jbosseap.install.log
 echo "$EAP_HOME/bin/standalone.sh -c standalone-full.xml -b $IP_ADDR -bmanagement $IP_ADDR &" | adddate >> jbosseap.install.log
-$EAP_HOME/bin/standalone.sh -c standalone-full.xml -b $IP_ADDR -bmanagement $IP_ADDR & >> jbosseap.install.log 2>&1
-flag=$?; if [ $flag != 0 ] ; then echo  "ERROR! Starting JBoss EAP service Failed" | adddate >> jbosseap.install.log; exit $flag;  fi
+$EAP_HOME/bin/standalone.sh -c standalone-full.xml -b $IP_ADDR -bmanagement $IP_ADDR | adddate >> jbosseap.install.log 2>&1 &
 
 echo "Installing GIT" | adddate >> jbosseap.install.log
 echo "yum install -y git" | adddate >> jbosseap.install.log
