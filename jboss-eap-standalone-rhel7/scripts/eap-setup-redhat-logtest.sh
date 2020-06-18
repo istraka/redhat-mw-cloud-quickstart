@@ -18,6 +18,7 @@ RHSM_PASSWORD=$4
 RHEL_OS_LICENSE_TYPE=$5
 RHSM_POOL=$6
 IP_ADDR=$(hostname -I)
+Public_IP=$(curl ifconfig.me)
 
 echo "JBoss EAP admin user : " ${JBOSS_EAP_USER} | adddate >> jbosseap.install.log
 echo "Initial JBoss EAP 7.2 setup" | adddate >> jbosseap.install.log
@@ -49,8 +50,9 @@ yum groupinstall -y jboss-eap7 >> jbosseap.install.log 2>&1
 flag=$?; if [ $flag != 0 ] ; then echo  "ERROR! JBoss EAP installation Failed" | adddate >> jbosseap.install.log; exit $flag;  fi
 
 echo "Start JBoss-EAP service" | adddate >> jbosseap.install.log
-echo "$EAP_HOME/bin/standalone.sh -c standalone-full.xml -b $IP_ADDR -bmanagement $IP_ADDR &" | adddate >> jbosseap.install.log
-$EAP_HOME/bin/standalone.sh -c standalone-full.xml -b $IP_ADDR -bmanagement $IP_ADDR | adddate >> jbosseap.install.log 2>&1 &
+echo "$EAP_HOME/bin/standalone.sh -c standalone-full.xml -b $Public_IP -bmanagement $IP_ADDR &" | adddate >> jbosseap.install.log
+$EAP_HOME/bin/standalone.sh -c standalone-full.xml -b $Public_IP -bmanagement $IP_ADDR >> jbosseap.install.log 2>&1 &
+flag=$?; if [ $flag != 0 ] ; then echo  "ERROR! Starting JBoss EAP service Failed" | adddate >> jbosseap.install.log; exit $flag;  fi
 
 sleep 20
 
