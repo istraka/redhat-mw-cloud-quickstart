@@ -52,6 +52,8 @@ echo "Start JBoss-EAP service" | adddate >> jbosseap.install.log
 echo "$EAP_HOME/bin/standalone.sh -c standalone-full.xml -b $IP_ADDR -bmanagement $IP_ADDR &" | adddate >> jbosseap.install.log
 $EAP_HOME/bin/standalone.sh -c standalone-full.xml -b $IP_ADDR -bmanagement $IP_ADDR | adddate >> jbosseap.install.log 2>&1 &
 
+sleep 20
+
 echo "Installing GIT" | adddate >> jbosseap.install.log
 echo "yum install -y git" | adddate >> jbosseap.install.log
 yum install -y git | adddate >> jbosseap.install.log 2>&1
