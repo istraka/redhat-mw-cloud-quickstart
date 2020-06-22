@@ -9,7 +9,11 @@ adddate() {
 echo "Red Hat JBoss EAP 7.2 Cluster Intallation Start " | adddate >> jbosseap.install.log
 /bin/date +%H:%M:%S >> jbosseap.install.log
 
-export EAP_HOME="/opt/rh/eap7/root/usr/share"
+echo 'export EAP_HOME="/opt/rh/eap7/root/usr/share"' >> ~/.bash_profile
+source ~/.bash_profile
+touch /etc/profile.d/eap_env.sh
+echo 'export EAP_HOME="/opt/rh/eap7/root/usr/share"' >> /etc/profile.d/eap_env.sh
+
 JBOSS_EAP_USER=$1
 JBOSS_EAP_PASSWORD=$2
 RHEL_OS_LICENSE_TYPE=$3
@@ -91,8 +95,8 @@ sed -i 's/jboss.bind.address.private:127.0.0.1/jboss.bind.address.private:0.0.0.
 
 echo "Start JBoss server" | adddate >> jbosseap.install.log
 echo "$EAP_HOME/wildfly/bin/standalone.sh -bprivate $IP_ADDR -b $IP_ADDR -bmanagement $IP_ADDR --server-config=standalone-azure-ha.xml -Djboss.jgroups.azure_ping.storage_account_name=$STORAGE_ACCOUNT_NAME -Djboss.jgroups.azure_ping.storage_access_key=STORAGE_ACCESS_KEY -Djboss.jgroups.azure_ping.container=$CONTAINER_NAME -Djava.net.preferIPv4Stack=true &" | adddate >> jbosseap.install.log
-$EAP_HOME/wildfly/bin/standalone.sh -bprivate $IP_ADDR -b $IP_ADDR -bmanagement $IP_ADDR --server-config=standalone-azure-ha.xml -Djboss.jgroups.azure_ping.storage_account_name=$STORAGE_ACCOUNT_NAME -Djboss.jgroups.azure_ping.storage_access_key=$STORAGE_ACCESS_KEY -Djboss.jgroups.azure_ping.container=$CONTAINER_NAME -Djava.net.preferIPv4Stack=true & >> jbosseap.install.log 2>&1
-flag=$?; if [ $flag != 0 ] ; then echo  "ERROR! Starting JBoss EAP service Failed" | adddate >> jbosseap.install.log; exit $flag;  fi
+$EAP_HOME/wildfly/bin/standalone.sh -bprivate $IP_ADDR -b $IP_ADDR -bmanagement $IP_ADDR --server-config=standalone-azure-ha.xml -Djboss.jgroups.azure_ping.storage_account_name=$STORAGE_ACCOUNT_NAME -Djboss.jgroups.azure_ping.storage_access_key=$STORAGE_ACCESS_KEY -Djboss.jgroups.azure_ping.container=$CONTAINER_NAME -Djava.net.preferIPv4Stack=true | adddate >> jbosseap.install.log 2>&1 &
+sleep 20
 
 echo "export EAP_HOME="/opt/rh/eap7/root/usr/share"" >> /bin/jbossservice.sh
 echo "$EAP_HOME/wildfly/bin/standalone.sh -bprivate $IP_ADDR -b $IP_ADDR -bmanagement $IP_ADDR --server-config=standalone-azure-ha.xml -Djboss.jgroups.azure_ping.storage_account_name=$STORAGE_ACCOUNT_NAME -Djboss.jgroups.azure_ping.storage_access_key=$STORAGE_ACCESS_KEY -Djboss.jgroups.azure_ping.container=$CONTAINER_NAME -Djava.net.preferIPv4Stack=true &" >> /bin/jbossservice.sh
@@ -114,7 +118,7 @@ echo "touch $EAP_HOME/wildfly/standalone/deployments/eap-session-replication.war
 touch $EAP_HOME/wildfly/standalone/deployments/eap-session-replication.war.dodeploy | adddate >> jbosseap.install.log 2>&1
 
 echo "Configuring JBoss EAP management user..." | adddate >> jbosseap.install.log
-echo "$EAP_HOME/bin/add-user.sh -u JBOSS_EAP_USER -p JBOSS_EAP_PASSWORD -g 'guest,mgmtgroup'" | adddate >> jbosseap.install.log
+echo "$EAP_HOME/wildfly/bin/add-user.sh -u JBOSS_EAP_USER -p JBOSS_EAP_PASSWORD -g 'guest,mgmtgroup'" | adddate >> jbosseap.install.log
 $EAP_HOME/wildfly/bin/add-user.sh  -u $JBOSS_EAP_USER -p $JBOSS_EAP_PASSWORD -g 'guest,mgmtgroup' >> jbosseap.install.log 2>&1
 flag=$?; if [ $flag != 0 ] ; then echo  "ERROR! JBoss EAP management user configuration Failed" | adddate >> jbosseap.install.log; exit $flag;  fi
 
