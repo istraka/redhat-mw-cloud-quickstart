@@ -41,8 +41,8 @@ flag=$?; if [ $flag != 0 ] ; then echo  "ERROR! WildFly management user configur
 
 echo "Start WILDFLY 18.0.1.Final instance..." | adddate >> wildfly.install.log
 echo "./wildfly-$WILDFLY_RELEASE.Final/bin/standalone.sh -b $IP_ADDR -bmanagement $IP_ADDR &" | adddate >> wildfly.install.log
-./wildfly-$WILDFLY_RELEASE.Final/bin/standalone.sh -b $IP_ADDR -bmanagement $IP_ADDR & >> wildfly.install.log 2>&1
-flag=$?; if [ $flag != 0 ] ; then echo  "ERROR! Starting WildFly service Failed" | adddate >> wildfly.install.log; exit $flag;  fi
+./wildfly-$WILDFLY_RELEASE.Final/bin/standalone.sh -b $IP_ADDR -bmanagement $IP_ADDR | adddate >> wildfly.install.log 2>&1 &
+sleep 20
 
 echo "Configure firewall for ports 8080, 9990..." | adddate >> wildfly.install.log
 echo "firewall-cmd --zone=public --add-port=8080/tcp --permanent" | adddate >> wildfly.install.log
