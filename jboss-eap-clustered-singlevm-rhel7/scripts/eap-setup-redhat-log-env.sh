@@ -83,8 +83,10 @@ echo "/bin/cp -rf ./eap-session-replication/target/eap-session-replication.war $
 /bin/cp -rf ./eap-session-replication/target/eap-session-replication.war $EAP_HOME/$NODENAME2/deployments/eap-session-replication.war | adddate >> jbosseap.install.log 2>&1
 echo "touch $EAP_HOME/$NODENAME1/deployments/eap-session-replication.war.dodeploy" | adddate >> jbosseap.install.log
 touch $EAP_HOME/$NODENAME1/deployments/eap-session-replication.war.dodeploy | adddate >> jbosseap.install.log 2>&1
+sleep 20
 echo "touch $EAP_HOME/$NODENAME2/deployments/eap-session-replication.war.dodeploy" | adddate >> jbosseap.install.log
 touch $EAP_HOME/$NODENAME2/deployments/eap-session-replication.war.dodeploy | adddate >> jbosseap.install.log 2>&1
+sleep 20
 
 echo "Configuring JBoss EAP management user..." | adddate >> jbosseap.install.log
 echo "$EAP_HOME/bin/add-user.sh -sc $EAP_HOME/$NODENAME1/configuration -u JBOSS_EAP_USER -p JBOSS_EAP_PASSWORD -g 'guest,mgmtgroup'" | adddate >> jbosseap.install.log
