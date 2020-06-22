@@ -9,7 +9,10 @@ adddate() {
 /bin/date +%H:%M:%S >> jbosseap.install.log
 echo "ooooo      RED HAT JBoss EAP 7.2 RPM INSTALL      ooooo" | adddate >> jbosseap.install.log
 
-export EAP_HOME="/opt/rh/eap7/root/usr/share/wildfly"
+echo 'export EAP_HOME="/opt/rh/eap7/root/usr/share/wildfly"' >> ~/.bash_profile
+source ~/.bash_profile
+touch /etc/profile.d/eap_env.sh
+echo 'export EAP_HOME="/opt/rh/eap7/root/usr/share/wildfly"' >> /etc/profile.d/eap_env.sh
 
 JBOSS_EAP_USER=$1
 JBOSS_EAP_PASSWORD=$2
@@ -18,7 +21,6 @@ RHSM_PASSWORD=$4
 RHEL_OS_LICENSE_TYPE=$5
 RHSM_POOL=$6
 IP_ADDR=$(hostname -I)
-Public_IP=$(curl ifconfig.me)
 
 echo "JBoss EAP admin user : " ${JBOSS_EAP_USER} | adddate >> jbosseap.install.log
 echo "Initial JBoss EAP 7.2 setup" | adddate >> jbosseap.install.log
@@ -52,7 +54,6 @@ flag=$?; if [ $flag != 0 ] ; then echo  "ERROR! JBoss EAP installation Failed" |
 echo "Start JBoss-EAP service" | adddate >> jbosseap.install.log
 echo "$EAP_HOME/bin/standalone.sh -c standalone-full.xml -b $IP_ADDR -bmanagement $IP_ADDR &" | adddate >> jbosseap.install.log
 $EAP_HOME/bin/standalone.sh -c standalone-full.xml -b $IP_ADDR -bmanagement $IP_ADDR | adddate >> jbosseap.install.log 2>&1 &
-
 sleep 20
 
 echo "Installing GIT" | adddate >> jbosseap.install.log
@@ -67,6 +68,7 @@ echo "mv ./dukes/target/JBoss-EAP_on_Azure.war $EAP_HOME/standalone/deployments/
 mv ./dukes/target/JBoss-EAP_on_Azure.war $EAP_HOME/standalone/deployments/JBoss-EAP_on_Azure.war | adddate >> jbosseap.install.log 2>&1
 echo "cat > $EAP_HOME/standalone/deployments/JBoss-EAP_on_Azure.war.dodeploy" | adddate >> jbosseap.install.log
 cat > $EAP_HOME/standalone/deployments/JBoss-EAP_on_Azure.war.dodeploy | adddate >> jbosseap.install.log 2>&1
+sleep 20
 
 echo "Configuring JBoss EAP management user" | adddate >> jbosseap.install.log
 echo "$EAP_HOME/bin/add-user.sh -u JBOSS_EAP_USER -p JBOSS_EAP_PASSWORD -g 'guest,mgmtgroup'" | adddate >> jbosseap.install.log
