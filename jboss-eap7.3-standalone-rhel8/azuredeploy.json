@@ -167,6 +167,9 @@
       "name": "[variables('bootStorageAccountName')]",
       "apiVersion": "2019-06-01",
       "location": "[parameters('location')]",
+      "tags": {
+                "QuickstartName": "JBoss EAP 7.3 on RHEL 8.0 (stand-alone VM)"
+            },
       "sku": {
           "name": "[variables('storageAccountType')]"
       },
@@ -177,6 +180,9 @@
       "type": "Microsoft.Network/publicIPAddresses",
       "name": "[variables('publicIPAddressName')]",
       "location": "[parameters('location')]",
+      "tags": {
+                "QuickstartName": "JBoss EAP 7.3 on RHEL 8.0 (stand-alone VM)"
+            },
       "properties": {
         "publicIPAllocationMethod": "[variables('publicIPAddressType')]",
         "dnsSettings": {
@@ -189,6 +195,9 @@
       "type": "Microsoft.Network/networkSecurityGroups",
       "name": "[variables('networkSecurityGroupName')]",
       "location": "[parameters('location')]",
+      "tags": {
+                "QuickstartName": "JBoss EAP 7.3 on RHEL 8.0 (stand-alone VM)"
+            },
       "properties": {
         "securityRules": [
           {
@@ -244,6 +253,9 @@
       "dependsOn": [
         "[concat('Microsoft.Network/networkSecurityGroups/', variables('networkSecurityGroupName'))]"
       ],
+      "tags": {
+                "QuickstartName": "JBoss EAP 7.3 on RHEL 8.0 (stand-alone VM)"
+            },
       "properties": {
         "addressSpace": {
           "addressPrefixes": [
@@ -273,6 +285,9 @@
         "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]",
         "[concat('Microsoft.Network/networkSecurityGroups/', variables('networkSecurityGroupName'))]"
       ],
+      "tags": {
+                "QuickstartName": "JBoss EAP 7.3 on RHEL 8.0 (stand-alone VM)"
+            },
       "properties": {
         "networkSecurityGroup": {
           "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]"
@@ -303,6 +318,9 @@
         "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'))]",
         "[concat('Microsoft.Storage/storageAccounts/', variables('bootStorageAccountName'))]"
       ],
+      "tags": {
+                "QuickstartName": "JBoss EAP 7.3 on RHEL 8.0 (stand-alone VM)"
+            },
       "properties": {
         "hardwareProfile": {
           "vmSize": "[parameters('vmSize')]"
@@ -350,6 +368,9 @@
       "dependsOn": [
         "[concat('Microsoft.Compute/virtualMachines/', variables('vmNamePAYG'))]"
       ],
+      "tags": {
+                "QuickstartName": "JBoss EAP 7.3 on RHEL 8.0 (stand-alone VM)"
+            },
       "properties": {
         "publisher": "Microsoft.Azure.Extensions",
         "type": "CustomScript",
@@ -373,6 +394,9 @@
         "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'))]",
         "[concat('Microsoft.Storage/storageAccounts/', variables('bootStorageAccountName'))]"
       ],
+      "tags": {
+                "QuickstartName": "JBoss EAP 7.3 on RHEL 8.0 (stand-alone VM)"
+            },
       "plan": {
         "name": "rhel-lvm8",
         "publisher": "redhat",
@@ -425,6 +449,9 @@
       "dependsOn": [
         "[concat('Microsoft.Compute/virtualMachines/', variables('vmNameBYOS'))]"
       ],
+      "tags": {
+                "QuickstartName": "JBoss EAP 7.3 on RHEL 8.0 (stand-alone VM)"
+            },
       "properties": {
         "publisher": "Microsoft.Azure.Extensions",
         "type": "CustomScript",

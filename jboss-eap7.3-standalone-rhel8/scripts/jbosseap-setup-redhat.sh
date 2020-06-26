@@ -14,6 +14,7 @@ source ~/.bash_profile
 touch /etc/profile.d/eap_env.sh
 echo 'export EAP_HOME="/opt/rh/eap7/root/usr/share/wildfly"' >> /etc/profile.d/eap_env.sh
 
+export EAP_RPM_CONF_STANDALONE="/etc/opt/rh/eap7/wildfly/eap7-standalone.conf"
 JBOSS_EAP_USER=$1
 JBOSS_EAP_PASSWORD=$2
 RHSM_USER=$3
@@ -50,9 +51,19 @@ yum groupinstall -y jboss-eap7 >> jbosseap.install.log 2>&1
 flag=$?; if [ $flag != 0 ] ; then echo  "ERROR! JBoss EAP installation Failed" | adddate >> jbosseap.install.log; exit $flag;  fi
 
 echo "Start JBoss-EAP service" | adddate >> jbosseap.install.log
-echo "$EAP_HOME/bin/standalone.sh -c standalone-full.xml -b $IP_ADDR -bmanagement $IP_ADDR &" | adddate >> jbosseap.install.log
-$EAP_HOME/bin/standalone.sh -c standalone-full.xml -b $IP_ADDR -bmanagement $IP_ADDR | adddate >> jbosseap.install.log 2>&1 &
-sleep 20
+echo "systemctl enable eap7-standalone.service" | adddate >> jbosseap.install.log
+systemctl enable eap7-standalone.service | adddate >> jbosseap.install.log 2>&1
+echo "echo "WILDFLY_SERVER_CONFIG=standalone-full.xml" >> ${EAP_RPM_CONF_STANDALONE}" | adddate >> jbosseap.install.log
+echo "WILDFLY_SERVER_CONFIG=standalone-full.xml" >> ${EAP_RPM_CONF_STANDALONE} | adddate >> jbosseap.install.log
+echo "echo 'WILDFLY_BIND='$IP_ADDR >> ${EAP_RPM_CONF_STANDALONE}" | adddate >> jbosseap.install.log
+echo 'WILDFLY_BIND='$IP_ADDR >> ${EAP_RPM_CONF_STANDALONE} | adddate >> jbosseap.install.log 2>&1
+echo "echo "WILDFLY_OPTS=-Djboss.bind.address.management=$IP_ADDR" >> ${EAP_RPM_CONF_STANDALONE}" | adddate >> jbosseap.install.log
+echo "WILDFLY_OPTS=-Djboss.bind.address.management=$IP_ADDR" >> ${EAP_RPM_CONF_STANDALONE} | adddate >> jbosseap.install.log 2>&1
+
+echo "systemctl restart eap7-standalone.service" | adddate >> jbosseap.install.log
+systemctl restart eap7-standalone.service | adddate >> jbosseap.install.log 2>&1
+echo "systemctl status eap7-standalone.service" | adddate >> jbosseap.install.log
+systemctl status eap7-standalone.service | adddate >> jbosseap.install.log 2>&1
 
 echo "Installing GIT" | adddate >> jbosseap.install.log
 echo "yum install -y git" | adddate >> jbosseap.install.log

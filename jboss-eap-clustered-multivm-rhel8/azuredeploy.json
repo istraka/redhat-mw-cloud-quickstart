@@ -198,6 +198,9 @@
       "name": "[variables('bootStorageAccountName')]",
       "apiVersion": "2019-06-01",
       "location": "[parameters('location')]",
+      "tags": {
+                "QuickstartName": "JBoss EAP 7.2 on RHEL 8.0 (clustered, multi-VM)"
+            },
       "sku": {
           "name": "[variables('storageAccountType')]"
       },
@@ -208,6 +211,9 @@
       "type": "Microsoft.Network/publicIPAddresses",
       "name": "[concat(variables('publicIPAddressName'), copyIndex())]",
       "location": "[parameters('location')]",
+      "tags": {
+                "QuickstartName": "JBoss EAP 7.2 on RHEL 8.0 (clustered, multi-VM)"
+            },
       "copy": {
           "name": "pipLoop",
           "count": "[parameters('numberOfInstances')]"
@@ -224,6 +230,9 @@
       "type": "Microsoft.Network/publicIPAddresses",
       "name": "[variables('publicIPAddresslb')]",
       "location": "[parameters('location')]",
+      "tags": {
+                "QuickstartName": "JBoss EAP 7.2 on RHEL 8.0 (clustered, multi-VM)"
+            },
       "properties": {
         "publicIPAllocationMethod": "[variables('publicIPAddressType')]",
         "dnsSettings": {
@@ -236,6 +245,9 @@
       "apiVersion": "2019-08-01",
       "name": "[variables('networkSecurityGroupName')]",
       "location": "[parameters('location')]",
+      "tags": {
+                "QuickstartName": "JBoss EAP 7.2 on RHEL 8.0 (clustered, multi-VM)"
+            },
       "properties": {
         "securityRules": [
           {
@@ -311,6 +323,9 @@
       "type": "Microsoft.Network/virtualNetworks",
       "name": "[variables('virtualNetworkName')]",
       "location": "[parameters('location')]",
+      "tags": {
+                "QuickstartName": "JBoss EAP 7.2 on RHEL 8.0 (clustered, multi-VM)"
+            },
       "dependsOn": [
         "[resourceId('Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]"
       ],
@@ -338,6 +353,9 @@
       "type": "Microsoft.Network/networkInterfaces",
       "name": "[concat(variables('nicName'), copyIndex())]",
       "location": "[parameters('location')]",
+      "tags": {
+                "QuickstartName": "JBoss EAP 7.2 on RHEL 8.0 (clustered, multi-VM)"
+            },
       "copy": {
           "name": "nicLoop",
           "count": "[parameters('numberOfInstances')]"
@@ -375,6 +393,9 @@
       "type": "Microsoft.Compute/virtualMachines",
       "name": "[concat(variables('vmNamePAYG'), copyIndex())]",
       "location": "[parameters('location')]",
+      "tags": {
+                "QuickstartName": "JBoss EAP 7.2 on RHEL 8.0 (clustered, multi-VM)"
+            },
       "copy": {
           "name": "virtualMachineLoop",
           "count": "[parameters('numberOfInstances')]"
@@ -433,6 +454,9 @@
           "dependsOn": [
             "[resourceId('Microsoft.Compute/virtualMachines', concat(variables('vmNamePAYG'), copyIndex()))]"
           ],
+          "tags": {
+                "QuickstartName": "JBoss EAP 7.2 on RHEL 8.0 (clustered, multi-VM)"
+            },
           "properties": {
             "publisher": "Microsoft.Azure.Extensions",
             "type": "CustomScript",
@@ -456,6 +480,9 @@
       "type": "Microsoft.Compute/virtualMachines",
       "name": "[concat(variables('vmNameBYOS'), copyIndex())]",
       "location": "[parameters('location')]",
+      "tags": {
+                "QuickstartName": "JBoss EAP 7.2 on RHEL 8.0 (clustered, multi-VM)"
+            },
       "copy": {
           "name": "virtualMachineLoop",
           "count": "[parameters('numberOfInstances')]"
@@ -519,6 +546,9 @@
           "dependsOn": [
             "[resourceId('Microsoft.Compute/virtualMachines', concat(variables('vmNameBYOS'), copyIndex()))]"
           ],
+          "tags": {
+                "QuickstartName": "JBoss EAP 7.2 on RHEL 8.0 (clustered, multi-VM)"
+            },
           "properties": {
             "publisher": "Microsoft.Azure.Extensions",
             "type": "CustomScript",
@@ -544,6 +574,9 @@
       "dependsOn": [
         "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddresslb'))]"
       ],
+      "tags": {
+                "QuickstartName": "JBoss EAP 7.2 on RHEL 8.0 (clustered, multi-VM)"
+            },
       "sku": {
         "name": "Basic"
       },
@@ -638,6 +671,9 @@
         "platformUpdateDomainCount": 2,
         "platformFaultDomainCount": 2
       },
+      "tags": {
+                "QuickstartName": "JBoss EAP 7.2 on RHEL 8.0 (clustered, multi-VM)"
+            },
       "sku": {
         "name": "[variables('skuName')]"
       }
@@ -647,6 +683,9 @@
       "type": "Microsoft.Storage/storageAccounts",
       "location": "[parameters('location')]",
       "apiVersion": "2019-04-01",
+      "tags": {
+                "QuickstartName": "JBoss EAP 7.2 on RHEL 8.0 (clustered, multi-VM)"
+            },
       "sku": {
         "name": "[parameters('storageReplication')]"
       },

@@ -173,6 +173,9 @@
       "name": "[variables('bootStorageAccountName')]",
       "apiVersion": "2019-06-01",
       "location": "[parameters('location')]",
+      "tags": {
+                "QuickstartName": "JBoss EAP 7.2 on RHEL 7.7 (multi-node, single VM)"
+            },
       "sku": {
           "name": "[variables('storageAccountType')]"
       },
@@ -183,6 +186,9 @@
       "apiVersion": "2019-04-01",
       "name": "[variables('storageAccountName')]",
       "location": "[parameters('location')]",
+      "tags": {
+                "QuickstartName": "JBoss EAP 7.2 on RHEL 7.7 (multi-node, single VM)"
+            },
       "sku": {
         "name": "[parameters('storageReplication')]"
       },
@@ -207,6 +213,9 @@
       "apiVersion": "2019-11-01",
       "name": "[variables('publicIPAddressName')]",
       "location": "[parameters('location')]",
+      "tags": {
+                "QuickstartName": "JBoss EAP 7.2 on RHEL 7.7 (multi-node, single VM)"
+            },
       "properties": {
         "publicIpAllocationMethod": "[variables('publicIpAddressType')]",
         "dnsSettings": {
@@ -219,34 +228,11 @@
       "apiVersion": "2019-11-01",
       "name": "[variables('networkSecurityGroupName')]",
       "location": "[parameters('location')]",
+      "tags": {
+                "QuickstartName": "JBoss EAP 7.2 on RHEL 7.7 (multi-node, single VM)"
+            },
       "properties": {
         "securityRules": [
-          {
-            "name": "HTTP",
-            "properties": {
-              "priority": 300,
-              "protocol":"Tcp",
-              "access":"Allow",
-              "direction":"Inbound",
-              "sourceAddressPrefix":"*",
-              "sourcePortRange":"*",
-              "destinationAddressPrefix": "*",
-              "destinationPortRange":"80"
-            }
-          },
-          {
-            "name":"HTTPS",
-            "properties":{
-              "priority":320,
-              "protocol":"Tcp",
-              "access":"Allow",
-              "direction":"Inbound",
-              "sourceAddressPrefix":"*",
-              "sourcePortRange":"*",
-              "destinationAddressPrefix": "*",
-              "destinationPortRange":"443"
-            }
-          },
           {
             "name":"SSH",
             "properties":{
@@ -258,19 +244,6 @@
               "sourcePortRange":"*",
               "destinationAddressPrefix": "*",
               "destinationPortRange":"22"
-            }
-          },
-          {
-            "name":"RDP",
-            "properties":{
-              "priority":360,
-              "protocol":"Tcp",
-              "access":"Allow",
-              "direction":"Inbound",
-              "sourceAddressPrefix":"*",
-              "sourcePortRange":"*",
-              "destinationAddressPrefix": "*",
-              "destinationPortRange":"3389"
             }
           },
           {
@@ -333,6 +306,9 @@
       "apiVersion": "2019-11-01",
       "name": "[variables('virtualNetworkName')]",
       "location": "[parameters('location')]",
+      "tags": {
+                "QuickstartName": "JBoss EAP 7.2 on RHEL 7.7 (multi-node, single VM)"
+            },
       "properties": {
         "addressSpace": {
           "addressPrefixes": [
@@ -359,6 +335,9 @@
         "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]",
         "[concat('Microsoft.Network/publicIpAddresses/', variables('publicIPAddressName'))]"
       ],
+      "tags": {
+                "QuickstartName": "JBoss EAP 7.2 on RHEL 7.7 (multi-node, single VM)"
+            },
       "properties": {
         "ipConfigurations": [
           {
@@ -390,6 +369,9 @@
         "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'))]",
         "[concat('Microsoft.Storage/storageAccounts/', variables('bootStorageAccountName'))]"
       ],
+      "tags": {
+                "QuickstartName": "JBoss EAP 7.2 on RHEL 7.7 (multi-node, single VM)"
+            },
       "properties": {
         "hardwareProfile": {
           "vmSize": "[parameters('vmSize')]"
@@ -438,6 +420,9 @@
       "dependsOn": [
         "[concat('Microsoft.Compute/virtualMachines/', variables('vmNamePAYG'))]"
       ],
+      "tags": {
+                "QuickstartName": "JBoss EAP 7.2 on RHEL 7.7 (multi-node, single VM)"
+            },
       "properties": {
         "publisher": "Microsoft.Azure.Extensions",
         "type": "CustomScript",
@@ -462,6 +447,9 @@
         "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'))]",
         "[concat('Microsoft.Storage/storageAccounts/', variables('bootStorageAccountName'))]"
       ],
+      "tags": {
+                "QuickstartName": "JBoss EAP 7.2 on RHEL 7.7 (multi-node, single VM)"
+            },
       "plan": {
         "name": "rhel-lvm77",
         "publisher": "redhat",
@@ -515,6 +503,9 @@
       "dependsOn": [
         "[concat('Microsoft.Compute/virtualMachines/', variables('vmNameBYOS'))]"
       ],
+      "tags": {
+                "QuickstartName": "JBoss EAP 7.2 on RHEL 7.7 (multi-node, single VM)"
+            },
       "properties": {
         "publisher": "Microsoft.Azure.Extensions",
         "type": "CustomScript",
