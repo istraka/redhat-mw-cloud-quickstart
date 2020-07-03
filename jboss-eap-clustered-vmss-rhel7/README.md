@@ -186,7 +186,7 @@ The deployment takes approximately 10 minutes to complete.
 
 ## Scaling
 
-In this template the Virtual Machine Scale Set is set to scale manually, but once the template has been deployed you can also change to custom scaling to automatically increase or decrease the number of VM instances. This automated and elastic behavior reduces the management overhead to monitor and optimize the performance. Once the template has been deployed go to your virtual machine scale set and under settings click on Scaling. In the Scaling blade change to "Custom autoscale" and follow instructions to [Automatically scale a virtual machine scale set in the Azure portal](https://docs.microsoft.com/en-us/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-autoscale-portal#:~:text=The%20ability%20to%20autoscale%20lets,instances%20in%20your%20scale%20set).
+In this template the Virtual Machine Scale Set is set to scale manually, which means you can manually increase or decrease the VM instance. Once the template has been deployed you can also change to custom scaling to automatically increase or decrease the number of VM instances. This automated and elastic behavior reduces the management overhead to monitor and optimize the performance. Once the template has been deployed go to your virtual machine scale set and under settings click on Scaling. In the Scaling blade change to "Custom autoscale" and follow instructions to [Automatically scale a virtual machine scale set in the Azure portal](https://docs.microsoft.com/en-us/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-autoscale-portal#:~:text=The%20ability%20to%20autoscale%20lets,instances%20in%20your%20scale%20set).
 
 ![alt text](images/autoscale.png)
 
