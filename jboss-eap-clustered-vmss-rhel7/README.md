@@ -15,8 +15,9 @@
 5. [Deployment Steps](#deployment-steps)
 6. [Deployment Time](#deployment-time)
 7. [Validation Steps](#validation-steps)
-8. [Troubleshooting](#troubleshooting)
-9. [Support](#support)
+8. [Scaling](#scaling)
+9. [Troubleshooting](#troubleshooting)
+10. [Support](#support)
 
 <!-- /TOC -->
 
@@ -182,6 +183,12 @@ The deployment takes approximately 10 minutes to complete.
 - Note that in the EAP Session Replication page of Load Balancer, the private IP displayed is that of one of the VMSS instance. If you click on Increment Counter/Refresh button when you stop the instance, restart instance or if the service the instance corresponding to the Private IP displayed is down, the private IP displayed will change to that of another VMSS instance but the Session ID remains the same which shows that the Session got replicated.
 
   ![alt text](images/eap-ses-rep.png)
+
+## Scaling
+
+In this template the Virtual Machine Scale Set is set to scale manually, but once the template has been deployed you can also change to custom scaling to automatically increase or decrease the number of VM instances. This automated and elastic behavior reduces the management overhead to monitor and optimize the performance. Once the template has been deployed go to your virtual machine scale set and under settings click on Scaling. In the Scaling blade change to "Custom autoscale" and follow instructions to [Automatically scale a virtual machine scale set in the Azure portal](https://docs.microsoft.com/en-us/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-autoscale-portal#:~:text=The%20ability%20to%20autoscale%20lets,instances%20in%20your%20scale%20set).
+
+![alt text](images/autoscale.png)
 
 ## Troubleshooting
 
