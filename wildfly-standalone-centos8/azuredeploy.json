@@ -33,6 +33,7 @@
     },
     "wildflyPassword": {
       "type": "securestring",
+      "minLength": 10,
       "metadata": {
         "description": "Password for WildFly Manager"
       }

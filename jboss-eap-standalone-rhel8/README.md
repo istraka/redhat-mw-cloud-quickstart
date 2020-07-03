@@ -2,9 +2,6 @@
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FSpektraSystems%2Fredhat-mw-cloud-quickstart%2Fmaster%2Fjboss-eap-standalone-rhel8%2Fazuredeploy.json" target="_blank">
     <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/>
 </a>
-<a href="http://armviz.io/#/?load=https%3A%2F%2Fraw.githubusercontent.com%2FSpektraSystems%2Fredhat-mw-cloud-quickstart%2Fmaster%2Fjboss-eap-standalone-rhel8%2Fazuredeploy.json" target="_blank">
-    <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/visualizebutton.png"/>
-</a>
 
 `Tags: JBoss, Red Hat, EAP 7.2, RHEL 8.0, Azure, Azure VM, JavaEE`
 
@@ -79,13 +76,17 @@ In order to use BYOS for RHEL OS Licensing, you need to have a valid Red Hat sub
     
 3. Accept the Marketplace Terms and Conditions in Azure for the RHEL BYOS Images. You can complete this by running Azure CLI commands, as given below. Refer to [Red Hat Enterprise Linux BYOS Gold Images in Azure documentation](https://docs.microsoft.com/en-us/azure/virtual-machines/workloads/redhat/byos) for more details on this.
 
-    3.1 Launch an Azure CLI session and authenticate with your Azure account. Refer to [Signing in with Azure CLI](https://docs.microsoft.com/en-us/cli/azure/authenticate-azure-cli?view=azure-cli-latest) for assistance.
+    3.1 Launch an Azure CLI session and make sure your CLI version is updated to version 2.8 or newer before running these commands. Check the CLI version by running the following command and if required update your [CLI version](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?view=azure-cli-latest&tabs=azure-cli)
 
-    3.2 Verify the RHEL BYOS images are available in your subscription by running the following CLI command. If you don't get any results here, please refer to #2 and ensure that your Azure subscription is activated for RHEL BYOS images.
+    `az version`
+    
+    3.2 Once your CLI session is ready, authenticate with your Azure account. Refer to [Signing in with Azure CLI](https://docs.microsoft.com/en-us/cli/azure/authenticate-azure-cli?view=azure-cli-latest) for assistance.
+
+    3.3 Verify the RHEL BYOS images are available in your subscription by running the following CLI command. If you don't get any results here, please refer to #2 and ensure that your Azure subscription is activated for RHEL BYOS images.
 
     `az vm image list --offer rhel-byos --all`
 
-    3.3 Run the following command to accept the Marketplace Terms for RHEL 8.0 BYOS.
+    3.4 Run the following command to accept the Marketplace Terms for RHEL 8.0 BYOS.
 
     `az vm image terms accept --publisher redhat --offer rhel-byos --plan rhel-lvm8`
 
@@ -108,7 +109,7 @@ No additional steps are required for this.
     
    - **RHSM Username** and password
 
-   - **RHSM Pool ID for EAP and/or RHEL OS**
+   - **RHSM Pool ID for JBoss EAP and/or RHEL OS**
 
 ## Deployment Steps
 
@@ -136,9 +137,9 @@ Build your environment with JBoss EAP 7.2 on a VM running RHEL 8.0 on Azure by c
 
    - **RHSM Password** - User account password for the Red Hat account.
 
-   - **RHSM Pool ID for EAP** - Red Hat Subscription Manager Pool ID (Should have EAP entitlement)
+   - **RHSM Pool ID for JBoss EAP** - Red Hat Subscription Manager Pool ID (Should have EAP entitlement)
 
-   - **RHSM Pool ID for RHEL OS** - Red Hat Subscription Manager Pool ID (Should have RHEL entitlement). This is mandatory when selecting BYOS RHEL OS as License Type.  This should be left blank when selecting RHEL OS License Type PAYG.
+   - **RHSM Pool ID for RHEL** - Red Hat Subscription Manager Pool ID (Should have RHEL entitlement). This is mandatory when selecting BYOS RHEL OS as License Type.  This should be left blank when selecting RHEL OS License Type PAYG.
 
    - **VM Size** - Choose the appropriate size of the VM from the dropdown options.
 
@@ -180,7 +181,7 @@ This section includes common errors faced during deployments and details on how 
 This quickstart template uses VM Custom Script Extension to deploy and configure JBoss EAP and configure the sample application. Your deployment can fail at this stage due to several reasons such as:
 
 - Invalid Red Hat Subscription credentials or EAP entitlement
-- Invalid EAP/RHEL OS entitlement Pool ID
+- Invalid JBoss EAP/RHEL OS entitlement Pool ID
 
 Follow the below steps to troubleshoot this further
 

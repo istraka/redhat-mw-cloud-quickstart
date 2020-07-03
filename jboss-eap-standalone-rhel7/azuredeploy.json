@@ -33,6 +33,7 @@
     },
     "jbossEAPPassword": {
       "type": "securestring",
+      "minLength": 10,
       "metadata": {
         "description": "Password for JBoss EAP Manager"
       }
@@ -136,16 +137,16 @@
     "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnetName'))]",
     "bootStorageAccountName": "[concat('bootstrg', uniqueString(resourceGroup().id))]",
     "storageAccountType": "Standard_LRS",
-    "linuxConfiguration": {	
-      "disablePasswordAuthentication": true,	
-      "ssh": {	
-        "publicKeys": [	
-          {	
-            "path": "[concat('/home/', parameters('adminUsername'), '/.ssh/authorized_keys')]",	
-            "keyData": "[parameters('adminPasswordOrSSHKey')]"	
-          }	
-        ]	
-      }	
+    "linuxConfiguration": {
+      "disablePasswordAuthentication": true,
+      "ssh": {
+        "publicKeys": [
+          {
+            "path": "[concat('/home/', parameters('adminUsername'), '/.ssh/authorized_keys')]",
+            "keyData": "[parameters('adminPasswordOrSSHKey')]"
+          }
+        ]
+      }
     }
   },
   "resources": [
