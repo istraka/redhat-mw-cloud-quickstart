@@ -127,7 +127,7 @@ Build your environment with JBoss EAP 7.3 cluster setup on 'n' number of RHEL 8.
     
     - **Authentication Type** - Type of authentication to use on the VM (password or SSH key).
 
-    - **Admin Password or SSH key** - User account password/ssh key data which is an SSH RSA public key for logging into the RHEL VM.
+    - **Admin Password or SSH key** - User account password or SSH key data which is an SSH RSA public key for logging into the RHEL VM.
 
     - **JBoss EAP Username** - Username for JBoss EAP Console.
 
@@ -157,7 +157,7 @@ The deployment takes approximately 10 minutes to complete.
 
 ## Validation Steps
 
-- Once the deployment is successful, go to the outputs section of the deployment to obtain the **app URL**.
+- Once the deployment is successful, go to the Outputs section of the deployment to obtain the **app URL**.
 
   ![alt text](images/outputs.png)
 
@@ -175,7 +175,7 @@ The deployment takes approximately 10 minutes to complete.
   
   ![alt text](images/eap-session-rep.png)
 
-- Note that in the EAP Session Replication page of Load Balancer, the private IP displayed is that of one of the VMs. If you click on *Increment Counter* or *Refresh* button, it will stop and restart the VM. If the VM service corresponding to the Private IP displayed is down, the Private IP displayed will change to that of another VM IP but the Session ID remains the same. This validates that the Session was replicated.
+- Note that in the EAP Session Replication page of Load Balancer, the private IP displayed is that of one of the VMs. If you click on *Increment Counter* or *Refresh* button when the service of the VM corresponding to the Private IP displayed is down (can be due to various reasons like VM in stopped state or VM restarting), the Private IP displayed will change to that of another VM IP but the Session ID remains the same. This validates that the Session was replicated.
 
   ![alt text](images/eap-ses-rep.png)
 
@@ -185,7 +185,7 @@ This section includes common errors faced during deployments and details on how 
 
 #### Azure Platform 
 
-- If the parameter criteria are not fulfilled (ex - the Admin Password criteria was not met) or if any mandatory parameters are not provided in the parameters section then the deployment will not start. The *Terms & Conditions* must be accepted before clicking on *Purchase*.
+- If the parameter criteria are not fulfilled (ex - the admin password criteria was not met) or if any mandatory parameters are not provided in the parameters section then the deployment will not start. The *Terms & Conditions* must be accepted before clicking on *Purchase*.
 
 - Once the deployment starts the resources being deployed will be visible on the deployment page. In the case of any deployment failure, after parameter validation process, a more detailed failure message is available. 
 

@@ -15,8 +15,7 @@
 6. [Deployment Time](#deployment-time)
 7. [Validation Steps](#validation-steps)
 8. [Troubleshooting](#troubleshooting)
-9. [Notes](#notes)
-10. [Support](#support)
+9. [Support](#support)
 
 <!-- /TOC -->
 
@@ -47,7 +46,7 @@ Following is the Architecture:
 
 ## Subscriptions and Costs 
 
-This template uses an Azure CentOS 8 image which is a Pay-As-You-Go (PAYG) VM image and does not require the user to license. The VM will be licensed automatically after the instance is launched for the first time and the user will be charged hourly in addition to Microsoft's Linux VM rates.  [Linux Virtual Machine](https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#linux) provides pricing details. WildFly is free to download and use and does not require a Red Hat Subscription or License.
+This ARM template uses an Azure CentOS 8 image which is a Pay-As-You-Go (PAYG) VM image and does not require the user to license. The VM will be licensed automatically after the instance is launched for the first time and the user will be charged hourly in addition to Microsoft's Linux VM rates. [Linux Virtual Machine](https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#linux) provides pricing details. WildFly is free to download and use and does not require a Red Hat Subscription or License.
 
 ## Prerequisites 
 
@@ -55,7 +54,7 @@ This template uses an Azure CentOS 8 image which is a Pay-As-You-Go (PAYG) VM im
 
 2. To create the VM, you will need:
 
-    - **Admin Username** and password/ssh key data which is an SSH RSA public key for your VM.
+    - **Admin Username** and password or SSH key data which is an SSH RSA public key for your VM.
 
     - **WildFly Username** and password to enable the WildFly Admin Console and Deployment method.
 
@@ -73,17 +72,17 @@ Build your environment with WildFly 18.0.1.Final on top of CentOS 8.0 on Azure i
 
     - **Admin Username** - User account name for logging into the CentOS VM.
 
-    - **Authentication Type** - Type of authentication to use on the Virtual Machine.
+    - **Authentication Type** - Type of authentication to use on the VM (password or SSH key).
 
-    - **Admin Password or SSH Key** - User account password/ssh key data which is an SSH RSA public key for logging into the CentOS VM.
+    - **Admin Password or SSH key** - User account password or SSH key data which is an SSH RSA public key for logging into the CentOS VM.
 
     - **WildFly Username** - Username for WildFly Console Manager.
 
     - **WildFly Password** - User account password for WildFly Console Manager.
 
-    - **VM Size** - Choose the appropriate size of the VM from the dropdown options.
+    - **VM Size** - Select the appropriate size of the VM from the dropdown options.
 
-    - Leave the rest of the parameter values (artifacts and Location) as is, accept the Terms & Conditions and proceed to purchase.
+    - Leave the rest of the parameter values (Artifacts and Location) as is, accept the Terms & Conditions and proceed to purchase.
 
 ## Deployment Time 
 
@@ -91,46 +90,54 @@ The deployment takes less than 10 minutes to complete.
 
 ## Validation Steps
 
-- Once the deployment is successful, go to the outputs section of the deployment to obtain the VM DNS name, App URL and the Admin Console URL:
+- Once the deployment is successful, go to the Outputs section of the deployment to obtain the **VM DNS name**, **app URL** and the **Admin Console URL**:
 
   ![alt text](images/output.png)
 
-- Paste the App URL that you copied from the output page in a browser to view the JBoss-EAP on Azure web page.
+- Paste the app URL that you copied from the Output page in a browser to view the JBoss-EAP on Azure web page.
 
   ![alt text](images/app.png)
 
-- Paste the Admin Console URL that you copied from the output page in a browser to access the WildFly Admin Console and enter the Wildfly Username and password to login.
+- Paste the Admin Console URL that you copied from the Output page in a browser to access the WildFly Admin Console and enter the Wildfly Username and password to login.
 
   ![alt text](images/wildfly-console.png)
 
 ## Troubleshooting
 
-This section provides guidance on issues you may run into when deploying this template. If any of parameter criteria is not fulfilled (ex.- the Admin Password criteria) or if any mandatory parameters are not provided in the parameters section, then the deployment will not start. Also ensure that you accept the Terms and Conditions mentioned before you click on Purchase. Once the deployment starts the resources being deployed will be visible on the deployment page and in the case of any deployment failure a more detailed failure message is available. If your deployment fails due to the script extension, you will see that the VM is already deployed so please login to the VM to check the logs for further troubleshooting. The logs are stored in the file wildfly.install.log in path /var/lib/waagent/custom-script/download/0. This log file gives you a clear message on why the script failed and exited. Use these logs to detect and correct errors. Run the following commands to check the logs once you login to the VM.
+This section includes common errors faced during deployments and details on how you can troubleshoot these errors. 
 
-- Switch to Root user to avoid permission issues
+#### Azure Platform
 
-`sudo su -`
+- If the parameter criteria are not fulfilled (ex - the admin password criteria was not met) or if any mandatory parameters are not provided in the parameters section then the deployment will not start. The *Terms & Conditions* must be accepted before clicking on *Purchase*.
 
-- Enter you VM admin Password if prompted. It might prompt you for password only if you selected the Authentication Type as Password.
+- Once the deployment starts the resources being deployed will be visible on the deployment page. In the case of any deployment failure, after parameter validation process, a more detailed failure message is available.
 
-- Move to the directory where the logs are stored
+- If your deployment fails at the **VM Custom Script Extension** resource, a more detailed failure message is available in the VM log file. Please refer to the next section for further troubleshooting.
 
-`cd /var/lib/waagent/custom-script/download/0`
+#### Troubleshooting EAP deployment extension
 
-- View the logs in wildfly.install.log
+Follow the steps below to troubleshoot VM Custom Script Extension failures further:
 
-`more wildfly.install.log`
+1. Log into the provisioned VM through SSH. You can retrieve the Public IP of the VM using the Azure portal VM *Overview* page.
 
-## Notes
+2. Switch to root user
 
-If you're interested in Red Hat JBoss EAP Azure Quickstart templates, you can find it here:
+    `sudo su -`
 
-*  <a href="https://github.com/SpektraSystems/redhat-mw-cloud-quickstart/tree/master/jboss-eap-standalone-rhel7" target="_blank"> JBoss EAP 7.2 on RHEL 7.7 (stand-alone VM)</a> - Standalone JBoss EAP 7.2 with a sample web app on a RHEL 7.7 Azure VM.
+3. Enter your VM admin password if prompted.
 
-*  <a href="https://github.com/SpektraSystems/redhat-mw-cloud-quickstart/tree/master/jboss-eap-standalone-rhel8" target="_blank"> JBoss EAP 7.2 on RHEL 8.0 (stand-alone VM)</a> - Standalone JBoss EAP 7.2 with a sample web app on a RHEL 8.0 Azure VM.
+4. Change directory to logging directory
 
-*  <a href="https://github.com/SpektraSystems/redhat-mw-cloud-quickstart/tree/master/jboss7.3-eap-standalone-rhel8" target="_blank"> JBoss EAP 7.3 on RHEL 8.0 (stand-alone VM)</a> - Standalone JBoss EAP 7.3 with a sample web app on a RHEL 8.0 Azure VM.
+    `cd /var/lib/waagent/custom-script/download/0`
+
+5. Review the logs in wildfly.install.log log file.
+
+    `more wildfly.install.log`
+
+This log file will have details that include deployment failure reason and possible solutions.
+
+Please refer to [Using the Azure Custom Script Extension Version 2 with Linux VMs](https://docs.microsoft.com/en-us/azure/virtual-machines/extensions/custom-script-linux) for more details on troubleshooting VM custom script extensions.
 
 ## Support 
 
-For any support related questions, issues or customization requirements, please contact info@spektrasystems.com
+For any support related questions, issues or customization requirements, please contact [Spektra Systems](info@spektrasystems.com) or [Red Hat Support](https://www.redhat.com/en/services/support).

@@ -40,7 +40,7 @@
     },
     "jbossEAPPassword": {
       "type": "securestring",
-      "minLength": 10,
+      "minLength": 12,
       "metadata": {
         "description": "Password for the JBoss EAP Manager"
       }
