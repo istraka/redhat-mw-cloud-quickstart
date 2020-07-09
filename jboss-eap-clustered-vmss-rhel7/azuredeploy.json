@@ -21,6 +21,7 @@
     },
     "adminPasswordOrSSHKey": {
         "type": "securestring",
+        "minLength": 12,
         "metadata": {
           "description": "Password or SSH key for the Virtual Machine"
         }
