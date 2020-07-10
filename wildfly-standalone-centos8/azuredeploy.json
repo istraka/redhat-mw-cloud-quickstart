@@ -87,9 +87,6 @@
     "addressPrefix": "10.0.0.0/16",
     "subnetName": "centosvm-subnet",
     "subnetPrefix": "10.0.0.0/24",
-    "publicIPAddressName": "centos-vm-pip",
-    "publicIPAddressType": "Dynamic",
-    "publicIPAddressDNSName" : "[concat('centos-vm-pip-', uniqueString(resourceGroup().id))]",
     "vmName": "centos-vm",
     "virtualNetworkName": "centosvm-vnet",
     "networkSecurityGroupName": "centosvm-nsg",
@@ -136,21 +133,6 @@
           "name": "[variables('storageAccountType')]"
       },
       "kind": "Storage"
-    },
-    {
-      "apiVersion": "2019-11-01",
-      "type": "Microsoft.Network/publicIPAddresses",
-      "name": "[variables('publicIPAddressName')]",
-      "location": "[parameters('location')]",
-      "tags": {
-                "QuickstartName": "WildFly 18 on CentOS 8 (stand-alone VM)"
-            },
-      "properties": {
-        "publicIPAllocationMethod": "[variables('publicIPAddressType')]",
-        "dnsSettings": {
-          "domainNameLabel": "[variables('publicIPAddressDNSName')]"
-        }
-      }
     },
     {
       "apiVersion": "2019-11-01",
@@ -243,7 +225,6 @@
       "name": "[variables('nicName')]",
       "location": "[parameters('location')]",
       "dependsOn": [
-        "[concat('Microsoft.Network/publicIPAddresses/', variables('publicIPAddressName'))]",
         "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]",
         "[concat('Microsoft.Network/networkSecurityGroups/', variables('networkSecurityGroupName'))]"
       ],
@@ -259,9 +240,6 @@
             "name": "ipconfig1",
             "properties": {
               "privateIPAllocationMethod": "Dynamic",
-              "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))]"
-              },
               "subnet": {
                 "id": "[variables('subnetRef')]"
               }
@@ -346,17 +324,5 @@
     }
   ],
   "outputs": {
-    "vm DNS Name": {
-      "type": "string",
-      "value": "[reference(resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))).dnsSettings.fqdn]"
-    },
-    "appURL": {
-      "type": "string",
-      "value": "[concat('http://', reference(variables('publicIPAddressName')).dnsSettings.fqdn, ':8080/JBoss-EAP_on_Azure/')]"
-    },
-    "adminConsole": {
-      "type": "string",
-      "value": "[concat('http://', reference(variables('publicIPAddressName')).dnsSettings.fqdn, ':9990')]"
-    }
   }
 }
