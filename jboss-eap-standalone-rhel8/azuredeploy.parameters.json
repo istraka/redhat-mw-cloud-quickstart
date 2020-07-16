@@ -5,7 +5,7 @@
       "adminUsername": {
         "value": "GEN-UNIQUE"
       },
-      "adminPasswordOrKey": {
+      "adminPasswordOrSSHKey": {
         "value": "GEN-PASSWORD"
       },
       "jbossEAPUserName": {
@@ -13,6 +13,15 @@
       },
       "jbossEAPPassword": {
         "value": "GEN-PASSWORD"
+      },
+      "rhsmUserName": {
+        "value": "changeme"
+      },
+      "rhsmPassword": {
+        "value": "changeme"
+      },
+      "rhsmPoolEAP": {
+        "value": "changeme"
       }
   }
 }

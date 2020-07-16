@@ -120,7 +120,8 @@
         "description": "Number of VM instances (100 or less)"
       },
       "maxValue": 100,
-      "minValue": 2
+      "minValue": 2,
+      "defaultValue": 2
     },
     "vmSize": {
       "type": "string",
