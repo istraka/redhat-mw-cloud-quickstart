@@ -15,13 +15,13 @@
         "value": "GEN-PASSWORD"
       },
       "rhsmUserName": {
-        "value": "changeme"
+        "value": "GEN-UNIQUE"
       },
       "rhsmPassword": {
-        "value": "changeme"
+        "value": "GEN-PASSWORD"
       },
       "rhsmPoolEAP": {
-        "value": "changeme"
+        "value": "GEN-UNIQUE"
       }
   }
 }
