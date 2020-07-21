@@ -145,20 +145,6 @@
       "properties": {
         "securityRules": [
           {
-            "name": "default-allow-ssh",
-            "properties": {
-              "description": "Allow SSH",
-              "protocol": "Tcp",
-              "sourcePortRange": "*",
-              "destinationPortRange": "22",
-              "sourceAddressPrefix": "Internet",
-              "destinationAddressPrefix": "*",
-              "access": "Allow",
-              "priority": 1000,
-              "direction": "Inbound"
-            }
-          },
-          {
             "name": "default-allow-wildfly-admin",
             "properties": {
               "description": "Allow WildFly/ADMIN",

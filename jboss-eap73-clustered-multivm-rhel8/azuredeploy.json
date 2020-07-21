@@ -225,19 +225,6 @@
             }
           },
           {
-              "name": "default-allow-22",
-              "properties": {
-                "priority": 340,
-                "access": "Allow",
-                "direction": "Inbound",
-                "destinationPortRange": "22",
-                "protocol": "Tcp",
-                "sourceAddressPrefix": "*",
-                "sourcePortRange": "*",
-                "destinationAddressPrefix": "*"
-              }
-          },
-          {
             "name": "http_9990",
             "properties": {
               "priority": 360,
