@@ -52,6 +52,8 @@ flag=$?; if [ $flag != 0 ] ; then echo  "ERROR! JBoss EAP installation Failed" |
 
 echo "sed -i 's/PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config" | adddate >> jbosseap.install.log
 sed -i 's/PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config | adddate >> jbosseap.install.log 2>&1
+echo "echo "AllowTcpForwarding no" >> /etc/ssh/sshd_config" | adddate >> jbosseap.install.log
+echo "AllowTcpForwarding no" >> /etc/ssh/sshd_config | adddate >> jbosseap.install.log 2>&1
 echo "systemctl restart sshd" | adddate >> jbosseap.install.log
 systemctl restart sshd | adddate >> jbosseap.install.log 2>&1
 
