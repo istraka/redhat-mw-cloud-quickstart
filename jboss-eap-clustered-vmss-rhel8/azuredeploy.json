@@ -527,9 +527,5 @@
     }
    ],
    "outputs": {
-     "appURL": {
-      "type": "string",
-      "value": "[concat('http://', reference(variables('nicName')).ipConfigurations[0].properties.privateIPAddress, '/eap-session-replication/')]"
-     }
     }
  }
