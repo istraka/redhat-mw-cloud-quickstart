@@ -163,14 +163,6 @@
     "subnetPrefix": "10.0.0.0/24",
     "virtualNetworkName": "jbosseap-vnet",
     "backendPoolName": "jbosseap-server",
-    "natPoolName1": "natpool1",
-    "natPoolName2": "natpool2",
-    "natStartPort1": 50000,
-    "natEndPort1": 50120,
-    "natBackendPort": 22,
-    "natStartPort2": 9000,
-    "natEndPort2": 9120,
-    "adminBackendPort": 9990,
     "frontendName" : "LoadBalancerFrontEnd",
     "healthProbe" : "eap-lb-health",
     "bootStorageAccountName": "[concat('bootstrg', uniqueString(resourceGroup().id))]",
@@ -300,14 +292,6 @@
                           {
                             "id": "[resourceId('Microsoft.Network/loadBalancers/backendAddressPools', variables('loadBalancersName'), variables('backendPoolName'))]"
                           }
-                        ],
-                        "loadBalancerInboundNatPools": [
-                          {
-                            "id": "[resourceId('Microsoft.Network/loadBalancers/inboundNatPools', variables('loadBalancersName'), variables('natPoolName1'))]"
-                          },
-                          {
-                            "id": "[resourceId('Microsoft.Network/loadBalancers/inboundNatPools', variables('loadBalancersName'), variables('natPoolName2'))]"
-                          }
                         ]
                       }
                     }
@@ -412,14 +396,6 @@
                           {
                             "id": "[resourceId('Microsoft.Network/loadBalancers/backendAddressPools', variables('loadBalancersName'), variables('backendPoolName'))]"
                           }
-                        ],
-                        "loadBalancerInboundNatPools": [
-                          {
-                            "id": "[resourceId('Microsoft.Network/loadBalancers/inboundNatPools', variables('loadBalancersName'), variables('natPoolName1'))]"
-                          },
-                          {
-                            "id": "[resourceId('Microsoft.Network/loadBalancers/inboundNatPools', variables('loadBalancersName'), variables('natPoolName2'))]"
-                          }
                         ]
                       }
                     }
@@ -491,32 +467,6 @@
        "name": "[variables('backendPoolName')]"
       }
      ],
-     "inboundNatPools": [
-      {
-       "name": "[variables('natPoolName1')]",
-       "properties": {
-        "frontendIPConfiguration": {
-         "id": "[resourceId('Microsoft.Network/loadBalancers/frontendIPConfigurations', variables('loadBalancersName'), variables('frontendName'))]"
-        },
-        "protocol": "Tcp",
-        "frontendPortRangeStart": "[variables('natStartPort1')]",
-        "frontendPortRangeEnd": "[variables('natEndPort1')]",
-        "backendPort": "[variables('natBackendPort')]"
-       }
-      },
-      {
-       "name": "[variables('natPoolName2')]",
-       "properties": {
-         "frontendIPConfiguration": {
-          "id": "[resourceId('Microsoft.Network/loadBalancers/frontendIPConfigurations', variables('loadBalancersName'), variables('frontendName'))]"
-         },
-         "protocol": "Tcp",
-         "frontendPortRangeStart": "[variables('natStartPort2')]",
-         "frontendPortRangeEnd": "[variables('natEndPort2')]",
-         "backendPort": "[variables('adminBackendPort')]"
-       }
-      }
-     ],
      "loadBalancingRules": [
       {
        "name": "[concat(variables('loadBalancersName'), '-rule')]",
@@ -577,5 +527,9 @@
     }
    ],
    "outputs": {
+     "appURL": {
+      "type": "string",
+      "value": "[concat('http://', reference(variables('nicName')).ipConfigurations[0].properties.privateIPAddress, '/eap-session-replication/')]"
+     }
     }
  }

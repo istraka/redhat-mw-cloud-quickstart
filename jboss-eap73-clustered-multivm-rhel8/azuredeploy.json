@@ -171,7 +171,6 @@
         ]
       }
     },
-    "networkSecurityGroupName": "jbosseap-nsg",
     "storageAccountName": "[concat('jbosstrg', uniqueString(resourceGroup().id))]"
   },
   "resources": [
@@ -202,91 +201,10 @@
       "kind": "Storage"
     },
     {
-      "type": "Microsoft.Network/networkSecurityGroups",
-      "apiVersion": "2019-08-01",
-      "name": "[variables('networkSecurityGroupName')]",
-      "location": "[parameters('location')]",
-      "tags": {
-                "QuickstartName": "JBoss EAP 7.3 on RHEL 8.0 (clustered, multi-VM)"
-            },
-      "properties": {
-        "securityRules": [
-          {
-            "name": "Port_8080",
-            "properties": {
-              "priority": 350,
-              "access": "Allow",
-              "direction": "Inbound",
-              "destinationPortRange": "8080",
-              "protocol": "Tcp",
-              "sourceAddressPrefix": "*",
-              "sourcePortRange": "*",
-              "destinationAddressPrefix": "*"
-            }
-          },
-          {
-              "name": "default-allow-22",
-              "properties": {
-                "priority": 340,
-                "access": "Allow",
-                "direction": "Inbound",
-                "destinationPortRange": "22",
-                "protocol": "Tcp",
-                "sourceAddressPrefix": "*",
-                "sourcePortRange": "*",
-                "destinationAddressPrefix": "*"
-              }
-          },
-          {
-            "name": "http_9990",
-            "properties": {
-              "priority": 360,
-              "access": "Allow",
-              "direction": "Inbound",
-              "destinationPortRange": "9990",
-              "protocol": "Tcp",
-              "sourceAddressPrefix": "*",
-              "sourcePortRange": "*",
-              "destinationAddressPrefix": "*"
-            }
-          },
-          {
-            "name": "port_45700",
-            "properties": {
-              "priority": 370,
-              "access": "Allow",
-              "direction": "Inbound",
-              "destinationPortRange": "45700",
-              "protocol": "Tcp",
-              "sourceAddressPrefix": "*",
-              "sourcePortRange": "*",
-              "destinationAddressPrefix": "*"
-            }
-          },
-          {
-            "name": "Port_7600",
-            "properties": {
-              "priority": 380,
-              "access": "Allow",
-              "direction": "Inbound",
-              "destinationPortRange": "7600",
-              "protocol": "Tcp",
-              "sourceAddressPrefix": "*",
-              "sourcePortRange": "*",
-              "destinationAddressPrefix": "*"
-            }
-          }
-        ]
-      }
-    },
-    {
       "apiVersion": "2019-11-01",
       "type": "Microsoft.Network/virtualNetworks",
       "name": "[variables('virtualNetworkName')]",
       "location": "[parameters('location')]",
-      "dependsOn": [
-        "[resourceId('Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]"
-      ],
       "tags": {
                 "QuickstartName": "JBoss EAP 7.3 on RHEL 8.0 (clustered, multi-VM)"
             },
@@ -300,10 +218,7 @@
           {
             "name": "[variables('subnetName')]",
             "properties": {
-              "addressPrefix": "[variables('subnetPrefix')]",
-              "networkSecurityGroup": {
-                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]"
-              }
+              "addressPrefix": "[variables('subnetPrefix')]"
             }
           }
         ]
@@ -660,5 +575,9 @@
     }
   ],
   "outputs": {
+    "appURL": {
+      "type": "string",
+      "value": "[concat('http://', reference(variables('nicName')).ipConfigurations[0].properties.privateIPAddress, '/eap-session-replication/')]"
     }
+  }
 }

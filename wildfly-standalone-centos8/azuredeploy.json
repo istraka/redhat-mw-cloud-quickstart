@@ -89,7 +89,6 @@
     "subnetPrefix": "10.0.0.0/24",
     "vmName": "centos-vm",
     "virtualNetworkName": "centosvm-vnet",
-    "networkSecurityGroupName": "centosvm-nsg",
     "scriptFolder": "scripts",
     "scriptFileName": "wildfly-setup.sh",
     "bootStorageAccountName": "[concat('bootstrg', uniqueString(resourceGroup().id))]",
@@ -136,67 +135,9 @@
     },
     {
       "apiVersion": "2019-11-01",
-      "type": "Microsoft.Network/networkSecurityGroups",
-      "name": "[variables('networkSecurityGroupName')]",
-      "location": "[parameters('location')]",
-      "tags": {
-                "QuickstartName": "WildFly 18 on CentOS 8 (stand-alone VM)"
-            },
-      "properties": {
-        "securityRules": [
-          {
-            "name": "default-allow-ssh",
-            "properties": {
-              "description": "Allow SSH",
-              "protocol": "Tcp",
-              "sourcePortRange": "*",
-              "destinationPortRange": "22",
-              "sourceAddressPrefix": "Internet",
-              "destinationAddressPrefix": "*",
-              "access": "Allow",
-              "priority": 1000,
-              "direction": "Inbound"
-            }
-          },
-          {
-            "name": "default-allow-wildfly-admin",
-            "properties": {
-              "description": "Allow WildFly/ADMIN",
-              "protocol": "Tcp",
-              "sourcePortRange": "*",
-              "destinationPortRange": "9990",
-              "sourceAddressPrefix": "Internet",
-              "destinationAddressPrefix": "*",
-              "access": "Allow",
-              "priority": 1020,
-              "direction": "Inbound"
-            }
-          },
-          {
-            "name": "default-allow-wildfly",
-            "properties": {
-              "description": "Allow WEB/WildFly",
-              "protocol": "Tcp",
-              "sourcePortRange": "*",
-              "destinationPortRange": "8080",
-              "sourceAddressPrefix": "Internet",
-              "destinationAddressPrefix": "*",
-              "access": "Allow",
-              "priority": 1010,
-              "direction": "Inbound"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "apiVersion": "2019-11-01",
       "type": "Microsoft.Network/virtualNetworks",
       "name": "[variables('virtualNetworkName')]",
       "location": "[parameters('location')]",
-      "dependsOn": [
-        "[concat('Microsoft.Network/networkSecurityGroups/', variables('networkSecurityGroupName'))]"
-      ],
       "tags": {
                 "QuickstartName": "WildFly 18 on CentOS 8 (stand-alone VM)"
             },
@@ -210,10 +151,7 @@
           {
             "name": "[variables('subnetName')]",
             "properties": {
-              "addressPrefix": "[variables('subnetPrefix')]",
-              "networkSecurityGroup": {
-                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]"
-              }
+              "addressPrefix": "[variables('subnetPrefix')]"
             }
           }
         ]
@@ -225,16 +163,12 @@
       "name": "[variables('nicName')]",
       "location": "[parameters('location')]",
       "dependsOn": [
-        "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]",
-        "[concat('Microsoft.Network/networkSecurityGroups/', variables('networkSecurityGroupName'))]"
+        "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]"
       ],
       "tags": {
                 "QuickstartName": "WildFly 18 on CentOS 8 (stand-alone VM)"
             },
       "properties": {
-        "networkSecurityGroup": {
-          "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]"
-        },
         "ipConfigurations": [
           {
             "name": "ipconfig1",
@@ -324,5 +258,17 @@
     }
   ],
   "outputs": {
+    "vm Private IP Address": {
+        "type": "string",
+        "value": "[reference(variables('nicName')).ipConfigurations[0].properties.privateIPAddress]"
+    },
+    "appURL": {
+      "type": "string",
+      "value": "[concat('http://', reference(variables('nicName')).ipConfigurations[0].properties.privateIPAddress, ':8080/JBoss-EAP_on_Azure/')]"
+    },
+    "adminConsole": {
+      "type": "string",
+      "value": "[concat('http://', reference(variables('nicName')).ipConfigurations[0].properties.privateIPAddress, ':9990')]"
+    }
   }
 }

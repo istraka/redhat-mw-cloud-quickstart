@@ -52,6 +52,11 @@ echo "yum groupinstall -y jboss-eap7" | adddate >> jbosseap.install.log
 yum groupinstall -y jboss-eap7 >> jbosseap.install.log 2>&1
 flag=$?; if [ $flag != 0 ] ; then echo  "ERROR! JBoss EAP installation Failed" | adddate >> jbosseap.install.log; exit $flag;  fi
 
+echo "echo "AllowTcpForwarding no" >> /etc/ssh/sshd_config" | adddate >> jbosseap.install.log
+echo "AllowTcpForwarding no" >> /etc/ssh/sshd_config | adddate >> jbosseap.install.log 2>&1
+echo "systemctl restart sshd" | adddate >> jbosseap.install.log
+systemctl restart sshd | adddate >> jbosseap.install.log 2>&1
+
 echo "Start JBoss-EAP service" | adddate >> jbosseap.install.log
 echo "systemctl enable eap7-standalone.service" | adddate >> jbosseap.install.log
 systemctl enable eap7-standalone.service | adddate >> jbosseap.install.log 2>&1
