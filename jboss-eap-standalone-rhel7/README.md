@@ -148,33 +148,31 @@ The deployment takes approximately 10 minutes to complete.
 
 ## Validation Steps
 
-- Once the deployment is successful, go to the outputs section of the deployment to obtain the **Private IP of your RHEL VM**, **app URL** and the **Admin Console URL**:
+Once the deployment is successful, go to the outputs section of the deployment to obtain the **Private IP of your RHEL VM**, **app URL** and the **Admin Console URL**. You can access the RHEL VM and the application by following methods :
 
   ![alt text](images/output.png)
 
-- You can access the RHEL VM and the application by following methods :
-
 1. You can access the RHEL VM and JBoss EAP Admin Console using Public IP.
 
-  - The RHEL VM you created do not have a Public IP associated with it. You can [create a Public IP](https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-public-ip-address#create-a-public-ip-address) for accessing the VM and [associate the Public IP to the VM](https://docs.microsoft.com/en-us/azure/virtual-network/associate-public-ip-address-vm). All this can be done using Azure Portal or Powershell commands or CLI commands.
+   - The RHEL VM you created do not have a Public IP associated with it. You can [create a Public IP](https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-public-ip-address#create-a-public-ip-address) for accessing the VM and [associate the Public IP to the VM](https://docs.microsoft.com/en-us/azure/virtual-network/associate-public-ip-address-vm). All this can be done using Azure Portal or Powershell commands or CLI commands.
 
-  - Now to obtain the Public IP of a VM, go to the VM details page and copy the public IP. You can use this Public IP to access the VM and JBoss EAP Admin Console.
+   - Now to obtain the Public IP of a VM, go to the VM details page and copy the Public IP. You can use this Public IP to access the VM and JBoss EAP Admin Console.
 
-  - To view the JBoss-EAP on Azure web page, open a web browser and go to *http://<PUBLIC_HOSTNAME>:8080/JBoss-EAP_on_Azure/* and you should see the application running.
+   - To view the JBoss-EAP on Azure web page, open a web browser and go to *http://<PUBLIC_HOSTNAME>:8080/JBoss-EAP_on_Azure/* and you should see the application running.
 
     ![alt text](images/app.png)
 
-  - To log into the JBoss EAP Admin Console, open a web browser and go to *http://<PUBLIC_HOSTNAME>:9990*. Enter the JBoss EAP username and password to login.
+   - To log into the JBoss EAP Admin Console, open a web browser and go to *http://<PUBLIC_HOSTNAME>:9990*. Enter the JBoss EAP username and password to login.
 
     ![alt text](images/admin.png)
 
 2. Create a Jump VM in a different subnet (new subnet) in the same Virtual Network and access the RHEL VM via Jump VM.
 
-   - [Add a new subnet](https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-manage-subnet#add-a-subnet) in the existing VNET which contains the RHEL VM.
+   - [Add a new subnet](https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-manage-subnet#add-a-subnet) in the existing Virtual Network which contains the RHEL VM.
 
    - [Create a Windows Virtual Machine](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/quick-create-portal#create-virtual-machine) in Azure in the same Resource Group as RHEL VM. Provide the required details and you can leave other configurations as default except for the Virtual Network and subnet. Make sure you select the existing Virtual Network in the RG and select the subnet you just created in the step above.
 
-   - Once the Jump VM is successfully deployed, go to the VM details page and copy the public IP. Log into the Jump VM using this public IP.
+   - Once the Jump VM is successfully deployed, go to the VM details page and copy the Public IP. Log into the Jump VM using this Public IP.
 
    - Copy the Private IP of RHEL VM from the output page and use it to log into the RHEL VM from the Jump VM.
 
@@ -190,9 +188,9 @@ The deployment takes approximately 10 minutes to complete.
 
    - [Create a Windows Virtual Machine](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/quick-create-portal#create-virtual-machine) in Azure in the new Resource Group ideally in the same location as RHEL VM. Provide the required details and you can leave other configurations as default. This will create the Jump VM in a new Virtual Network.
 
-   - Now you can [peer the Virtual Networks](https://docs.microsoft.com/en-us/azure/virtual-network/tutorial-connect-virtual-networks-portal#peer-virtual-networks) which are assocaited with the RHEL VM and the Jump VM. Once these Virtual Network peering both the VMs can communicate with each other.
+   - Now you can [Peer the Virtual Networks](https://docs.microsoft.com/en-us/azure/virtual-network/tutorial-connect-virtual-networks-portal#peer-virtual-networks) which are assocaited with the RHEL VM and the Jump VM. Once these Virtual Network peering is successful, both the VMs can communicate with each other.
 
-   - Once the Jump VM is successfully deployed, go to the VM details page and copy the public IP. Log into the Jump VM using this public IP.
+   - Once the Jump VM is successfully deployed, go to the VM details page and copy the Public IP. Log into the Jump VM using this Public IP.
 
    - Copy the Private IP of RHEL VM from the output page and use it to log into the RHEL VM from the Jump VM.
 
@@ -212,7 +210,7 @@ The deployment takes approximately 10 minutes to complete.
 
    - Under *Configuration* section add routing rules to access the ports 8080 and 9990 of your RHEL VM.
 
-   - Once the Application Gateway is created with the required configurations, go to the Application Gateway overview page and copy the public IP of the Application Gateway.
+   - Once the Application Gateway is created with the required configurations, go to the Application Gateway overview page and copy the Public IP of the Application Gateway.
 
    - To view the JBoss-EAP on Azure web page, open a web browser and go to *http://<PUBLIC_IP_AppGateway>:8080/JBoss-EAP_on_Azure/* and you should see the application running.
 
@@ -230,7 +228,7 @@ The deployment takes approximately 10 minutes to complete.
 
    - Now you can add your RHEL VM to the backend pool of the Load Balancer by clicking on *Backend pools* under settings section and then select the backend pool you created in the step above. Select Virtual machine corresponding to the option *Associated to* and then add your RHEL VM.
 
-   - You can obtain the Public IP of the Load Balancer, go to the Load Balancer overview page and copy the public IP of the Load Balancer.
+   - You can obtain the Public IP of the Load Balancer, go to the Load Balancer overview page and copy the Public IP of the Load Balancer.
 
    - To view the JBoss-EAP on Azure web page, open a web browser and go to *http://<PUBLIC_IP_LoadBalancer>:8080/JBoss-EAP_on_Azure/* and you should see the application running.
 
