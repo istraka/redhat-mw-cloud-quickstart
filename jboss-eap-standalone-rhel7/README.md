@@ -148,13 +148,13 @@ The deployment takes approximately 10 minutes to complete.
 
 ## Validation Steps
 
-Once the deployment is successful, go to the outputs section of the deployment to obtain the **Private IP of your RHEL VM**, **app URL** and the **Admin Console URL**. You can access the RHEL VM and the application by following methods :
+Once the deployment is successful, go to the outputs section of the deployment to obtain the **Private IP of your RHEL VM**, **app URL** and the **Admin Console URL**. You can access the RHEL VM and the application by the following methods :
 
   ![alt text](images/output.png)
 
 1. You can access the RHEL VM and JBoss EAP Admin Console using Public IP.
 
-   - The RHEL VM you created do not have a Public IP associated with it. You can [create a Public IP](https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-public-ip-address#create-a-public-ip-address) for accessing the VM and [associate the Public IP to the VM](https://docs.microsoft.com/en-us/azure/virtual-network/associate-public-ip-address-vm). All this can be done using Azure Portal or Powershell commands or CLI commands.
+   - The RHEL VM you created does not have a Public IP associated with it. You can [create a Public IP](https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-public-ip-address#create-a-public-ip-address) for accessing the VM and [associate the Public IP to the VM](https://docs.microsoft.com/en-us/azure/virtual-network/associate-public-ip-address-vm). All this can be done using Azure Portal or Powershell commands or CLI commands.
 
    - Now to obtain the Public IP of a VM, go to the VM details page and copy the Public IP. You can use this Public IP to access the VM and JBoss EAP Admin Console.
 
@@ -188,7 +188,7 @@ Once the deployment is successful, go to the outputs section of the deployment t
 
    - [Create a Windows Virtual Machine](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/quick-create-portal#create-virtual-machine) in Azure in the new Resource Group ideally in the same location as RHEL VM. Provide the required details and you can leave other configurations as default. This will create the Jump VM in a new Virtual Network.
 
-   - Now you can [Peer the Virtual Networks](https://docs.microsoft.com/en-us/azure/virtual-network/tutorial-connect-virtual-networks-portal#peer-virtual-networks) which are assocaited with the RHEL VM and the Jump VM. Once these Virtual Network peering is successful, both the VMs can communicate with each other.
+   - Now you can [Peer the Virtual Networks](https://docs.microsoft.com/en-us/azure/virtual-network/tutorial-connect-virtual-networks-portal#peer-virtual-networks) which are associated with the RHEL VM and the Jump VM. Once these Virtual Network peering is successful, both the VMs can communicate with each other.
 
    - Once the Jump VM is successfully deployed, go to the VM details page and copy the Public IP. Log into the Jump VM using this Public IP.
 
@@ -204,7 +204,7 @@ Once the deployment is successful, go to the outputs section of the deployment t
 
 4. Using an Application Gateway
 
-   - [Create an Application Gateway](https://docs.microsoft.com/en-us/azure/application-gateway/quick-create-portal#create-an-application-gateway) in a different subnet to access the ports of the RHEL VM. The subnet where you are planning to add the Application Gateway, must only contain Application Gateway.
+   - [Create an Application Gateway](https://docs.microsoft.com/en-us/azure/application-gateway/quick-create-portal#create-an-application-gateway) in a different subnet to access the ports of the RHEL VM. The subnet where you are planning to add the Application Gateway must only contain Application Gateway.
 
    - Under *Frontends* section, make sure you select Public IP or both and provide the required details. Under *Backends* section, select **Add a backend pool** option and add your RHEL VM to the backend pool of the Application Gateway.
 
