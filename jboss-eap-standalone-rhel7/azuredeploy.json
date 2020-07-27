@@ -25,6 +25,52 @@
         "description": "Password or SSH key for the Virtual Machine"	
       }	
     },
+    "virtualNetworkNewOrExisting": {
+      "defaultValue": "new",
+      "type": "String",
+      "allowedValues": [
+        "new",		
+        "existing"
+      ],
+      "metadata": {
+        "description": "Determines whether or not a new virtual network should be provisioned."
+      }
+    },
+    "virtualNetworkName": {
+      "defaultValue": "jbosseap-vnet",
+      "type": "String",
+      "metadata": {
+        "description": "Name of the virtual network"
+      }
+    },
+    "addressPrefix": {
+      "defaultValue": "10.0.0.0/16",
+      "type": "String",
+      "metadata": {
+        "description": "Address prefix of the virtual network"
+      }
+    },
+    "subnetName": {
+      "defaultValue": "jbosseap-server-subnet",
+      "type": "String",
+      "metadata": {
+        "description": "Name of the subnet"
+      }
+    },
+    "subnetPrefix": {
+      "defaultValue": "10.0.0.0/24",
+      "type": "String",
+      "metadata": {
+        "description": "Subnet prefix of the virtual network"
+      }
+    },
+    "virtualNetworkResourceGroupName": {
+      "defaultValue": "[resourceGroup().name]",
+      "type": "String",
+      "metadata": {
+        "description": "Name of the resource group for the existing virtual network"
+      }
+    },
     "jbossEAPUserName": {
       "type": "string",
       "metadata": {
@@ -38,16 +84,16 @@
         "description": "Password for JBoss EAP Manager"
       }
     },
-    "rhelOSLicenseType": {	
+    "rhelOSLicenseType": {
       "type": "string",	
-      "defaultValue": "PAYG",	
-      "allowedValues": [	
+      "defaultValue": "PAYG",
+      "allowedValues": [
         "PAYG",		
         "BYOS"
-      ],	
-      "metadata": {	
+      ],
+      "metadata": {
         "description": "Select the of RHEL OS License Type for deploying your Virtual Machine. Please read through the guide and make sure you follow the steps mentioned under section 'Licenses, Subscriptions and Costs' if you are selecting BYOS"
-      }	
+      }
     },
     "rhsmUserName": {
       "type": "string",
@@ -122,15 +168,11 @@
     "imageOfferBYOS": "rhel-byos",
     "imageSkuBYOS": "rhel-lvm77",
     "nicName": "[concat(uniquestring(resourceGroup().id), '-nic')]",
-    "addressPrefix": "10.0.0.0/16",
-    "subnetName": "jbosseap-server-subnet",
-    "subnetPrefix": "10.0.0.0/24",
     "vmNamePAYG": "jbosseap-payg-server",
     "vmNameBYOS": "jbosseap-byos-server",
-    "virtualNetworkName": "jbosseap-vnet",
     "scriptFolder": "scripts",
     "scriptFileName": "jbosseap-setup-redhat.sh",
-    "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnetName'))]",
+    "subnetRef": "[resourceId(parameters('virtualNetworkResourceGroupName'), 'Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('subnetName'))]",
     "bootStorageAccountName": "[concat('bootstrg', uniqueString(resourceGroup().id))]",
     "storageAccountType": "Standard_LRS",
     "linuxConfiguration": {
@@ -175,22 +217,23 @@
     {
       "apiVersion": "2019-11-01",
       "type": "Microsoft.Network/virtualNetworks",
-      "name": "[variables('virtualNetworkName')]",
+      "name": "[parameters('virtualNetworkName')]",
       "location": "[parameters('location')]",
+      "condition": "[equals(parameters('virtualNetworkNewOrExisting'), 'new')]",
       "tags": {
                 "QuickstartName": "JBoss EAP 7.2 on RHEL 7.7 (stand-alone VM)"
             },
       "properties": {
         "addressSpace": {
           "addressPrefixes": [
-            "[variables('addressPrefix')]"
+              "[parameters('addressPrefix')]"
           ]
         },
         "subnets": [
           {
-            "name": "[variables('subnetName')]",
+            "name": "[parameters('subnetName')]",
             "properties": {
-              "addressPrefix": "[variables('subnetPrefix')]"
+              "addressPrefix": "[parameters('subnetPrefix')]"
             }
           }
         ]
@@ -202,7 +245,7 @@
       "name": "[variables('nicName')]",
       "location": "[parameters('location')]",
       "dependsOn": [
-        "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]"
+        "[concat('Microsoft.Network/virtualNetworks/', parameters('virtualNetworkName'))]"
       ],
       "tags": {
                 "QuickstartName": "JBoss EAP 7.2 on RHEL 7.7 (stand-alone VM)"
