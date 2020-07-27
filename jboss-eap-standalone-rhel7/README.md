@@ -56,7 +56,7 @@ Read [Red Hat Enterprise Linux pricing](https://azure.microsoft.com/en-us/pricin
 
 #### Using RHEL OS with BYOS Model
 
-You can use [Red Hat Gold Images in Azure](https://docs.microsoft.com/en-us/azure/virtual-machines/workloads/redhat/byos) with BYOS model. In order to use BYOS for RHEL OS Licensing, you need to have a valid Red Hat subscription with entitlements to use RHEL OS in Azure. Please complete the following prerequisites in order to use RHEL OS through BYOS model before you deploy this quickstart template.
+In order to use BYOS for RHEL OS Licensing, you need to have a valid Red Hat subscription with entitlements to use RHEL OS in Azure. Please complete the following prerequisites in order to use RHEL OS through BYOS model before you deploy this quickstart template.
 
 1. Ensure you have RHEL OS and JBoss EAP entitlements attached to your Red Hat Subscription.
 2. Authorize your Azure Subscription ID to use RHEL BYOS images. Please follow [Red Hat Subscription Management (RHSM) documentation](https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/red_hat_cloud_access_reference_guide/con-enable-subs) to complete this process. This includes multiple steps including:
@@ -152,7 +152,7 @@ Once the deployment is successful, go to the outputs section of the deployment t
 
   ![alt text](images/output.png)
 
-1. You can access the RHEL VM and JBoss EAP Admin Console using Public IP.
+1. Create Public IP to access the RHEL VM and JBoss EAP Admin Console
 
    - The RHEL VM you created does not have a Public IP associated with it. You can [create a Public IP](https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-public-ip-address#create-a-public-ip-address) for accessing the VM and [associate the Public IP to the VM](https://docs.microsoft.com/en-us/azure/virtual-network/associate-public-ip-address-vm). All this can be done using Azure Portal or Powershell commands or CLI commands.
 
