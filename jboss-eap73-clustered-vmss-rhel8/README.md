@@ -15,8 +15,9 @@
 5. [Deployment Steps](#deployment-steps)
 6. [Deployment Time](#deployment-time)
 7. [Validation Steps](#validation-steps)
-8. [Troubleshooting](#troubleshooting)
-9. [Support](#support)
+8. [Scaling](#scaling)
+9. [Troubleshooting](#troubleshooting)
+10. [Support](#support)
 
 <!-- /TOC -->
 
@@ -159,25 +160,91 @@ The deployment takes approximately 10 minutes to complete.
 
 ## Validation Steps
 
-- Once the deployment is successful, go to the Outputs section of the deployment to obtain the **app URL**.
+Once the deployment is successful, go to the outputs section of the deployment to obtain the **app URL**. You can access the RHEL VMSS instance and the application by the following methods :
 
   ![alt text](images/outputs.png)
 
-- To obtain the Public IP of VMSS, go to the VMSS details page and copy the Public IP. In Settings section go to Instances, you would be able to see all the instances deployed. Note that all the instances have an ID appended at the end of their name. To access the Administration Console of an instance with ID 0, open a web browser and go to **http://<PUBLIC_IP_Address>:9000** and enter JBoss EAP username and password. You can append the ID of the VMSS instance with 900 to access to the respective Adminstration Console.
+1. Create a Jump VM in a different subnet (new subnet) in the same Virtual Network and access the Load Balancer and RHEL VMSS instance via Jump VM.
 
-  ![alt text](images/eap-admin-console.png)
+   - [Add a new subnet](https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-manage-subnet#add-a-subnet) in the existing Virtual Network which contains the RHEL VMs.
 
-- To login to a VMSS instance, you can use the same Public IP address that you copied earlier through port 5000 appended with the instance ID
+   - [Create a Windows Virtual Machine](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/quick-create-portal#create-virtual-machine) in Azure in the same Resource Group you deployed the template. Provide the required details and you can leave other configurations as default except for the Virtual Network and subnet. Make sure you select the existing Virtual Network in the Resource Group and select the subnet you just created in the step above.
 
-- To access the LB App UI console, enter the app URL that you copied from the output page and paste it in a browser. The web application displays the *Session ID*, *Session Counter* and *Timestamp* (these are variables stored in the session that are replicated) and the container Private IP address that the web page and session is being hosted from. Clicking on the *Increment Counter* updates the session counter and clicking on *Refresh* will refresh the page.
+   - Once the Jump VM is successfully deployed, go to the VM details page and copy the Public IP. Log into the Jump VM using this Public IP.
 
-  ![alt text](images/eap-session.png)
+   - To obtain the Private IP of a RHEL VMSS instance, go to the VMSS details page and under settings section select *Instances*. Select the instance from here and copy the Private IP address. Open a web browser inside the Jump VM, go to **http://<PRIVATE_IP_Address>:8080** and you should see the web page as follows. Use the same Private IP to login to the VMSS instance.
+
+     ![alt text](images/eap.png)
+
+   - To access the administration console, click on the **Administration Console** shown in the above image and enter JBoss EAP username and password to access the console of the respective VMSS instance.
+
+     ![alt text](images/eap-admin-console.png)
+
+   - To access the App UI console, copy the app URL from the output page and paste it in a browser inside the Jump VM. The web application displays the *Session ID*, *Session counter* and *Timestamp* (these are variables stored in the session that are replicated) and the VMSS instance Private IP address that the web page and session is being hosted from. Clicking on the *Increment Counter* updates the session counter and clicking on *Refresh* will refresh the page.
+
+     ![alt text](images/eap-session.png)
   
-  ![alt text](images/eap-session-rep.png)
+     ![alt text](images/eap-session-rep.png)
+     
+   - Note that in the EAP Session Replication page of Load Balancer, the Private IP displayed is that of one of the VMSS instance. If you click on *Increment Counter* or *Refresh* button when the service of the VM corresponding to the Private IP displayed is down (can be due to various reasons like instance in stopped state or instance restarting), the Private IP displayed will change to that of another VMSS instance Private IP but the Session ID remains the same. This validates that the Session was replicated.
 
-- Note that in the EAP Session Replication page of Load Balancer, the private IP displayed is that of one of the VMSS instance. If you click on *Increment Counter* or *Refresh* button when the service of the instance corresponding to the Private IP displayed is down (can be due to various reasons like instance in stopped state or instance restarting), the Private IP displayed will change to that of another VMSS instance IP but the Session ID remains the same. This validates that the Session was replicated.
+     ![alt text](images/eap-ses-rep.png)
 
-  ![alt text](images/eap-ses-rep.png)
+2. Create a Jump VM in a different Virtual Network and access the Load Balancer and RHEL VM using Virtual Network peering.
+
+   - [Create a Windows Virtual Machine](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/quick-create-portal#create-virtual-machine) in Azure in the new Resource Group ideally in the same location as Resource Group you deployed the template. Provide the required details and you can leave other configurations as default. This will create the Jump VM in a new Virtual Network.
+
+   - Now you can [Peer the Virtual Networks](https://docs.microsoft.com/en-us/azure/virtual-network/tutorial-connect-virtual-networks-portal#peer-virtual-networks) which are associated with the Load Balancer and the Jump VM. Once the Virtual Network peering is successful, both the VMs can communicate with each other.
+
+   - Once the Jump VM is successfully deployed, go to the VM details page and copy the Public IP. Log into the Jump VM using this Public IP.
+
+   - To obtain the Private IP of a RHEL VMSS instance, go to the VMSS details page and under settings section select *Instances*. Select the instance from here and copy the Private IP address. Open a web browser inside the Jump VM, go to **http://<PRIVATE_IP_Address>:8080** and you should see the web page as follows. Use the same Private IP to login to the VMSS instance.
+
+     ![alt text](images/eap.png)
+
+   - To access the administration console, click on the **Administration Console** shown in the above image and enter JBoss EAP username and password to access the console of the respective VM.
+
+     ![alt text](images/eap-admin-console.png)
+
+   - To access the App UI console, copy the app URL from the output page and paste it in a browser inside the Jump VM. The web application displays the *Session ID*, *Session counter* and *Timestamp* (these are variables stored in the session that are replicated) and the VMSS instance Private IP address that the web page and session is being hosted from. Clicking on the *Increment Counter* updates the session counter and clicking on *Refresh* will refresh the page.
+
+     ![alt text](images/eap-session.png)
+  
+     ![alt text](images/eap-session-rep.png)
+     
+   - Note that in the EAP Session Replication page of Load Balancer, the Private IP displayed is that of one of the VMSS instance. If you click on *Increment Counter* or *Refresh* button when the service of the VMSS instance corresponding to the Private IP displayed is down (can be due to various reasons like instance in stopped state or instance restarting), the Private IP displayed will change to that of another VMSS instance Private IP but the Session ID remains the same. This validates that the Session was replicated.
+
+     ![alt text](images/eap-ses-rep.png)
+
+3. Using an Application Gateway
+
+   - [Create an Application Gateway](https://docs.microsoft.com/en-us/azure/application-gateway/quick-create-portal#create-an-application-gateway) in a different subnet to access the ports of the Load Balancer and the RHEL VMSS instances. The subnet where you are planning to add the Application Gateway must only contain Application Gateway.
+
+   - Under *Frontends* section, make sure you select Public IP or both and provide the required details. Under *Backends* section, select **Add a backend pool** option and add your Load Balancer Private IP and RHEL VMSS instance Private IPs to different backend pools of the Application Gateway.
+
+   - Under *Configuration* section add routing rules to access the ports 80 of your Load Balancer and different rules to access port 9990 (admin console) of each RHEL VMSS instances.
+
+   - Once the Application Gateway is created with the required configurations, go to the Application Gateway overview page and copy the Public IP of the Application Gateway.
+
+   - To view the EAP Session Replication web page, open a web browser and go to *http://<PUBLIC_IP_AppGateway>/eap-session-replication/* and you should see the application running. The web application displays the *Session ID*, *Session counter* and *Timestamp* (these are variables stored in the session that are replicated) and the VMSS instance Private IP address that the web page and session is being hosted from. Clicking on the *Increment Counter* updates the session counter and clicking on *Refresh* will refresh the page.
+
+     ![alt text](images/eap-session.png)
+  
+     ![alt text](images/eap-session-rep.png)
+
+   - Note that in the EAP Session Replication page of Load Balancer, the Private IP displayed is that of one of the VMSS instance. If you click on *Increment Counter* or *Refresh* button when the service of the VMSS instance corresponding to the Private IP displayed is down (can be due to various reasons like instance in stopped state or instance restarting), the Private IP displayed will change to that of another VMSS instance Private IP but the Session ID remains the same. This validates that the Session was replicated.
+
+     ![alt text](images/eap-ses-rep.png)
+
+  - To log into the JBoss EAP Admin Console of a VM, open a web browser and go to *http://<PUBLIC_IP_AppGateway>:listener_port*. Enter the JBoss EAP username and password to login. The listener port should be the port of the listener which you have configured in routing rule associated with the particular RHEL VMSS instance.
+
+     ![alt text](images/eap-admin-console.png)
+
+## Scaling
+
+In this template the Virtual Machine Scale Set is set to scale manually, which means you can manually increase or decrease the VMSS instance. Once the template has been deployed you can also change to custom scaling to automatically increase or decrease the number of VMSS instances. This automated and elastic behavior reduces the management overhead to monitor and optimize the performance. Once the template has been deployed go to your virtual machine scale set and under settings click on Scaling. In the Scaling blade change to "Custom autoscale" and follow instructions to [Automatically scale a virtual machine scale set in the Azure portal](https://docs.microsoft.com/en-us/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-autoscale-portal#:~:text=The%20ability%20to%20autoscale%20lets,instances%20in%20your%20scale%20set).
+
+![alt text](images/autoscale.png)
 
 ## Troubleshooting
 
@@ -206,7 +273,7 @@ Follow the steps below to troubleshoot this further:
 
     `sudo su -`
 
-3. Enter your VM admin password if prompted.
+3. Enter your VMSS instance admin password if prompted.
 
 4. Change directory to logging directory
 

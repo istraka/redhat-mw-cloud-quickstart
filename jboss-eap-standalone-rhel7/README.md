@@ -160,17 +160,17 @@ Once the deployment is successful, go to the outputs section of the deployment t
 
    - To view the JBoss-EAP on Azure web page, open a web browser and go to *http://<PUBLIC_HOSTNAME>:8080/JBoss-EAP_on_Azure/* and you should see the application running.
 
-    ![alt text](images/app.png)
+     ![alt text](images/app.png)
 
    - To log into the JBoss EAP Admin Console, open a web browser and go to *http://<PUBLIC_HOSTNAME>:9990*. Enter the JBoss EAP username and password to login.
 
-    ![alt text](images/admin.png)
+     ![alt text](images/admin.png)
 
 2. Create a Jump VM in a different subnet (new subnet) in the same Virtual Network and access the RHEL VM via Jump VM.
 
    - [Add a new subnet](https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-manage-subnet#add-a-subnet) in the existing Virtual Network which contains the RHEL VM.
 
-   - [Create a Windows Virtual Machine](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/quick-create-portal#create-virtual-machine) in Azure in the same Resource Group as RHEL VM. Provide the required details and you can leave other configurations as default except for the Virtual Network and subnet. Make sure you select the existing Virtual Network in the RG and select the subnet you just created in the step above.
+   - [Create a Windows Virtual Machine](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/quick-create-portal#create-virtual-machine) in Azure in the same Resource Group as RHEL VM. Provide the required details and you can leave other configurations as default except for the Virtual Network and subnet. Make sure you select the existing Virtual Network in the Resource Group and select the subnet you just created in the step above.
 
    - Once the Jump VM is successfully deployed, go to the VM details page and copy the Public IP. Log into the Jump VM using this Public IP.
 
@@ -188,7 +188,7 @@ Once the deployment is successful, go to the outputs section of the deployment t
 
    - [Create a Windows Virtual Machine](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/quick-create-portal#create-virtual-machine) in Azure in the new Resource Group ideally in the same location as RHEL VM. Provide the required details and you can leave other configurations as default. This will create the Jump VM in a new Virtual Network.
 
-   - Now you can [Peer the Virtual Networks](https://docs.microsoft.com/en-us/azure/virtual-network/tutorial-connect-virtual-networks-portal#peer-virtual-networks) which are associated with the RHEL VM and the Jump VM. Once these Virtual Network peering is successful, both the VMs can communicate with each other.
+   - Now you can [Peer the Virtual Networks](https://docs.microsoft.com/en-us/azure/virtual-network/tutorial-connect-virtual-networks-portal#peer-virtual-networks) which are associated with the RHEL VM and the Jump VM. Once the Virtual Network peering is successful, both the VMs can communicate with each other.
 
    - Once the Jump VM is successfully deployed, go to the VM details page and copy the Public IP. Log into the Jump VM using this Public IP.
 
@@ -214,11 +214,11 @@ Once the deployment is successful, go to the outputs section of the deployment t
 
    - To view the JBoss-EAP on Azure web page, open a web browser and go to *http://<PUBLIC_IP_AppGateway>:8080/JBoss-EAP_on_Azure/* and you should see the application running.
 
-    ![alt text](images/app.png)
+     ![alt text](images/app.png)
 
-  - To log into the JBoss EAP Admin Console, open a web browser and go to *http://<PUBLIC_IP_AppGateway>:9990*. Enter the JBoss EAP username and password to login.
+   - To log into the JBoss EAP Admin Console, open a web browser and go to *http://<PUBLIC_IP_AppGateway>:9990*. Enter the JBoss EAP username and password to login.
 
-    ![alt text](images/admin.png)
+     ![alt text](images/admin.png)
 
 5. Using an external Load Balancer.
 
@@ -232,11 +232,11 @@ Once the deployment is successful, go to the outputs section of the deployment t
 
    - To view the JBoss-EAP on Azure web page, open a web browser and go to *http://<PUBLIC_IP_LoadBalancer>:8080/JBoss-EAP_on_Azure/* and you should see the application running.
 
-    ![alt text](images/app.png)
+     ![alt text](images/app.png)
 
-  - To log into the JBoss EAP Admin Console, open a web browser and go to *http://<PUBLIC_IP_LoadBalancer>:9990*. Enter the JBoss EAP username and password to login.
+   - To log into the JBoss EAP Admin Console, open a web browser and go to *http://<PUBLIC_IP_LoadBalancer>:9990*. Enter the JBoss EAP username and password to login.
 
-    ![alt text](images/admin.png)
+     ![alt text](images/admin.png)
 
 ## Troubleshooting
 

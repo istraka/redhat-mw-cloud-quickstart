@@ -575,5 +575,9 @@
     }
   ],
   "outputs": {
+    "appURL": {
+        "type": "string",
+        "value": "[concat('http://', reference(variables('loadBalancersName')).frontendIPConfigurations[0].properties.privateIPAddress, '/eap-session-replication/')]"
+    }
   }
 }

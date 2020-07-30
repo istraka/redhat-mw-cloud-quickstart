@@ -157,27 +157,85 @@ The deployment takes approximately 10 minutes to complete.
 
 ## Validation Steps
 
-- Once the deployment is successful, go to the Outputs section of the deployment to obtain the **app URL**.
+Once the deployment is successful, go to the outputs section of the deployment to obtain the **app URL**. You can access the RHEL VM and the application by the following methods :
 
   ![alt text](images/outputs.png)
 
-- To obtain the Public IP of a VM, go to the VM details page. Under Settings section go to Networking and copy the NIC Public IP. Open a web browser and go to **http://<PUBLIC_IP_Address>:8080** and you should see the web page as follows. Use the same Public IP to Login to the VM.
+1. Create a Jump VM in a different subnet (new subnet) in the same Virtual Network and access the Load Balancer and RHEL VM via Jump VM.
 
-  ![alt text](images/eap.png)
+   - [Add a new subnet](https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-manage-subnet#add-a-subnet) in the existing Virtual Network which contains the RHEL VMs.
 
-- To access the administration console, click on the **Administration Console** shown in the above image and enter JBoss EAP username and password to access the console of the respective VM.
+   - [Create a Windows Virtual Machine](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/quick-create-portal#create-virtual-machine) in Azure in the same Resource Group you deployed the template. Provide the required details and you can leave other configurations as default except for the Virtual Network and subnet. Make sure you select the existing Virtual Network in the Resource Group and select the subnet you just created in the step above.
 
-  ![alt text](images/eap-admin-console.png)
+   - Once the Jump VM is successfully deployed, go to the VM details page and copy the Public IP. Log into the Jump VM using this Public IP.
 
-- To access the LB App UI console, enter the app URL that you copied from the Output page and paste it in a browser. The web application displays the *Session ID*, *Session counter* and *Timestamp* (these are variables stored in the session that are replicated) and the container Private IP address that the web page and session is being hosted from. Clicking on the *Increment Counter* updates the session counter and clicking on *Refresh* will refresh the page.
+   - To obtain the Private IP of a RHEL VM, go to the VM details page. Under Settings section go to *Networking* and copy the NIC Private IP. Open a web browser inside the Jump VM, go to **http://<PRIVATE_IP_Address>:8080** and you should see the web page as follows. Use the same Private IP to login to the VM.
 
-  ![alt text](images/eap-session.png)
+     ![alt text](images/eap.png)
+
+   - To access the administration console, click on the **Administration Console** shown in the above image and enter JBoss EAP username and password to access the console of the respective VM.
+
+     ![alt text](images/eap-admin-console.png)
+
+   - To access the App UI console, copy the app URL from the output page and paste it in a browser inside the Jump VM. The web application displays the *Session ID*, *Session counter* and *Timestamp* (these are variables stored in the session that are replicated) and the VM Private IP address that the web page and session is being hosted from. Clicking on the *Increment Counter* updates the session counter and clicking on *Refresh* will refresh the page.
+
+     ![alt text](images/eap-session.png)
   
-  ![alt text](images/eap-session-rep.png)
+     ![alt text](images/eap-session-rep.png)
+     
+   - Note that in the EAP Session Replication page of Load Balancer, the Private IP displayed is that of one of the VMs. If you click on *Increment Counter* or *Refresh* button when the service of the VM corresponding to the Private IP displayed is down (can be due to various reasons like VM in stopped state or VM restarting), the Private IP displayed will change to that of another VM Private IP but the Session ID remains the same. This validates that the Session was replicated.
 
-- Note that in the EAP Session Replication page of Load Balancer, the private IP displayed is that of one of the VMs. If you click on *Increment Counter* or *Refresh* button when the service of the VM corresponding to the Private IP displayed is down (can be due to various reasons like VM in stopped state or VM restarting), the Private IP displayed will change to that of another VM IP but the Session ID remains the same. This validates that the Session was replicated.
+     ![alt text](images/eap-ses-rep.png)
 
-  ![alt text](images/eap-ses-rep.png)
+2. Create a Jump VM in a different Virtual Network and access the Load Balancer and RHEL VM using Virtual Network peering.
+
+   - [Create a Windows Virtual Machine](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/quick-create-portal#create-virtual-machine) in Azure in the new Resource Group ideally in the same location as Resource Group you deployed the template. Provide the required details and you can leave other configurations as default. This will create the Jump VM in a new Virtual Network.
+
+   - Now you can [Peer the Virtual Networks](https://docs.microsoft.com/en-us/azure/virtual-network/tutorial-connect-virtual-networks-portal#peer-virtual-networks) which are associated with the Load Balancer and the Jump VM. Once the Virtual Network peering is successful, both the VMs can communicate with each other.
+
+   - Once the Jump VM is successfully deployed, go to the VM details page and copy the Public IP. Log into the Jump VM using this Public IP.
+
+   - To obtain the Private IP of a RHEL VM, go to the VM details page. Under Settings section go to *Networking* and copy the NIC Private IP. Open a web browser inside the Jump VM, go to **http://<PRIVATE_IP_Address>:8080** and you should see the web page as follows. Use the same Private IP to login to the VM.
+
+     ![alt text](images/eap.png)
+
+   - To access the administration console, click on the **Administration Console** shown in the above image and enter JBoss EAP username and password to access the console of the respective VM.
+
+     ![alt text](images/eap-admin-console.png)
+
+   - To access the App UI console, copy the app URL from the output page and paste it in a browser inside the Jump VM. The web application displays the *Session ID*, *Session counter* and *Timestamp* (these are variables stored in the session that are replicated) and the VM Private IP address that the web page and session is being hosted from. Clicking on the *Increment Counter* updates the session counter and clicking on *Refresh* will refresh the page.
+
+     ![alt text](images/eap-session.png)
+  
+     ![alt text](images/eap-session-rep.png)
+     
+   - Note that in the EAP Session Replication page of Load Balancer, the Private IP displayed is that of one of the VMs. If you click on *Increment Counter* or *Refresh* button when the service of the VM corresponding to the Private IP displayed is down (can be due to various reasons like VM in stopped state or VM restarting), the Private IP displayed will change to that of another VM Private IP but the Session ID remains the same. This validates that the Session was replicated.
+
+     ![alt text](images/eap-ses-rep.png)
+
+3. Using an Application Gateway
+
+   - [Create an Application Gateway](https://docs.microsoft.com/en-us/azure/application-gateway/quick-create-portal#create-an-application-gateway) in a different subnet to access the ports of the Load Balancer and the RHEL VMs. The subnet where you are planning to add the Application Gateway must only contain Application Gateway.
+
+   - Under *Frontends* section, make sure you select Public IP or both and provide the required details. Under *Backends* section, select **Add a backend pool** option and add your Load Balancer and RHEL VMs to the backend pool (ideally in different pools) of the Application Gateway.
+
+   - Under *Configuration* section add routing rules to access the ports 80 and 9990 of your Load Balancer and different rules to access port 9990 (admin console) of each RHEL VM.
+
+   - Once the Application Gateway is created with the required configurations, go to the Application Gateway overview page and copy the Public IP of the Application Gateway.
+
+   - To view the EAP Session Replication web page, open a web browser and go to *http://<PUBLIC_IP_AppGateway>/eap-session-replication/* and you should see the application running. The web application displays the *Session ID*, *Session counter* and *Timestamp* (these are variables stored in the session that are replicated) and the VM Private IP address that the web page and session is being hosted from. Clicking on the *Increment Counter* updates the session counter and clicking on *Refresh* will refresh the page.
+
+     ![alt text](images/eap-session.png)
+  
+     ![alt text](images/eap-session-rep.png)
+
+   - Note that in the EAP Session Replication page of Load Balancer, the Private IP displayed is that of one of the VMs. If you click on *Increment Counter* or *Refresh* button when the service of the VM corresponding to the Private IP displayed is down (can be due to various reasons like VM in stopped state or VM restarting), the Private IP displayed will change to that of another VM Private IP but the Session ID remains the same. This validates that the Session was replicated.
+
+     ![alt text](images/eap-ses-rep.png)
+
+  - To log into the JBoss EAP Admin Console of a VM, open a web browser and go to *http://<PUBLIC_IP_AppGateway>:listener_port*. Enter the JBoss EAP username and password to login. The listener port should be the port of the listener which you have configured in routing rule associated with the particular RHEL VM.
+
+    ![alt text](images/eap-admin-console.png)
 
 ## Troubleshooting
 

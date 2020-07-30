@@ -15,8 +15,9 @@
 5. [Deployment Steps](#deployment-steps)
 6. [Deployment Time](#deployment-time)
 7. [Validation Steps](#validation-steps)
-8. [Troubleshooting](#troubleshooting)
-9. [Support](#support)
+8. [Scaling](#scaling)
+9. [Troubleshooting](#troubleshooting)
+10. [Support](#support)
 
 <!-- /TOC -->
 
@@ -180,6 +181,12 @@ The deployment takes approximately 10 minutes to complete.
 
   ![alt text](images/eap-ses-rep.png)
 
+## Scaling
+
+In this template the Virtual Machine Scale Set is set to scale manually, which means you can manually increase or decrease the VMSS instance. Once the template has been deployed you can also change to custom scaling to automatically increase or decrease the number of VMSS instances. This automated and elastic behavior reduces the management overhead to monitor and optimize the performance. Once the template has been deployed go to your virtual machine scale set and under settings click on Scaling. In the Scaling blade change to "Custom autoscale" and follow instructions to [Automatically scale a virtual machine scale set in the Azure portal](https://docs.microsoft.com/en-us/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-autoscale-portal#:~:text=The%20ability%20to%20autoscale%20lets,instances%20in%20your%20scale%20set).
+
+![alt text](images/autoscale.png)
+
 ## Troubleshooting
 
 This section includes common errors faced during deployments and details on how you can troubleshoot these errors. 
@@ -207,7 +214,7 @@ Follow the steps below to troubleshoot this further:
 
     `sudo su -`
 
-3. Enter your VM admin password if prompted.
+3. Enter your VMSS instance admin password if prompted.
 
 4. Change directory to logging directory
 
