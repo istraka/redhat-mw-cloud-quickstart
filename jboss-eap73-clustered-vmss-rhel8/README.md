@@ -236,7 +236,7 @@ Once the deployment is successful, go to the outputs section of the deployment t
 
      ![alt text](images/eap-ses-rep.png)
 
-  - To log into the JBoss EAP Admin Console of a VM, open a web browser and go to *http://<PUBLIC_IP_AppGateway>:listener_port*. Enter the JBoss EAP username and password to login. The listener port should be the port of the listener which you have configured in routing rule associated with the particular RHEL VMSS instance.
+   - To log into the JBoss EAP Admin Console of a VM, open a web browser and go to *http://<PUBLIC_IP_AppGateway>:listener_port*. Enter the JBoss EAP username and password to login. The listener port should be the port of the listener which you have configured in routing rule associated with the particular RHEL VMSS instance.
 
      ![alt text](images/eap-admin-console.png)
 
