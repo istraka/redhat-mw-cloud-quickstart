@@ -27,6 +27,11 @@ flag=$?; if [ $flag != 0 ] ; then echo  "ERROR! Downloading WildFly Failed" | ad
 echo "tar xvf wildfly-$WILDFLY_RELEASE.Final.tar.gz" | adddate >> wildfly.install.log
 tar xvf wildfly-$WILDFLY_RELEASE.Final.tar.gz | adddate >> wildfly.install.log 2>&1
 
+echo "echo "AllowTcpForwarding no" >> /etc/ssh/sshd_config" | adddate >> wildfly.install.log
+echo "AllowTcpForwarding no" >> /etc/ssh/sshd_config | adddate >> wildfly.install.log 2>&1
+echo "systemctl restart sshd" | adddate >> wildfly.install.log
+systemctl restart sshd | adddate >> wildfly.install.log 2>&1
+
 echo "Sample app deploy..." | adddate >> wildfly.install.log
 echo "git clone https://github.com/Suraj2093/dukes.git" | adddate >> wildfly.install.log
 git clone https://github.com/Suraj2093/dukes.git >> wildfly.install.log 2>&1

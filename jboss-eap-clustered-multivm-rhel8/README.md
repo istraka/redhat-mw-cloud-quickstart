@@ -32,11 +32,9 @@ This Azure Resource Manager (ARM) template creates all the Azure compute resourc
 
 - RHEL 8.0 Virtual Machines
 - 1 Load Balancer
-- Public IPs for Load Balancer and VMs
 - Virtual Network with a single subnet
 - JBoss EAP 7.2 cluster setup on the RHEL VMs
 - Sample Java application called **eap-session-replication** deployed on JBoss EAP 7.2
-- Network Security Group
 - Storage Account
 
 Following is the Architecture:
@@ -193,7 +191,7 @@ Once the deployment is successful, go to the outputs section of the deployment t
 
    - Now you can [Peer the Virtual Networks](https://docs.microsoft.com/en-us/azure/virtual-network/tutorial-connect-virtual-networks-portal#peer-virtual-networks) which are associated with the Load Balancer and the Jump VM. Once the Virtual Network peering is successful, both the VMs can communicate with each other.
 
-   - Once the Jump VM is successfully deployed, go to the VM details page and copy the Public IP. Log into the Jump VM using this Public IP.
+   - Now go to the VM details page and copy the Public IP. Log into the Jump VM using this Public IP.
 
    - To obtain the Private IP of a RHEL VM, go to the VM details page. Under Settings section go to *Networking* and copy the NIC Private IP. Open a web browser inside the Jump VM, go to **http://<PRIVATE_IP_Address>:8080** and you should see the web page as follows. Use the same Private IP to login to the VM.
 
@@ -259,7 +257,7 @@ This quickstart template uses VM Custom Script Extension to deploy and configure
 
 Follow the steps below to troubleshoot this further
 
-1. Log into the provisioned VM through SSH. You can retrieve the Public IP of the VM using the Azure portal VM *Overview* page. Under *Settings* go to *Networking* and copy the NIC Public IP.
+1. Log into the provisioned VM through SSH as mentioned in the 'Validation section'.
 
 2. Switch to root user
 

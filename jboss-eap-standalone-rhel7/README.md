@@ -190,7 +190,7 @@ Once the deployment is successful, go to the outputs section of the deployment t
 
    - Now you can [Peer the Virtual Networks](https://docs.microsoft.com/en-us/azure/virtual-network/tutorial-connect-virtual-networks-portal#peer-virtual-networks) which are associated with the RHEL VM and the Jump VM. Once the Virtual Network peering is successful, both the VMs can communicate with each other.
 
-   - Once the Jump VM is successfully deployed, go to the VM details page and copy the Public IP. Log into the Jump VM using this Public IP.
+   - Now go to the VM details page and copy the Public IP. Log into the Jump VM using this Public IP.
 
    - Copy the Private IP of RHEL VM from the output page and use it to log into the RHEL VM from the Jump VM.
 

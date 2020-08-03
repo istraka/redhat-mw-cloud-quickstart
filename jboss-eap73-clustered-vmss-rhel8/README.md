@@ -33,11 +33,9 @@ This Azure Resource Manager (ARM) template creates all the Azure compute resourc
 
 - RHEL 8.0 Virtual Machine Scale Set instances
 - 1 Load Balancer
-- Public IP for Load Balancer
 - Virtual Network with a single subnet
 - JBoss EAP 7.3 cluster setup on the VMSS instances
 - Sample Java application called **eap-session-replication** deployed on JBoss EAP 7.3
-- Network Security Group
 - Storage Account
 
 Following is the Architecture:
@@ -186,17 +184,17 @@ Once the deployment is successful, go to the outputs section of the deployment t
   
      ![alt text](images/eap-session-rep.png)
      
-   - Note that in the EAP Session Replication page of Load Balancer, the Private IP displayed is that of one of the VMSS instance. If you click on *Increment Counter* or *Refresh* button when the service of the VM corresponding to the Private IP displayed is down (can be due to various reasons like instance in stopped state or instance restarting), the Private IP displayed will change to that of another VMSS instance Private IP but the Session ID remains the same. This validates that the Session was replicated.
+   - Note that in the EAP Session Replication page of Load Balancer, the Private IP displayed is that of one of the VMSS instance. If you click on *Increment Counter* or *Refresh* button when the service of the VMSS instance corresponding to the Private IP displayed is down (can be due to various reasons like instance in stopped state or instance restarting), the Private IP displayed will change to that of another VMSS instance Private IP but the Session ID remains the same. This validates that the Session was replicated.
 
      ![alt text](images/eap-ses-rep.png)
 
-2. Create a Jump VM in a different Virtual Network and access the Load Balancer and RHEL VM using Virtual Network peering.
+2. Create a Jump VM in a different Virtual Network and access the Load Balancer and RHEL VMSS instance using Virtual Network peering.
 
    - [Create a Windows Virtual Machine](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/quick-create-portal#create-virtual-machine) in Azure in the new Resource Group ideally in the same location as Resource Group you deployed the template. Provide the required details and you can leave other configurations as default. This will create the Jump VM in a new Virtual Network.
 
    - Now you can [Peer the Virtual Networks](https://docs.microsoft.com/en-us/azure/virtual-network/tutorial-connect-virtual-networks-portal#peer-virtual-networks) which are associated with the Load Balancer and the Jump VM. Once the Virtual Network peering is successful, both the VMs can communicate with each other.
 
-   - Once the Jump VM is successfully deployed, go to the VM details page and copy the Public IP. Log into the Jump VM using this Public IP.
+   - Now go to the VM details page and copy the Public IP. Log into the Jump VM using this Public IP.
 
    - To obtain the Private IP of a RHEL VMSS instance, go to the VMSS details page and under settings section select *Instances*. Select the instance from here and copy the Private IP address. Open a web browser inside the Jump VM, go to **http://<PRIVATE_IP_Address>:8080** and you should see the web page as follows. Use the same Private IP to login to the VMSS instance.
 
@@ -267,7 +265,7 @@ This quickstart template uses VMSS Custom Script Extension to deploy and configu
 
 Follow the steps below to troubleshoot this further:
 
-1. Log into the provisioned VMSS instance through SSH. You can retrieve the Public IP of the VMSS using the Azure portal VMSS *Overview* page. In *Settings* section go to instances, you would be able to see all the instances deployed. Note that all the instances have an ID appended at the end of their name. To login to the VMSS instance, you can use the Public IP address that you copied earlier through port 5000 appended with the instance ID.
+1. Log into the provisioned VMSS instance through SSH as mentioned in the 'Validation section'
 
 2. Switch to root user
 
