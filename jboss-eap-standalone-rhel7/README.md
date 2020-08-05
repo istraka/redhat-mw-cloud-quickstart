@@ -43,11 +43,10 @@ To learn more about the JBoss Enterprise Application Platform, visit: [Documenta
 
 ## Subscriptions and Costs
 
-ARM template is designed with flexible operating system (OS) options:
+This ARM template is designed with flexible operating system (OS) options:
 
 - Red Hat Enterprise Linux OS as Pay-As-You-Go (PAYG) or Bring-Your-Own-Subscription (BYOS) via Red Hat Gold Image model.
 - Red Hat JBoss EAP is available through BYOS only.
-
 
 #### Using RHEL OS with PAYG Model
 
@@ -78,7 +77,7 @@ In order to use BYOS for RHEL OS Licensing, you need to have a valid Red Hat sub
 
     `az version`
     
-    3.2 Once your CLI session is ready, authenticate with your Azure account. Refer to [Signing in with Azure CLI](https://docs.microsoft.com/cli/azure/authenticate-azure-cli?view=azure-cli-latest) for assistance. 
+    3.2 Once your CLI session is ready, authenticate with your Azure account. Refer to [Signing in with Azure CLI](https://docs.microsoft.com/cli/azure/authenticate-azure-cli?view=azure-cli-latest) for assistance.
 
     3.3 Verify the RHEL BYOS images are available in your subscription by running the following CLI command. If your RHEL BYOS is not listed, please refer to #2 and ensure that your Azure subscription is activated for RHEL BYOS images.
 
@@ -138,7 +137,7 @@ Build your environment with JBoss EAP 7.2 on a VM running RHEL 7.7 on Azure by c
 
    - **RHSM Pool ID for RHEL** - RHSM Pool ID (ensure you have RHEL entitlement). This is **mandatory when selecting BYOS RHEL OS** as Subscription Type.  This should be left blank when selecting RHEL OS PAYG Subscription Type.
 
-   - **VM Size** - Select  the appropriate size of the VM from the dropdown options.
+   - **VM Size** - Select the appropriate size of the VM from the dropdown options.
 
    - Leave the rest of the parameter values (Artifacts and Location) as is, accept the Terms and Conditions, and click on Purchase.
     
@@ -146,10 +145,9 @@ Build your environment with JBoss EAP 7.2 on a VM running RHEL 7.7 on Azure by c
 
 The deployment takes approximately 10 minutes to complete.
 
-
 ## Validation Steps
 
-Once the deployment is successful, go to the outputs section of the deployment to obtain the **Private IP of the RHEL VM**, **app URL** and the **Admin Console URL**. You can access the RHEL VM and the application by the following one of the 5 options:
+Once the deployment is successful, go to the outputs section of the deployment to obtain the **Private IP of the RHEL VM**, **app URL** and the **Admin Console URL**. You can access the RHEL VM and the application by following one of the 5 options:
 
 1. Create a Public IP to access the RHEL VM and JBoss EAP Admin Console.
 2. Create a Jump VM in a different subnet (new subnet) in the same Virtual Network and access the RHEL VM via a Jump VM. 
@@ -227,7 +225,7 @@ Once the deployment is successful, go to the outputs section of the deployment t
 
      ![alt text](images/admin.png)
 
-**Option 5 of 5**. Using an external Load Balancer.
+**Option 5 of 5**. Using an External Load Balancer.
 
    - [Create a Load Balancer](https://docs.microsoft.com/azure/load-balancer/tutorial-load-balancer-standard-manage-portal#create-a-standard-load-balancer) to access the ports of the RHEL VM. Provide the required details to deploy the external Load Balancer and leave other configurations as default. Leave the SKU as Basic for this configuration.
 
@@ -292,6 +290,6 @@ Your Private Offer will be tagged with *Private* as seen below.
 
 Please refer to [Using the Azure Custom Script Extension Version 2 with Linux VMs](https://docs.microsoft.com/azure/virtual-machines/extensions/custom-script-linux) for more details on troubleshooting VM custom script extensions.
 
-## Support 
+## Support
 
 For any support related questions, issues or customization requirements, please contact [Spektra Systems](info@spektrasystems.com) or [Red Hat Support](https://www.redhat.com/en/services/support).

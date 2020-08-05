@@ -10,7 +10,7 @@
 
 1. [Solution Overview](#solution-overview)
 2. [Template Solution Architecture](#template-solution-architecture)
-3. [Subscriptions and Costs](subscriptions-and-costs)
+3. [Subscriptions and Costs](#subscriptions-and-costs)
 4. [Prerequisites](#prerequisites)
 5. [Deployment Steps](#deployment-steps)
 6. [Deployment Time](#deployment-time)
@@ -28,7 +28,7 @@ Red Hat Subscription Management (RHSM) is a customer-driven, end-to-end solution
 
 ## Template Solution Architecture
 
-This Azure Resource Manager (ARM) template creates all the Azure compute resources to run JBoss EAP 7.2 cluster running 'n' number of Red Hat Enterprise Linux (RHEL) 8.0 VMs where 'n' is decided by the user and all the VMs are added to the backend pool of a Load Balancer. The following resources are created by this template:
+This Azure Resource Manager (ARM) template creates all the Azure compute resources to run JBoss EAP 7.2 cluster running 'n' number of Red Hat Enterprise Linux (RHEL) 8.0 VMs, where 'n' is decided by the user and all the VMs are added to the backend pool of a Load Balancer. The following resources are created by this template:
 
 - RHEL 8.0 Virtual Machines
 - 1 Load Balancer
@@ -54,7 +54,7 @@ This ARM template is designed with flexible operating system (OS) options:
 
 By default this template uses the on-demand Red Hat Enterprise Linux 8.0 PAYG image from the Azure Gallery. When using this on-demand image, there is an additional hourly RHEL subscription charge for using this image on top of the normal compute, network and storage costs. At the same time, the instance will be registered to your Red Hat subscription, therefore consuming one of your entitlements. This will lead to "double billing". To avoid this, you would need to build your own RHEL image, which is defined in this Red Hat KB article for [uploading RHEL image to Azure](https://access.redhat.com/articles/uploading-rhel-image-to-azure) or use RHEL Gold Image from the Azure Private Gallery offering.
 
-Read [Red Hat Enterprise Linux pricing](https://azure.microsoft.com/pricing/details/virtual-machines/red-hat/) for details on the RHEL VMs pricing with PAYG model. In order to use RHEL in PAYG model, you will need an Azure Subscription with the specified payment method (RHEL 8.0 is an [Azure Marketplace](https://azuremarketplace.microsoft.com/marketplace/apps/RedHat.RedHatEnterpriseLinux80-ARM?tab=Overview) product and requires a payment method to be specified in the Azure Subscription). 
+Read [Red Hat Enterprise Linux pricing](https://azure.microsoft.com/pricing/details/virtual-machines/red-hat/) for details on the RHEL VMs pricing with PAYG model. In order to use RHEL in PAYG model, you will need an Azure Subscription with the specified payment method (RHEL 8.0 is an [Azure Marketplace](https://azuremarketplace.microsoft.com/marketplace/apps/RedHat.RedHatEnterpriseLinux80-ARM?tab=Overview) product and requires a payment method to be specified in the Azure Subscription).
 
 #### Using RHEL OS with BYOS Model
 
@@ -81,7 +81,7 @@ In order to use BYOS for RHEL OS Licensing, you need to have a valid Red Hat sub
     
     3.2 Once your CLI session is ready, authenticate with your Azure account. Refer to [Signing in with Azure CLI](https://docs.microsoft.com/cli/azure/authenticate-azure-cli?view=azure-cli-latest) for assistance.
 
-    3.3 Verify the RHEL BYOS images are available in your subscription by running the following CLI command. your RHEL BYOS is not listed, please refer to #2 and ensure that your Azure subscription is activated for RHEL BYOS images.
+    3.3 Verify the RHEL BYOS images are available in your subscription by running the following CLI command. If your RHEL BYOS is not listed, please refer to #2 and ensure that your Azure subscription is activated for RHEL BYOS images.
 
     `az vm image list --offer rhel-byos --all`
 
@@ -101,18 +101,18 @@ JBoss EAP is available on Azure through BYOS model only; you need to supply your
 
 2. To deploy the template, you will need:
 
-    - **Admin Username** and password or SSH key data which is an SSH RSA public key for the VM
+   - **Admin Username** and password or SSH key data which is an SSH RSA public key for the VM
 
-    - **JBoss EAP Username** and password
+   - **JBoss EAP Username** and password
 
-    - **RHSM Username** and password
+   - **RHSM Username** and password
 
-    - **RHSM Pool ID for JBoss EAP and/or RHEL OS**
+   - **RHSM Pool ID for JBoss EAP and/or RHEL OS**
     
 ## Deployment Steps
 
-Build your environment with JBoss EAP 7.2 cluster setup on 'n' number of RHEL 8.0 VMs where 'n' is decided by the user and all the VMs are added to the backend pool of a Load Balancer on Azure in a few simple steps:  
-1. Launch the template by clicking the **Deploy to Azure** button.  
+Build your environment with JBoss EAP 7.2 cluster setup on 'n' number of RHEL 8.0 VMs where 'n' is decided by the user and all the VMs are added to the backend pool of a Load Balancer on Azure in a few simple steps:
+1. Launch the template by clicking the **Deploy to Azure** button.
 2. Complete the following parameter values and accept the Terms and Conditions before clicking on the **Purchase** button.
 
     - **Subscription** - Choose the appropriate subscription for deployment.
@@ -149,13 +149,13 @@ Build your environment with JBoss EAP 7.2 cluster setup on 'n' number of RHEL 8.
 
     - Leave the rest of the parameter values (Artifacts and Location) as is, accept the Terms and Conditions, and proceed to purchase.
     
-## Deployment Time 
+## Deployment Time
 
 The deployment takes approximately 10 minutes to complete.
 
 ## Validation Steps
 
-Once the deployment is successful, go to the outputs section of the deployment to obtain the **app URL**. You can access the RHEL VM and the application by the following one of the 3 options:
+Once the deployment is successful, go to the outputs section of the deployment to obtain the **app URL**. You can access the RHEL VM and the application by following one of the 3 options:
 
 1. Create a Jump VM in a different subnet (new subnet) in the same Virtual Network and access the Load Balancer and RHEL VM via Jump VM.
 2. Create a Jump VM in a different Virtual Network and access the Load Balancer and RHEL VM using Virtual Network Peering. (recommended method)
@@ -251,15 +251,14 @@ This section includes common errors faced during deployments and details on how 
 
 - If your deployment fails at the **VM Custom Script Extension** resource, a more detailed failure message is available in the VM log file. Please refer to the next section for further troubleshooting.
 
-
 #### Troubleshooting EAP deployment extension
 
 This quickstart template uses VM Custom Script Extension to deploy and configure JBoss EAP with a sample application. Your deployment can fail at this stage due to several reasons such as:
 
 - Invalid RHSM credentials or EAP entitlement
-- Invalid EAP or RHEL OS entitlement Pool ID
+- Invalid JBoss EAP or RHEL OS entitlement Pool ID
 
-Follow the steps below to troubleshoot this further
+Follow the steps below to troubleshoot this further:
 
 1. Log into the provisioned VM through SSH as mentioned in the 'Validation section'.
 

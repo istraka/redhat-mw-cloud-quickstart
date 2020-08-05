@@ -102,13 +102,13 @@ JBoss EAP is available on Azure through BYOS model only; you need to supply your
 
 2. To deploy the template, you will need:
 
-    - **Admin Username** and password or SSH key data which is an SSH RSA public key for the VMSS instance
+   - **Admin Username** and password or SSH key data which is an SSH RSA public key for the VMSS instance
 
-    - **JBoss EAP Username** and password
+   - **JBoss EAP Username** and password
 
-    - **RHSM Username** and password
+   - **RHSM Username** and password
 
-    - **RHSM Pool ID for JBoss EAP and/or RHEL OS**
+   - **RHSM Pool ID for JBoss EAP and/or RHEL OS**
     
 ## Deployment Steps
 
@@ -146,9 +146,9 @@ Build your environment with JBoss EAP 7.3 cluster setup on RHEL 8.0 VMSS instanc
 
     - **VMSS Name** - Enter the string to be used as a base for naming resources
 
-    - **Instance Count** - Enter the VMSS Instance count (100 or less)
+    - **Instance Count** - Enter the VMSS instance count (100 or less)
 
-    - **VMSS Instance Size** - Select the appropriate size of the VMSS Instance from the dropdown options.
+    - **VMSS Instance Size** - Select the appropriate size of the VMSS instance from the dropdown options.
 
     - Leave the rest of the parameter values (Artifacts and Location) as is, accept the Terms and Conditions, and proceed to purchase.
     
@@ -158,7 +158,7 @@ The deployment takes approximately 10 minutes to complete.
 
 ## Validation Steps
 
-Once the deployment is successful, go to the outputs section of the deployment to obtain the **app URL**. You can access the RHEL VMSS instance and the application by the following one of the 3 options:
+Once the deployment is successful, go to the outputs section of the deployment to obtain the **app URL**. You can access the RHEL VMSS instance and the application by following one of the 3 options:
 
 1. Create a Jump VM in a different subnet (new subnet) in the same Virtual Network and access the Load Balancer and RHEL VMSS instance via Jump VM.
 2. Create a Jump VM in a different Virtual Network and access the Load Balancer and RHEL VMSS instance using Virtual Network Peering. (recommended method)
@@ -188,7 +188,7 @@ Once the deployment is successful, go to the outputs section of the deployment t
   
      ![alt text](images/eap-session-rep.png)
      
-   - Note that in the EAP Session Replication page of Load Balancer, the Private IP displayed is that of one of the VMSS instance. If you click on *Increment Counter* or *Refresh* button when the service of the VMSS instance corresponding to the Private IP displayed is down (can be due to various reasons like instance in stopped state or instance restarting), the Private IP displayed will change to that of another VMSS instance Private IP but the Session ID remains the same. This validates that the Session was replicated.
+   - Note that in the EAP Session Replication page of Load Balancer, the Private IP displayed is that of one of the VMSS instance. If you click on *Increment Counter* or *Refresh* button when the service of the VMSS instance corresponding to the Private IP displayed is down (can be due to various reasons like the instance in stopped state or instance restarting), the Private IP displayed will change to that of another VMSS instance Private IP but the Session ID remains the same. This validates that the Session was replicated.
 
      ![alt text](images/eap-ses-rep.png)
 
@@ -214,7 +214,7 @@ Once the deployment is successful, go to the outputs section of the deployment t
   
      ![alt text](images/eap-session-rep.png)
      
-   - Note that in the EAP Session Replication page of Load Balancer, the Private IP displayed is that of one of the VMSS instance. If you click on *Increment Counter* or *Refresh* button when the service of the VMSS instance corresponding to the Private IP displayed is down (can be due to various reasons like instance in stopped state or instance restarting), the Private IP displayed will change to that of another VMSS instance Private IP but the Session ID remains the same. This validates that the Session was replicated.
+   - Note that in the EAP Session Replication page of Load Balancer, the Private IP displayed is that of one of the VMSS instance. If you click on *Increment Counter* or *Refresh* button when the service of the VMSS instance corresponding to the Private IP displayed is down (can be due to various reasons like the instance in stopped state or instance restarting), the Private IP displayed will change to that of another VMSS instance Private IP but the Session ID remains the same. This validates that the Session was replicated.
 
      ![alt text](images/eap-ses-rep.png)
 
@@ -234,7 +234,7 @@ Once the deployment is successful, go to the outputs section of the deployment t
   
      ![alt text](images/eap-session-rep.png)
 
-   - Note that in the EAP Session Replication page of Load Balancer, the Private IP displayed is that of one of the VMSS instance. If you click on *Increment Counter* or *Refresh* button when the service of the VMSS instance corresponding to the Private IP displayed is down (can be due to various reasons like instance in stopped state or instance restarting), the Private IP displayed will change to that of another VMSS instance Private IP but the Session ID remains the same. This validates that the Session was replicated.
+   - Note that in the EAP Session Replication page of Load Balancer, the Private IP displayed is that of one of the VMSS instance. If you click on *Increment Counter* or *Refresh* button when the service of the VMSS instance corresponding to the Private IP displayed is down (can be due to various reasons like the instance in stopped state or instance restarting), the Private IP displayed will change to that of another VMSS instance Private IP but the Session ID remains the same. This validates that the Session was replicated.
 
      ![alt text](images/eap-ses-rep.png)
 
@@ -260,7 +260,7 @@ This section includes common errors faced during deployments and details on how 
 
 - If the parameter criteria are not fulfilled (ex - the admin password criteria was not met) or if any mandatory parameters are not provided in the parameters section then the deployment will not start. The *Terms & Conditions* must be accepted before clicking on *Purchase*.
 
-- Once the deployment starts the resources being deployed will be visible on the deployment page. In the case of any deployment failure, after parameter validation process, a more detailed failure message is available. 
+- Once the deployment starts the resources being deployed will be visible on the deployment page. In the case of any deployment failure, after parameter validation process, a more detailed failure message is available.
 
 - If your deployment fails at the **VMSS Custom Script Extension** resource, a more detailed failure message is available in the VMSS instance log file. Please refer to the next section for further troubleshooting.
 
@@ -273,7 +273,7 @@ This quickstart template uses VMSS Custom Script Extension to deploy and configu
 
 Follow the steps below to troubleshoot this further:
 
-1. Log into the provisioned VMSS instance through SSH as mentioned in the 'Validation section'
+1. Log into the provisioned VMSS instance through SSH as mentioned in the 'Validation section'.
 
 2. Switch to root user
 
@@ -293,7 +293,7 @@ This log file will have details that include deployment failure reason and possi
 
 ![alt text](images/private-offer.png)
 
-Your Private Offer will be tagged with *Private* as seen below
+Your Private Offer will be tagged with *Private* as seen below.
 
 ![alt text](images/rhel-byos.png)
 

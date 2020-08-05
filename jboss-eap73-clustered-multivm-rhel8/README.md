@@ -28,7 +28,7 @@ Red Hat Subscription Management (RHSM) is a customer-driven, end-to-end solution
 
 ## Template Solution Architecture
 
-This Azure Resource Manager (ARM) template creates all the Azure compute resources to run JBoss EAP 7.3 cluster running 'n' number of Red Hat Enterprise Linux (RHEL) 8.0 VMs where 'n' is decided by the user and all the VMs are added to the backend pool of a Load Balancer. The following resources are created by this template:
+This Azure Resource Manager (ARM) template creates all the Azure compute resources to run JBoss EAP 7.3 cluster running 'n' number of Red Hat Enterprise Linux (RHEL) 8.0 VMs, where 'n' is decided by the user and all the VMs are added to the backend pool of a Load Balancer. The following resources are created by this template:
 
 - RHEL 8.0 Virtual Machines
 - 1 Load Balancer
@@ -48,7 +48,7 @@ To learn more about the JBoss Enterprise Application Platform, visit: [Documenta
 This ARM template is designed with flexible operating system (OS) options:
 
 - Red Hat Enterprise Linux OS as Pay-As-You-Go (PAYG) or Bring-Your-Own-Subscription (BYOS) via Red Hat Gold Image model.
-- Red Hat JBoss EAP is available through BYOS only
+- Red Hat JBoss EAP is available through BYOS only.
 
 #### Using RHEL OS with PAYG Model
 
@@ -101,18 +101,18 @@ JBoss EAP is available on Azure through BYOS model only; you need to supply your
 
 2. To deploy the template, you will need:
 
-    - **Admin Username** and password or SSH key data which is an SSH RSA public key for the VM 
+   - **Admin Username** and password or SSH key data which is an SSH RSA public key for the VM
 
-    - **JBoss EAP Username** and password
+   - **JBoss EAP Username** and password
 
-    - **RHSM Username** and password
+   - **RHSM Username** and password
 
-    - **RHSM Pool ID for JBoss EAP and/or RHEL OS**
+   - **RHSM Pool ID for JBoss EAP and/or RHEL OS**
     
 ## Deployment Steps
 
-Build your environment with JBoss EAP 7.3 cluster setup on 'n' number of RHEL 8.0 VMs where 'n' is decided by the user and all the VMs are added to the backend pool of a Load Balancer on Azure in a few simple steps:  
-1. Launch the template by clicking the **Deploy to Azure** button.  
+Build your environment with JBoss EAP 7.3 cluster setup on 'n' number of RHEL 8.0 VMs where 'n' is decided by the user and all the VMs are added to the backend pool of a Load Balancer on Azure in a few simple steps:
+1. Launch the template by clicking the **Deploy to Azure** button.
 2. Complete the following parameter values and accept the Terms and Conditions before clicking on the **Purchase** button.
 
     - **Subscription** - Choose the appropriate subscription for deployment.
@@ -155,7 +155,7 @@ The deployment takes approximately 10 minutes to complete.
 
 ## Validation Steps
 
-Once the deployment is successful, go to the outputs section of the deployment to obtain the **app URL**. You can access the RHEL VM and the application by the following one of the 3 options:
+Once the deployment is successful, go to the outputs section of the deployment to obtain the **app URL**. You can access the RHEL VM and the application by following one of the 3 options:
 
 1. Create a Jump VM in a different subnet (new subnet) in the same Virtual Network and access the Load Balancer and RHEL VM via Jump VM.
 2. Create a Jump VM in a different Virtual Network and access the Load Balancer and RHEL VM using Virtual Network Peering. (recommended method)
@@ -251,12 +251,11 @@ This section includes common errors faced during deployments and details on how 
 
 - If your deployment fails at the **VM Custom Script Extension** resource, a more detailed failure message is available in the VM log file. Please refer to the next section for further troubleshooting.
 
-
 #### Troubleshooting EAP deployment extension
 
 This quickstart template uses VM Custom Script Extension to deploy and configure JBoss EAP with a sample application. Your deployment can fail at this stage due to several reasons such as:
 
-- Invalid RHSM or EAP entitlement
+- Invalid RHSM credentials or EAP entitlement
 - Invalid JBoss EAP or RHEL OS entitlement Pool ID
 
 Follow the steps below to troubleshoot this further:

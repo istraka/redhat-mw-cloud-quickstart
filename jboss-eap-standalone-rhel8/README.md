@@ -30,7 +30,7 @@ Red Hat Subscription Management (RHSM) is a customer-driven, end-to-end solution
 This Azure Resource Manager (ARM) template creates all the Azure compute resources to run JBoss EAP 7.2 setup on Red Hat Enterprise Linux (RHEL) 8.0 VM. The following resources are created by this template:
 
 - RHEL 8.0 Virtual Machine
-- Virtual Network 
+- Virtual Network
 - JBoss EAP 7.2 setup on a RHEL VM
 - Sample Java application named **JBoss-EAP on Azure** deployed on JBoss EAP 7.2
 - Storage Account
@@ -118,7 +118,7 @@ Build your environment with JBoss EAP 7.2 on a VM running RHEL 8.0 on Azure by c
    - **Location** - Choose the appropriate location for deployment.
 
    - **Admin Username** - User account name for logging into the RHEL VM.
-   
+  
    - **Authentication Type** - Type of authentication to use on the VM (password or SSH key).
 
    - **Admin Password or SSH key** - User account password or SSH key data which is an SSH RSA public key for logging into the RHEL VM.
@@ -147,7 +147,7 @@ The deployment takes approximately 10 minutes to complete.
 
 ## Validation Steps
 
-Once the deployment is successful, go to the outputs section of the deployment to obtain the **Private IP of the RHEL VM**, **app URL** and the **Admin Console URL**. You can access the RHEL VM and the application by the following one of the 5 options:
+Once the deployment is successful, go to the outputs section of the deployment to obtain the **Private IP of the RHEL VM**, **app URL** and the **Admin Console URL**. You can access the RHEL VM and the application by following one of the 5 options:
 
 1. Create a Public IP to access the RHEL VM and JBoss EAP Admin Console.
 2. Create a Jump VM in a different subnet (new subnet) in the same Virtual Network and access the RHEL VM via a Jump VM. 
@@ -225,7 +225,7 @@ Once the deployment is successful, go to the outputs section of the deployment t
 
      ![alt text](images/admin.png)
 
-**Option 5 of 5**. Using an external Load Balancer.
+**Option 5 of 5**. Using an External Load Balancer.
 
    - [Create a Load Balancer](https://docs.microsoft.com/azure/load-balancer/tutorial-load-balancer-standard-manage-portal#create-a-standard-load-balancer) to access the ports of the RHEL VM. Provide the required details to deploy the external Load Balancer and leave other configurations as default. Leave the SKU as Basic for this configuration.
 
