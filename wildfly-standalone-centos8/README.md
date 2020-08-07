@@ -223,4 +223,6 @@ Please refer to [Using the Azure Custom Script Extension Version 2 with Linux VM
 
 ## Support 
 
-For any support related questions, issues or customization requirements, please contact [Spektra Systems](info@spektrasystems.com) or [Red Hat Support](https://www.redhat.com/en/services/support).
+For any support related questions, issues or customization requirements with the GitHub template please contact [Spektra Systems](info@spektrasystems.com).
+
+If you are experiencing production deployment issues please contact [Red Hat Support](https://www.redhat.com/en/services/support).

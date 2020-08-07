@@ -1,19 +1,19 @@
 ---
-title: Quickstart - JBoss EAP on Azure for enterprise Java apps
-description: Deploy JBoss EAP on Azure on Red Hat Enterprise Linux VM for enterprise Java apps
+title: Quickstart - JBoss EAP on Azure for enterprise Java applications
+description: Deploy enterprise Java apps using JBoss EAP with Red Hat Enterprise Linux (RHEL) VM on Azure
 author: SpektraSystems
-ms.author: <To be Updated>
+ms.author: Theresa Nguyen
 ms.topic: quickstart
-ms.date: 05/11/2020
+ms.date: 07/30/2020
 ---
 
-# Quickstart: JBoss EAP on Azure for enterprise Java apps
+# Deploy enterprise Java applications to Azure with JBoss EAP on Red Hat Enterprise Linux
 
-This quickstart shows you how to deploy JBoss EAP on top of Red Hat Enterprise Linux. JBoss EAP (Enterprise Application Platform) is an open source platform for highly transactional, web-scale Java applications. EAP includes everything needed to build, run, deploy, and manage enterprise Java applications in a variety of environments, including on-premises, virtual environments, and in private, public, and hybrid clouds.
+This quickstart shows you how to deploy [JBoss Enterprise (EAP)](https://www.redhat.com/en/technologies/jboss-middleware/application-platform) on [Red Hat Enterprise Linux (RHEL)](https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux) to Azure Virtual Machines (VM) and Virtual Machine Scale Sets (VMSS). JBoss EAP is an open source application server platform that delivers enterprise-grade security, scalability, and performance. RHEL is an open source operating system (OS) platform, where you can scale existing apps and roll out emerging technologies across all environments. JBoss EAP and RHEL includes everything needed to build, run, deploy, and manage enterprise Java applications in any environment, including on-premises, virtual environments, and in private, public, or hybrid clouds.
 
 ## Prerequisites
 
-* Azure Subscription with the specified payment method.  RHEL 7.7/8.0 are [Azure Marketplace](https://azuremarketplace.microsoft.com/en-us/marketplace/apps?filters=partners%3Blinux&page=1&search=Red%20Hat%20Enterprise%20Linux) products and require a payment method to be specified in the Azure Subscription. Note that you will not be able to deploy Red Hat Enterprise Linux in an MSDN subscription.
+* Azure Subscription - If you do not already have an account, you can activate your [MSDN subscriber benefits](https://azure.microsoft.com/pricing/member-offers/msdn-benefits-details/) or sign up for a [free account] (https://azure.microsoft.com/free/).
 
 * To install JBoss EAP, you need to have a Red Hat Account and your Red Hat Subscription Management (RHSM) account needs EAP entitlement to use the Enterprise Application Platform. Set up an account on the [Red Hat Customer Portal](https://access.redhat.com/). If you don't have EAP entitlement, obtain a [JBoss EAP evaluation subscription](https://access.redhat.com/products/red-hat-jboss-enterprise-application-platform/evaluation) before you get started.
 
