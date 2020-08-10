@@ -16,6 +16,7 @@ RHSM_PASSWORD=$4
 RHSM_POOL=$5
 PLAN=$6
 
+echo "JBoss plan : " ${PLAN} | adddate >> eap.log
 if [ $PLAN == "JBoss EAP7.2 on RHEL7.7 PAYG" ] 
 then
 echo "Initial JBoss EAP 7.2 setup" | adddate >> eap.log
