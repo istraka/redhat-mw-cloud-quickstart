@@ -21,11 +21,11 @@ This Quickstart shows you how to deploy the standalone node of WildFly of CentOS
 
 WildFly is ideal for development and testing of enterprise Java applications on Azure. List of technologies available in WildFly 18 server configuration profiles are available in the [WildFly Getting Started Guide](https://docs.wildfly.org/18/Getting_Started_Guide.html#getting-started-with-wildfly).
 
-You can use WildFly in either Standalone mode or Cluster mode per your use case. You can ensure high availability of critical Jakarta EE applications by WildFly on a cluster of nodes. Make a small number of application configuration changes, and then deploy the application in the cluster. To learn more on this please check the [WildFly High Availability Guide](https://docs.wildfly.org/18/High_Availability_Guide.html).
+You can use WildFly in either Standalone mode or Cluster mode per your use case. You can ensure high availability of critical Jakarta EE applications by WildFly on a cluster of nodes. Make a small number of application configuration changes, and then deploy the application in the cluster. To learn more about this please check the [WildFly High Availability Guide](https://docs.wildfly.org/18/High_Availability_Guide.html).
 
 ## Configuration choice
 
-WildFly can be booted in **Standalone Server** mode - A standalone server instance is an independent process, much like an JBoss Application Server (AS) 3, 4, 5, or 6 instance. Standalone instances can be launched via the standalone.sh or standalone.bat launch scripts. If more than one standalone instance is launched and multi-server management is desired, it is the user’s responsibility to coordinate management across the servers.
+WildFly can be booted in **Standalone Server** mode - A standalone server instance is an independent process, much like a JBoss Application Server (AS) 3, 4, 5, or 6 instance. Standalone instances can be launched via the standalone.sh or standalone.bat launch scripts. If more than one standalone instance is launched and multi-server management is desired, it is the user’s responsibility to coordinate management across the servers.
 
 You can also start WildFly instance with alternate configuration by using configuration files available in configuration folder.
 
@@ -45,7 +45,7 @@ For example, to use the Jakarta EE Platform 8 with clustering capabilities use t
 
 `./standalone.sh --server-config=standalone-full-ha.xml`
 
-To learn more on the configurations check the [WildFly Getting Started Guide](https://docs.wildfly.org/18/Getting_Started_Guide.html#wildfly-10-configurations).
+To learn more about the configurations check the [WildFly Getting Started Guide](https://docs.wildfly.org/18/Getting_Started_Guide.html#wildfly-10-configurations).
 
 ## Licensing, support, Support and subscription notes
 
