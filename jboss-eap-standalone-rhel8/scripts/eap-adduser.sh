@@ -14,10 +14,10 @@ JBOSS_EAP_PASSWORD=$2
 RHSM_USER=$3
 RHSM_PASSWORD=$4
 RHSM_POOL=$5
-PLAN=$6
+PLAN=${6}
 
 echo "JBoss plan : " ${PLAN} | adddate >> eap.log
-if [ $PLAN == "JBoss EAP7.2 on RHEL7.7 PAYG" ] 
+if [ ${PLAN} == "JBoss EAP7.2 on RHEL7.7 PAYG" ] 
 then
 echo "Initial JBoss EAP 7.2 setup" | adddate >> eap.log
 echo "subscription-manager register --username RHSM_USER --password RHSM_PASSWORD" | adddate >> eap.log
