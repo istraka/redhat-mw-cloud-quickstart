@@ -181,7 +181,9 @@ Once the deployment is successful, go to the outputs section of the deployment t
 
    - To access the App UI console - copy the app URL from the output page of the deployment and paste it in a browser inside the Jump VM. The web application displays the *Session ID*, *Session counter* and *Timestamp* (these are variables stored in the session that are replicated) and the VM Private IP address that the web page and session is being hosted from. Clicking on the *Increment Counter* updates the session counter and clicking on *Refresh* will refresh the page.
 
-     ![alt text](images/eap-session.png)
+     <a href="mailto:appdevonazure@redhat.com">
+       <img src="images/eap-session.png"/>
+     </a>
   
      ![alt text](images/eap-session-rep.png)
      
@@ -207,7 +209,9 @@ Once the deployment is successful, go to the outputs section of the deployment t
 
    - To access the App UI console - copy the app URL from the output page of the deployment and paste it in a browser inside the Jump VM. The web application displays the *Session ID*, *Session counter* and *Timestamp* (these are variables stored in the session that are replicated) and the VM Private IP address that the web page and session is being hosted from. Clicking on the *Increment Counter* updates the session counter and clicking on *Refresh* will refresh the page.
 
-     ![alt text](images/eap-session.png)
+     <a href="mailto:appdevonazure@redhat.com">
+       <img src="images/eap-session.png"/>
+     </a>
   
      ![alt text](images/eap-session-rep.png)
      
@@ -227,7 +231,9 @@ Once the deployment is successful, go to the outputs section of the deployment t
 
    - To view the EAP Session Replication web page - open a web browser and go to *http://<PUBLIC_IP_AppGateway>/eap-session-replication/* and you should see the application running. The web application displays the *Session ID*, *Session counter* and *Timestamp* (these are variables stored in the session that are replicated) and the VM Private IP address that the web page and session is being hosted from. Clicking on the *Increment Counter* updates the session counter and clicking on *Refresh* will refresh the page.
 
-     ![alt text](images/eap-session.png)
+     <a href="mailto:appdevonazure@redhat.com">
+       <img src="images/eap-session.png"/>
+     </a>
   
      ![alt text](images/eap-session-rep.png)
 

@@ -21,9 +21,9 @@
 
 ## Solution Overview
 
-This template creates a standalone node of WildFly on CentOS VM of Standard_DS2_v2 size (users can select the size of the VM from the dropdown options) in your Resource Group (RG) which includes a Public DNS name, Virtual Network and Network Security Group. It is ideal for development and testing of enterprise Java applications on Azure.
+This template creates a standalone node of WildFly on CentOS VM of Standard_DS2_v2 size (users can select the size of the VM from the dropdown options) in your Resource Group (RG) which includes a Private IP, Virtual Network and a diagnostics Storage Account. It is ideal for development and testing of enterprise Java applications on Azure.
 
-WildFly is an open-source application server runtime that is exceptionally fast, flexible, lightweight and powerful. It is Jakarta EE 8 Full Platform and Web Profile compatible.  The state-of-the-art architecture built on the Modular Service Container enables services on-demand when your application requires them.
+WildFly is an open-source application server runtime that is exceptionally fast, flexible, lightweight and powerful. It is Jakarta EE 8 Full Platform and Web Profile compatible. The state-of-the-art architecture built on the Modular Service Container enables services on-demand when your application requires them.
 
 The technology behind WildFly is also available in Red Hat JBoss Enterprise Application Platform (EAP), a hardened enterprise subscription including Red Hat world-class support, long multi-year maintenance cycles and exclusive content. JBoss EAP is an open-soure application server that you can download for free for development use. To obtain a Red Hat Subscription Management (RHSM) account for JBoss EAP, go to: www.redhat.com. Red Hat Subscription Management (RHSM) is a customer-driven, end-to-end solution that provides tools for subscription status and management and integrates with Red Hat's system management tools.
 
@@ -107,7 +107,9 @@ Once the deployment is successful, go to the outputs section of the deployment t
 
    - View the JBoss EAP on Azure web page - open a web browser and go to *http://<PUBLIC_HOSTNAME>:8080/JBoss-EAP_on_Azure/* and you should see the application running.
 
-     ![alt text](images/app.png)
+     <a href="mailto:appdevonazure@redhat.com">
+       <img src="images/app.png"/>
+     </a>
 
    - Log into the WildFly Admin Console - open a web browser and go to *http://<PUBLIC_HOSTNAME>:9990*. Enter the WildFly username and password to login.
 
@@ -125,7 +127,9 @@ Once the deployment is successful, go to the outputs section of the deployment t
 
    - Access the JBoss EAP on Azure web page - in your Jump VM, open a browser and paste the app URL that you copied from the output page of the deployment.
 
-     ![alt text](images/app.png)
+     <a href="mailto:appdevonazure@redhat.com">
+       <img src="images/app.png"/>
+     </a>
      
    - Access the WildFly Admin Console - paste the Admin Console URL that you copied from the output page in a browser inside the Jump VM to access the WildFly Admin Console and enter the WildFly username and password to login.
 
@@ -143,7 +147,9 @@ Once the deployment is successful, go to the outputs section of the deployment t
 
    - Paste the app URL that you copied from the output page in a browser inside the Jump VM to view the JBoss EAP on Azure web page.
 
-     ![alt text](images/app.png)
+     <a href="mailto:appdevonazure@redhat.com">
+       <img src="images/app.png"/>
+     </a>
      
    - Access the WildFly Admin Console - paste the Admin Console URL copied from the output page in a browser inside the Jump VM, enter the WilldFly username and password to login.
 
@@ -161,7 +167,9 @@ Once the deployment is successful, go to the outputs section of the deployment t
 
    - To view the JBoss EAP on Azure web page - open a web browser and go to *http://<PUBLIC_IP_AppGateway>:8080/JBoss-EAP_on_Azure/* and you should see the application running.
 
-     ![alt text](images/app.png)
+     <a href="mailto:appdevonazure@redhat.com">
+       <img src="images/app.png"/>
+     </a>
 
    - To log into the WildFly Admin Console - open a web browser and go to *http://<PUBLIC_IP_AppGateway>:9990*. Enter the WildFly username and password to login.
 
@@ -179,7 +187,9 @@ Once the deployment is successful, go to the outputs section of the deployment t
 
    - To view the JBoss EAP on Azure web page - open a web browser and go to *http://<PUBLIC_IP_LoadBalancer>:8080/JBoss-EAP_on_Azure/* and you should see the application running.
 
-     ![alt text](images/app.png)
+     <a href="mailto:appdevonazure@redhat.com">
+       <img src="images/app.png"/>
+     </a>
 
    - To log into the WildFly Admin Console - open a web browser and go to *http://<PUBLIC_IP_LoadBalancer>:9990*. Enter the WildFly username and password to login.
 

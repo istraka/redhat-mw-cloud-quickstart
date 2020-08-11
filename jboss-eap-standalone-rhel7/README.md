@@ -165,7 +165,9 @@ Once the deployment is successful, go to the outputs section of the deployment t
 
    - View the JBoss EAP on Azure web page - open a web browser and go to *http://<PUBLIC_HOSTNAME>:8080/JBoss-EAP_on_Azure/* and you should see the application running.
 
-     ![alt text](images/app.png)
+     <a href="mailto:appdevonazure@redhat.com">
+       <img src="images/app.png"/>
+     </a>
 
    - Log into the JBoss EAP Admin Console - open a web browser and go to *http://<PUBLIC_HOSTNAME>:9990*. Enter the JBoss EAP username and password to login.
 
@@ -183,7 +185,9 @@ Once the deployment is successful, go to the outputs section of the deployment t
 
    - Access the JBoss EAP on Azure web page - in your Jump VM, open a browser and paste the app URL that you copied from the output page of the deployment.
 
-     ![alt text](images/app.png)
+     <a href="mailto:appdevonazure@redhat.com">
+       <img src="images/app.png"/>
+     </a>
      
    - Access the JBoss EAP Admin Console - paste the Admin Console URL that you copied from the output page in a browser inside the Jump VM to access the JBoss EAP Admin Console and enter the JBoss EAP username and password to login.
 
@@ -201,7 +205,9 @@ Once the deployment is successful, go to the outputs section of the deployment t
 
    - Paste the app URL that you copied from the output page in a browser inside the Jump VM to view the JBoss EAP on Azure web page.
 
-     ![alt text](images/app.png)
+     <a href="mailto:appdevonazure@redhat.com">
+       <img src="images/app.png"/>
+     </a>
      
    - Access the JBoss EAP Admin Console - paste the Admin Console URL copied from the output page in a browser inside the Jump VM, enter the JBoss EAP username and password to login.
 
@@ -219,7 +225,9 @@ Once the deployment is successful, go to the outputs section of the deployment t
 
    - To view the JBoss EAP on Azure web page - open a web browser and go to *http://<PUBLIC_IP_AppGateway>:8080/JBoss-EAP_on_Azure/* and you should see the application running.
 
-     ![alt text](images/app.png)
+     <a href="mailto:appdevonazure@redhat.com">
+       <img src="images/app.png"/>
+     </a>
 
    - To log into the JBoss EAP Admin Console - open a web browser and go to *http://<PUBLIC_IP_AppGateway>:9990*. Enter the JBoss EAP username and password to login.
 
@@ -237,7 +245,9 @@ Once the deployment is successful, go to the outputs section of the deployment t
 
    - To view the JBoss EAP on Azure web page - open a web browser and go to *http://<PUBLIC_IP_LoadBalancer>:8080/JBoss-EAP_on_Azure/* and you should see the application running.
 
-     ![alt text](images/app.png)
+     <a href="mailto:appdevonazure@redhat.com">
+       <img src="images/app.png"/>
+     </a>
 
    - To log into the JBoss EAP Admin Console - open a web browser and go to *http://<PUBLIC_IP_LoadBalancer>:9990*. Enter the JBoss EAP username and password to login.
 
