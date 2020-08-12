@@ -3,9 +3,9 @@
 
 This project contains the Azure Quickstart templates for Red Hat JBoss Enterprise Application Platform (EAP) running on Red Hat Enterprise Linux (RHEL).  Versions of the template includes:
 
-* [JBoss EAP 7.2 on RHEL 7.7 (stand-alone VM)](jboss-eap-standalone-rhel7/README.md) - This Azure template deploys a web application named "JBoss-EAP on Azure" on JBoss EAP 7.2 running on RHEL 7.7 VM.
+* [JBoss EAP 7.2 on RHEL 7.7 (stand-alone VM)](jboss-eap72-standalone-rhel7/README.md) - This Azure template deploys a web application named "JBoss-EAP on Azure" on JBoss EAP 7.2 running on RHEL 7.7 VM.
 
-* [JBoss EAP 7.2 on RHEL 8.0 (stand-alone VM)](jboss-eap-standalone-rhel8/README.md) - This Azure template deploys a web application named "JBoss-EAP on Azure" on JBoss EAP 7.2 running on RHEL 8.0 VM.
+* [JBoss EAP 7.2 on RHEL 8.0 (stand-alone VM)](jboss-eap72-standalone-rhel8/README.md) - This Azure template deploys a web application named "JBoss-EAP on Azure" on JBoss EAP 7.2 running on RHEL 8.0 VM.
 
 * [JBoss EAP 7.3 on RHEL 8.0 (stand-alone VM)](jboss-eap73-standalone-rhel8/README.md) - This Azure template deploys a web application named "JBoss-EAP on Azure" on JBoss EAP 7.3 running on RHEL 8.0 VM.
 

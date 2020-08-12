@@ -46,7 +46,7 @@
         "BYOS"
       ],	
       "metadata": {	
-        "description": "Select the of RHEL OS License Type for deploying your Virtual Machine. Please read through the guide and make sure you follow the steps mentioned under section 'Licenses, Subscriptions and Costs' if you are selecting BYOS"	
+        "description": "Select the of RHEL OS License Type for deploying your Virtual Machine. Please read through the guide and make sure you follow the steps mentioned under section 'Licenses, Subscriptions and Costs' if you are selecting BYOS"
       }	
     },
     "rhsmUserName": {
@@ -79,7 +79,7 @@
       "metadata": {
         "description": "The base URI where artifacts required by this template are located. When the template is deployed using the accompanying scripts, a private location in the subscription will be used and this value will be automatically generated"
       },
-      "defaultValue": "https://raw.githubusercontent.com/SpektraSystems/redhat-mw-cloud-quickstart/master/jboss-eap-standalone-rhel8/"
+      "defaultValue": "https://raw.githubusercontent.com/SpektraSystems/redhat-mw-cloud-quickstart/master/jboss-eap72-standalone-rhel7/"
     },
     "_artifactsLocationSasToken": {
       "type": "securestring",
@@ -118,9 +118,9 @@
     "singlequote": "'",
     "imagePublisher": "redhat",
     "imageOfferPAYG": "rhel",
-    "imageSkuPAYG": "8",
+    "imageSkuPAYG": "7.7",
     "imageOfferBYOS": "rhel-byos",
-    "imageSkuBYOS": "rhel-lvm8",
+    "imageSkuBYOS": "rhel-lvm77",
     "nicName": "[concat(uniquestring(resourceGroup().id), '-nic')]",
     "addressPrefix": "10.0.0.0/16",
     "subnetName": "jbosseap-server-subnet",
@@ -133,22 +133,22 @@
     "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnetName'))]",
     "bootStorageAccountName": "[concat('bootstrg', uniqueString(resourceGroup().id))]",
     "storageAccountType": "Standard_LRS",
-    "linuxConfiguration": {	
-      "disablePasswordAuthentication": true,	
-      "ssh": {	
-        "publicKeys": [	
-          {	
-            "path": "[concat('/home/', parameters('adminUsername'), '/.ssh/authorized_keys')]",	
-            "keyData": "[parameters('adminPasswordOrSSHKey')]"	
-          }	
-        ]	
-      }	
+    "linuxConfiguration": {
+      "disablePasswordAuthentication": true,
+      "ssh": {
+        "publicKeys": [
+          {
+            "path": "[concat('/home/', parameters('adminUsername'), '/.ssh/authorized_keys')]",
+            "keyData": "[parameters('adminPasswordOrSSHKey')]"
+          }
+        ]
+      }
     }
   },
   "resources": [
     {
       "apiVersion": "2019-05-01",
-      "name": "pid-cf1bb11d-01b8-449d-9052-aae316c75698",
+      "name": "pid-2c0c0514-a608-492e-b64e-bc4ace59035b",
       "type": "Microsoft.Resources/deployments",
       "properties": {
         "mode": "Incremental",
@@ -165,7 +165,7 @@
       "apiVersion": "2019-06-01",
       "location": "[parameters('location')]",
       "tags": {
-                "QuickstartName": "JBoss EAP 7.2 on RHEL 8.0 (stand-alone VM)"
+                "QuickstartName": "JBoss EAP 7.2 on RHEL 7.7 (stand-alone VM)"
             },
       "sku": {
           "name": "[variables('storageAccountType')]"
@@ -178,7 +178,7 @@
       "name": "[variables('virtualNetworkName')]",
       "location": "[parameters('location')]",
       "tags": {
-                "QuickstartName": "JBoss EAP 7.2 on RHEL 8.0 (stand-alone VM)"
+                "QuickstartName": "JBoss EAP 7.2 on RHEL 7.7 (stand-alone VM)"
             },
       "properties": {
         "addressSpace": {
@@ -205,7 +205,7 @@
         "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]"
       ],
       "tags": {
-                "QuickstartName": "JBoss EAP 7.2 on RHEL 8.0 (stand-alone VM)"
+                "QuickstartName": "JBoss EAP 7.2 on RHEL 7.7 (stand-alone VM)"
             },
       "properties": {
         "ipConfigurations": [
@@ -232,7 +232,7 @@
         "[concat('Microsoft.Storage/storageAccounts/', variables('bootStorageAccountName'))]"
       ],
       "tags": {
-                "QuickstartName": "JBoss EAP 7.2 on RHEL 8.0 (stand-alone VM)"
+                "QuickstartName": "JBoss EAP 7.2 on RHEL 7.7 (stand-alone VM)"
             },
       "properties": {
         "hardwareProfile": {
@@ -282,7 +282,7 @@
         "[concat('Microsoft.Compute/virtualMachines/', variables('vmNamePAYG'))]"
       ],
       "tags": {
-                "QuickstartName": "JBoss EAP 7.2 on RHEL 8.0 (stand-alone VM)"
+                "QuickstartName": "JBoss EAP 7.2 on RHEL 7.7 (stand-alone VM)"
             },
       "properties": {
         "publisher": "Microsoft.Azure.Extensions",
@@ -308,10 +308,10 @@
         "[concat('Microsoft.Storage/storageAccounts/', variables('bootStorageAccountName'))]"
       ],
       "tags": {
-                "QuickstartName": "JBoss EAP 7.2 on RHEL 8.0 (stand-alone VM)"
+                "QuickstartName": "JBoss EAP 7.2 on RHEL 7.7 (stand-alone VM)"
             },
       "plan": {
-        "name": "rhel-lvm8",
+        "name": "rhel-lvm77",
         "publisher": "redhat",
         "product": "rhel-byos"
       },
@@ -363,7 +363,7 @@
         "[concat('Microsoft.Compute/virtualMachines/', variables('vmNameBYOS'))]"
       ],
       "tags": {
-                "QuickstartName": "JBoss EAP 7.2 on RHEL 8.0 (stand-alone VM)"
+                "QuickstartName": "JBoss EAP 7.2 on RHEL 7.7 (stand-alone VM)"
             },
       "properties": {
         "publisher": "Microsoft.Azure.Extensions",
