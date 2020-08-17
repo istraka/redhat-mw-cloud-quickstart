@@ -29,10 +29,10 @@ tar xvf wildfly-$WILDFLY_RELEASE.Final.tar.gz | adddate >> wildfly.install.log 2
 
 echo "Sample app deploy..." | adddate >> wildfly.install.log
 echo "git clone https://github.com/Suraj2093/dukes.git" | adddate >> wildfly.install.log
-git clone https://github.com/Suraj2093/dukes.git >> wildfly.install.log 2>&1
+git clone https://github.com/SpektraSystems/redhat-mw-cloud-quickstart.git >> wildfly.install.log 2>&1
 flag=$?; if [ $flag != 0 ] ; then echo  "ERROR! Git clone Failed" | adddate >> wildfly.install.log; exit $flag;  fi
-echo "/bin/cp -rf ./dukes/target/JBoss-EAP_on_Azure.war ./wildfly-$WILDFLY_RELEASE.Final/standalone/deployments/" | adddate >> wildfly.install.log
-/bin/cp -rf ./dukes/target/JBoss-EAP_on_Azure.war ./wildfly-$WILDFLY_RELEASE.Final/standalone/deployments/ | adddate >> wildfly.install.log 2>&1
+echo "/bin/cp -rf ./redhat-mw-cloud-quickstart/wildfly-standalone-centos8/scripts/JBoss-EAP_on_Azure.war ./wildfly-$WILDFLY_RELEASE.Final/standalone/deployments/" | adddate >> wildfly.install.log
+/bin/cp -rf ./redhat-mw-cloud-quickstart/wildfly-standalone-centos8/scripts/JBoss-EAP_on_Azure.war ./wildfly-$WILDFLY_RELEASE.Final/standalone/deployments/ | adddate >> wildfly.install.log 2>&1
 
 echo "Configuring WILDFLY managment user..." | adddate >> wildfly.install.log
 echo "./wildfly-$WILDFLY_RELEASE.Final/bin/add-user.sh -u WILDFLY_USER -p WILDFLY_PASSWORD -g 'guest,mgmtgroup'" | adddate >> wildfly.install.log
