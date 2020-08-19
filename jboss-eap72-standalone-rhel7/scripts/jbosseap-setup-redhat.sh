@@ -77,11 +77,11 @@ echo "yum install -y git" | adddate >> jbosseap.install.log
 yum install -y git | adddate >> jbosseap.install.log 2>&1
 
 echo "Getting the sample JBoss-EAP on Azure app to install" | adddate >> jbosseap.install.log
-echo "git clone https://github.com/SpektraSystems/redhat-mw-cloud-quickstart.git" | adddate >> jbosseap.install.log
-git clone https://github.com/SpektraSystems/redhat-mw-cloud-quickstart.git >> jbosseap.install.log 2>&1
-flag=$?; if [ $flag != 0 ] ; then echo  "ERROR! Git clone Failed" | adddate >> jbosseap.install.log; exit $flag;  fi
-echo "mv ./redhat-mw-cloud-quickstart/jboss-eap72-standalone-rhel7/scripts/JBoss-EAP_on_Azure.war $EAP_HOME/standalone/deployments/JBoss-EAP_on_Azure.war" | adddate >> jbosseap.install.log
-mv ./redhat-mw-cloud-quickstart/jboss-eap72-standalone-rhel7/scripts/JBoss-EAP_on_Azure.war $EAP_HOME/standalone/deployments/JBoss-EAP_on_Azure.war | adddate >> jbosseap.install.log 2>&1
+echo "wget https://github.com/SpektraSystems/redhat-mw-cloud-quickstart/raw/master/jboss-eap72-standalone-rhel7/scripts/JBoss-EAP_on_Azure.war" | adddate >> jbosseap.install.log
+wget https://github.com/SpektraSystems/redhat-mw-cloud-quickstart/raw/master/jboss-eap72-standalone-rhel7/scripts/JBoss-EAP_on_Azure.war >> jbosseap.install.log 2>&1
+flag=$?; if [ $flag != 0 ] ; then echo  "ERROR! Sample Application Download Failed" | adddate >> jbosseap.install.log; exit $flag;  fi
+echo "mv ./JBoss-EAP_on_Azure.war $EAP_HOME/standalone/deployments/JBoss-EAP_on_Azure.war" | adddate >> jbosseap.install.log
+mv ./JBoss-EAP_on_Azure.war $EAP_HOME/standalone/deployments/JBoss-EAP_on_Azure.war | adddate >> jbosseap.install.log 2>&1
 echo "cat > $EAP_HOME/standalone/deployments/JBoss-EAP_on_Azure.war.dodeploy" | adddate >> jbosseap.install.log
 cat > $EAP_HOME/standalone/deployments/JBoss-EAP_on_Azure.war.dodeploy | adddate >> jbosseap.install.log 2>&1
 
