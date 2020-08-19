@@ -76,7 +76,7 @@ Before you start migrating your applications from previous versions of Red Hat J
 ### Phases of on-premises to Azure migrations
 Azure Marketplace offer of JBoss EAP on RHEL will install and provision on Azure VM very easily your Azure subscription. The Azure marketplace offers you plans with JBoss EAP (7.2/7.3) on RHEL VM (7.7/8.0) as mentioned in the [Best practice starting with Azure Marketplace offers](#best-practice-starting-with-azure-marketplace-offers) earlier.
 
-You can also refer and use the templates in Azure QuickStart templates GitHub Repository mentioned in the [Best practice starting with Azure Marketplace offers](#best-practice-starting-with-azure-marketplace-offers) to build your infrastucture environment. Here you have deploy clustered environment as well which will have a Load Balancer (LB), Private IP for LB and VMs/VMSS, Virtual Network (VNET) with a single subnet, Network Security Group (NSG), and a sample Java app.
+You can also refer and use the templates in Azure QuickStart templates GitHub Repository mentioned in the [Best practice starting with Azure Marketplace offers](#best-practice-starting-with-azure-marketplace-offers) to build your infrastructure environment. Here you can deploy clustered environment as well which will have a Load Balancer (LB), Private IP for LB and VMs/VMSS, Virtual Network (VNET) with a single subnet, and a sample Java app.
 
 If you need to access your on-premises services, you'll need to provision one of Azure's connectivity services. For more information, see [Choose a solution for connecting an on-premises network to Azure](https://docs.microsoft.com/azure/architecture/reference-architectures/hybrid-networking/).
 
