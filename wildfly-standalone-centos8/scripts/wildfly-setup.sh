@@ -52,8 +52,8 @@ echo "systemctl restart sshd" | adddate >> wildfly.install.log
 systemctl restart sshd | adddate >> wildfly.install.log 2>&1
 
 echo "Sample app deploy..." | adddate >> wildfly.install.log
-echo "wget $fileURL" | adddate >> wildfly.install.log
-wget $fileURL >> wildfly.install.log 2>&1
+echo "wget $fileUrl" | adddate >> wildfly.install.log
+wget $fileUrl >> wildfly.install.log 2>&1
 flag=$?; if [ $flag != 0 ] ; then echo  "ERROR! Sample Application Download Failed" | adddate >> wildfly.install.log; exit $flag;  fi
 echo "/bin/cp -rf ./JBoss-EAP_on_Azure.war ./wildfly-$WILDFLY_RELEASE.Final/standalone/deployments/" | adddate >> wildfly.install.log
 /bin/cp -rf ./JBoss-EAP_on_Azure.war ./wildfly-$WILDFLY_RELEASE.Final/standalone/deployments/ | adddate >> wildfly.install.log 2>&1
