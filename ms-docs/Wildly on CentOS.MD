@@ -6,7 +6,7 @@ documentationcenter: ''
 author: RockClimberT
 manager: westonh
 editor: ''
-ms.date: 05/11/2020
+ms.date: 08/06/2020
 ---
 
 # Quickstart: WildFly on CentOS 8
@@ -75,7 +75,7 @@ You can deploy the template in the following 3 ways :
 
 ## Resource Links:
 
-* Learn more about [WildFly 18](https://wildfly.org/)
+* Learn more about [WildFly 18](https://wildfly.org/18)
 * Learn more about [Linux distributions on Azure](https://docs.microsoft.com/azure/virtual-machines/linux/endorsed-distros)
 * [Azure for Java developers documentation](https://docs.microsoft.com/azure/developer/java/?view=azure-java-stable)
 

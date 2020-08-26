@@ -58,6 +58,46 @@ JBoss EAP is available on Azure through BYOS model only. When deploying the plan
 
     `subscription-manager attach --pool=EAP_POOL`
 
+## Troubleshooting
+
+This section includes common errors faced during deployments and details on how you can troubleshoot these errors. 
+
+#### Azure Platform
+
+- If the parameter criteria are not fulfilled (ex - the admin password criteria was not met) or if any mandatory parameters are not provided in the parameters section then the deployment will not start. The *Terms & Conditions* must be accepted before clicking on *Purchase*.
+
+- Once the deployment starts the resources being deployed will be visible on the deployment page. In the case of any deployment failure, after parameter validation process, a more detailed failure message is available.
+
+- If your deployment fails at the **VM Custom Script Extension** resource, a more detailed failure message is available in the VM log file. Please refer to the next section for further troubleshooting.
+
+#### Troubleshooting EAP deployment extension
+
+The offers with PAYG RHEL OS uses VM Custom Script Extension to deploy JBoss EAP and configure JBoss EAP management user. The offers with BYOS RHEL OS uses VM Custom Script Extension to configure JBoss EAP management user only. Your deployment can fail at this stage due to several reasons such as:
+
+- Invalid RHSM or EAP entitlement
+- Invalid JBoss EAP or RHEL OS entitlement Pool ID
+
+Follow the steps below to troubleshoot this further:
+
+1. Log into the provisioned virtual machine through SSH. You can retrieve the Public IP of the VM from the Azure portal VM overview page.
+
+2. Switch to root user
+
+    `sudo su -`
+
+3. Enter the VM admin password if prompted.
+
+4. Change directory to logging directory
+
+    `cd /var/lib/waagent/custom-script/download/0`
+
+5. Review the logs in jbosseap.install.log log file.
+
+    `more eap.log`
+
+This log file will have details that include deployment failure reason and possible solutions. If your deployment failed due to RHSM account or entitlements, please refer to 'Support and subscription notes' section to complete the prerequisites and try again.
+
+Please refer to [Using the Azure Custom Script Extension Version 2 with Linux VMs](https://docs.microsoft.com/azure/virtual-machines/extensions/custom-script-linux) for more details on troubleshooting VM custom script extensions.
 
 ## Resource Links:
 
@@ -72,6 +112,6 @@ JBoss EAP is available on Azure through BYOS model only. When deploying the plan
 * [Learn more about JBoss EAP 7.3](https://access.redhat.com/documentation/red_hat_jboss_enterprise_application_platform/7.3/)
 * [Learn more about Red Hat Subscription Management (RHSM)](https://access.redhat.com/products/red-hat-subscription-management)
 * [MS Docs for Red Hat on Azure](https://aka.ms/rhel-docs)
-* [Deploy RHEL 7.7 VM from Azure Marketplace](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/RedHat.RedHatEnterpriseLinux77-ARM?tab=Overview)
-* [Deploy RHEL 8.0 VM from Azure Marketplace](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/RedHat.RedHatEnterpriseLinux80-ARM?tab=Overview)
+* [Deploy RHEL 7.7 VM from Azure Marketplace](https://azuremarketplace.microsoft.com/marketplace/apps/RedHat.RedHatEnterpriseLinux77-ARM?tab=Overview)
+* [Deploy RHEL 8.0 VM from Azure Marketplace](https://azuremarketplace.microsoft.com/marketplace/apps/RedHat.RedHatEnterpriseLinux80-ARM?tab=Overview)
 * For dev/test without Red Hat OS or App Server subscription, run WildFly instead of JBoss EAP: <a href="https://github.com/SpektraSystems/redhat-mw-cloud-quickstart/tree/master/wildfly-standalone-centos8" target="_blank"> WildFly on an Azure CentOS VM</a> - Standalone WildFly 18 with a sample web app on an Azure CentOS 8 VM.
