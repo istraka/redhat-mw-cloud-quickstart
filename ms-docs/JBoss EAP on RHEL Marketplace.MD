@@ -55,6 +55,7 @@ In order to use BYOS for RHEL OS Licensing, you need to have a valid Red Hat sub
 #### Using JBoss EAP with BYOS Model
 
 JBoss EAP is available on Azure through BYOS model only. When deploying the plan with RHEL PAYG VM, you need to supply your RHSM credentials along with RHSM Pool ID with valid EAP entitlements. If you don't have EAP entitlement, obtain a [JBoss EAP evaluation subscription](https://access.redhat.com/products/red-hat-jboss-enterprise-application-platform/evaluation) before you get started. When depyoing the plan with RHEL BYOS VM, after following the steps mentioned above also run the following command to attach the Pool ID with EAP entitlement, where EAP_POOL is RHSM pool ID with EAP entitlement.
+
     `subscription-manager attach --pool=EAP_POOL`
 
 
