@@ -8,22 +8,22 @@
         "description": "Linux VM user account name"
       }
     },
-    "authenticationType": {	
-      "type": "string",	
-      "defaultValue": "password",	
-      "allowedValues": [	
-        "password",		
-        "sshPublicKey"	
-      ],	
-      "metadata": {	
-        "description": "Type of authentication to use on the Virtual Machine"	
-      }	
+    "authenticationType": {
+      "type": "string",
+      "defaultValue": "password",
+      "allowedValues": [
+        "password",
+        "sshPublicKey"
+      ],
+      "metadata": {
+        "description": "Type of authentication to use on the Virtual Machine"
+      }
     },
-    "adminPasswordOrSSHKey": {	
-      "type": "securestring",	
-      "metadata": {	
-        "description": "Password or SSH key for the Virtual Machine"	
-      }	
+    "adminPasswordOrSSHKey": {
+      "type": "securestring",
+      "metadata": {
+        "description": "Password or SSH key for the Virtual Machine"
+      }
     },
     "jbossEAPUserName": {
       "type": "string",
@@ -38,16 +38,16 @@
         "description": "Password for JBoss EAP Manager"
       }
     },
-    "rhelOSLicenseType": {	
-      "type": "string",	
-      "defaultValue": "PAYG",	
-      "allowedValues": [	
-        "PAYG",		
+    "rhelOSLicenseType": {
+      "type": "string",
+      "defaultValue": "PAYG",
+      "allowedValues": [
+        "PAYG",
         "BYOS"
-      ],	
-      "metadata": {	
-        "description": "Select the of RHEL OS License Type for deploying your Virtual Machine. Please read through the guide and make sure you follow the steps mentioned under section 'Licenses, Subscriptions and Costs' if you are selecting BYOS"	
-      }	
+      ],
+      "metadata": {
+        "description": "Select the of RHEL OS License Type for deploying your Virtual Machine. Please read through the guide and make sure you follow the steps mentioned under section 'Licenses, Subscriptions and Costs' if you are selecting BYOS"
+      }
     },
     "rhsmUserName": {
       "type": "string",
@@ -121,35 +121,36 @@
     "imageSkuPAYG": "8",
     "imageOfferBYOS": "rhel-byos",
     "imageSkuBYOS": "rhel-lvm8",
-    "nicName": "[concat(uniquestring(resourceGroup().id), '-nic')]",
+    "nicName": "jbosseap-server-nic",
     "addressPrefix": "10.0.0.0/16",
     "subnetName": "jbosseap-server-subnet",
     "subnetPrefix": "10.0.0.0/24",
     "vmNamePAYG": "jbosseap-payg-server",
     "vmNameBYOS": "jbosseap-byos-server",
     "virtualNetworkName": "jbosseap-vnet",
-    "scriptFolder": "scripts",
-    "scriptFileName": "jbosseap-setup-redhat.sh",
     "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnetName'))]",
     "bootStorageAccountName": "[concat('bootstrg', uniqueString(resourceGroup().id))]",
     "storageAccountType": "Standard_LRS",
-    "linuxConfiguration": {	
-      "disablePasswordAuthentication": true,	
-      "ssh": {	
-        "publicKeys": [	
-          {	
-            "path": "[concat('/home/', parameters('adminUsername'), '/.ssh/authorized_keys')]",	
-            "keyData": "[parameters('adminPasswordOrSSHKey')]"	
-          }	
-        ]	
-      }	
-    }
+    "linuxConfiguration": {
+      "disablePasswordAuthentication": true,
+      "ssh": {
+        "publicKeys": [
+          {
+            "path": "[concat('/home/', parameters('adminUsername'), '/.ssh/authorized_keys')]",
+            "keyData": "[parameters('adminPasswordOrSSHKey')]"
+          }
+        ]
+      }
+    },
+    "scriptFolder": "scripts",
+    "fileToBeDownloaded": "JBoss-EAP_on_Azure.war",
+    "scriptArgs": "[concat('-a ', uri(parameters('_artifactsLocation'), '.'), ' -t \"', parameters('_artifactsLocationSasToken'), '\" -p ', variables('scriptFolder'), ' -f ', variables('fileToBeDownloaded'))]"
   },
   "resources": [
     {
+      "type": "Microsoft.Resources/deployments",
       "apiVersion": "2019-05-01",
       "name": "pid-cf1bb11d-01b8-449d-9052-aae316c75698",
-      "type": "Microsoft.Resources/deployments",
       "properties": {
         "mode": "Incremental",
         "template": {
@@ -161,20 +162,20 @@
     },
     {
       "type": "Microsoft.Storage/storageAccounts",
-      "name": "[variables('bootStorageAccountName')]",
       "apiVersion": "2019-06-01",
+      "name": "[variables('bootStorageAccountName')]",
       "location": "[parameters('location')]",
-      "tags": {
-                "QuickstartName": "JBoss EAP 7.2 on RHEL 8.0 (stand-alone VM)"
-            },
       "sku": {
           "name": "[variables('storageAccountType')]"
       },
-      "kind": "Storage"
+      "kind": "Storage",
+      "tags": {
+                "QuickstartName": "JBoss EAP 7.2 on RHEL 8.0 (stand-alone VM)"
+            }
     },
     {
-      "apiVersion": "2019-11-01",
       "type": "Microsoft.Network/virtualNetworks",
+      "apiVersion": "2019-11-01",
       "name": "[variables('virtualNetworkName')]",
       "location": "[parameters('location')]",
       "tags": {
@@ -197,12 +198,12 @@
       }
     },
     {
-      "apiVersion": "2019-11-01",
       "type": "Microsoft.Network/networkInterfaces",
+      "apiVersion": "2019-11-01",
       "name": "[variables('nicName')]",
       "location": "[parameters('location')]",
       "dependsOn": [
-        "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]"
+        "[variables('virtualNetworkName')]"
       ],
       "tags": {
                 "QuickstartName": "JBoss EAP 7.2 on RHEL 8.0 (stand-alone VM)"
@@ -223,13 +224,13 @@
     },
     {
       "condition": "[equals(parameters('rhelOSLicenseType'),'PAYG')]",
-      "apiVersion":  "2019-12-01", 
       "type": "Microsoft.Compute/virtualMachines",
+      "apiVersion":  "2019-12-01",
       "name": "[variables('vmNamePAYG')]",
       "location": "[parameters('location')]",
       "dependsOn": [
-        "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'))]",
-        "[concat('Microsoft.Storage/storageAccounts/', variables('bootStorageAccountName'))]"
+        "[variables('nicName')]",
+        "[variables('bootStorageAccountName')]"
       ],
       "tags": {
                 "QuickstartName": "JBoss EAP 7.2 on RHEL 8.0 (stand-alone VM)"
@@ -267,7 +268,7 @@
         "diagnosticsProfile": {
           "bootDiagnostics": {
             "enabled": true,
-            "storageUri": "[concat('https://', variables('bootStorageAccountName'), '.blob.core.windows.net')]"
+            "storageUri": "[reference(variables('bootStorageAccountName'), '2019-06-01').primaryEndpoints['blob']]"
           }
         }
       }
@@ -275,11 +276,11 @@
     {
       "condition": "[equals(parameters('rhelOSLicenseType'),'PAYG')]",
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[concat(variables('vmNamePAYG'),'/jbosseap-setup-extension')]",
       "apiVersion": "2019-12-01",
+      "name": "[concat(variables('vmNamePAYG'),'/jbosseap-setup-extension')]",
       "location": "[parameters('location')]",
       "dependsOn": [
-        "[concat('Microsoft.Compute/virtualMachines/', variables('vmNamePAYG'))]"
+        "[variables('vmNamePAYG')]"
       ],
       "tags": {
                 "QuickstartName": "JBoss EAP 7.2 on RHEL 8.0 (stand-alone VM)"
@@ -291,30 +292,32 @@
         "autoUpgradeMinorVersion": true,
         "settings": {
           "fileUris": [
-            "[concat(parameters('_artifactsLocation'), variables('scriptFolder'), '/', variables('scriptFileName'), parameters('_artifactsLocationSasToken'))]"
-          ],
-          "commandToExecute": "[concat('sh jbosseap-setup-redhat.sh',' ',parameters('jbossEAPUserName'),' ',variables('singlequote'),parameters('jbossEAPPassword'),variables('singlequote'),' ',parameters('rhsmUserName'),' ',variables('singlequote'),parameters('rhsmPassword'),variables('singlequote'),' ',parameters('rhelOSLicenseType'),' ', parameters('rhsmPoolEAP'))]"
+            "[uri(parameters('_artifactsLocation'), concat('scripts/jbosseap-setup-redhat.sh', parameters('_artifactsLocationSasToken')))]"
+          ]
+        },
+        "protectedSettings": {
+          "commandToExecute": "[concat('sh jbosseap-setup-redhat.sh',' ',variables('scriptArgs'),' ',parameters('jbossEAPUserName'),' ',variables('singlequote'),parameters('jbossEAPPassword'),variables('singlequote'),' ',parameters('rhsmUserName'),' ',variables('singlequote'),parameters('rhsmPassword'),variables('singlequote'),' ',parameters('rhelOSLicenseType'),' ', parameters('rhsmPoolEAP'))]"
         }
       }
     },
     {
       "condition": "[equals(parameters('rhelOSLicenseType'),'BYOS')]",
-      "apiVersion":  "2019-12-01",
       "type": "Microsoft.Compute/virtualMachines",
+      "apiVersion":  "2019-12-01",
       "name": "[variables('vmNameBYOS')]",
       "location": "[parameters('location')]",
-      "dependsOn": [
-        "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'))]",
-        "[concat('Microsoft.Storage/storageAccounts/', variables('bootStorageAccountName'))]"
-      ],
-      "tags": {
-                "QuickstartName": "JBoss EAP 7.2 on RHEL 8.0 (stand-alone VM)"
-            },
       "plan": {
         "name": "rhel-lvm8",
         "publisher": "redhat",
         "product": "rhel-byos"
       },
+      "dependsOn": [
+        "[variables('nicName')]",
+        "[variables('bootStorageAccountName')]"
+      ],
+      "tags": {
+                "QuickstartName": "JBoss EAP 7.2 on RHEL 8.0 (stand-alone VM)"
+            },
       "properties": {
         "hardwareProfile": {
           "vmSize": "[parameters('vmSize')]"
@@ -348,7 +351,7 @@
         "diagnosticsProfile": {
           "bootDiagnostics": {
             "enabled": true,
-            "storageUri": "[concat('https://', variables('bootStorageAccountName'), '.blob.core.windows.net')]"
+            "storageUri": "[reference(variables('bootStorageAccountName'), '2019-06-01').primaryEndpoints['blob']]"
           }
         }
       }
@@ -356,11 +359,11 @@
     {
       "condition": "[equals(parameters('rhelOSLicenseType'),'BYOS')]",
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[concat(variables('vmNameBYOS'),'/jbosseap-setup-extension')]",
       "apiVersion": "2019-12-01",
+      "name": "[concat(variables('vmNameBYOS'),'/jbosseap-setup-extension')]",
       "location": "[parameters('location')]",
       "dependsOn": [
-        "[concat('Microsoft.Compute/virtualMachines/', variables('vmNameBYOS'))]"
+        "[variables('vmNameBYOS')]"
       ],
       "tags": {
                 "QuickstartName": "JBoss EAP 7.2 on RHEL 8.0 (stand-alone VM)"
@@ -372,9 +375,11 @@
         "autoUpgradeMinorVersion": true,
         "settings": {
           "fileUris": [
-            "[concat(parameters('_artifactsLocation'), variables('scriptFolder'), '/', variables('scriptFileName'), parameters('_artifactsLocationSasToken'))]"
-          ],
-          "commandToExecute": "[concat('sh jbosseap-setup-redhat.sh',' ',parameters('jbossEAPUserName'),' ',variables('singlequote'),parameters('jbossEAPPassword'),variables('singlequote'),' ',parameters('rhsmUserName'),' ',variables('singlequote'),parameters('rhsmPassword'),variables('singlequote'),' ',parameters('rhelOSLicenseType'),' ', parameters('rhsmPoolEAP'),' ', parameters('rhsmPoolRHEL'))]"
+            "[uri(parameters('_artifactsLocation'), concat('scripts/jbosseap-setup-redhat.sh', parameters('_artifactsLocationSasToken')))]"
+          ]
+        },
+        "protectedSettings": {
+          "commandToExecute": "[concat('sh jbosseap-setup-redhat.sh',' ',variables('scriptArgs'),' ',parameters('jbossEAPUserName'),' ',variables('singlequote'),parameters('jbossEAPPassword'),variables('singlequote'),' ',parameters('rhsmUserName'),' ',variables('singlequote'),parameters('rhsmPassword'),variables('singlequote'),' ',parameters('rhelOSLicenseType'),' ', parameters('rhsmPoolEAP'),' ', parameters('rhsmPoolRHEL'))]"
         }
       }
     }
