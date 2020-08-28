@@ -45,16 +45,16 @@
         "description": "Password for the JBoss EAP Manager"
       }
     },
-    "rhelOSLicenseType": {	
-      "type": "string",	
+    "rhelOSLicenseType": {
+      "type": "string",
       "defaultValue": "PAYG",
-      "allowedValues": [	
-        "PAYG",		
+      "allowedValues": [
+        "PAYG",
         "BYOS"
       ],
-      "metadata": {	
-        "description": "Select the of RHEL OS License Type for deploying your Virtual Machine. Please read through the guide and make sure you follow the steps mentioned under section 'Licenses, Subscriptions and Costs' if you are selecting BYOS"	
-      }	
+      "metadata": {
+        "description": "Select the of RHEL OS License Type for deploying your Virtual Machine. Please read through the guide and make sure you follow the steps mentioned under section 'Licenses, Subscriptions and Costs' if you are selecting BYOS"
+      }
     },
     "rhsmUserName": {
       "type": "string",
