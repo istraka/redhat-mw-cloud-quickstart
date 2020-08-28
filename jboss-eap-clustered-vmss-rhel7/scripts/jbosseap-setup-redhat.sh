@@ -14,16 +14,35 @@ source ~/.bash_profile
 touch /etc/profile.d/eap_env.sh
 echo 'export EAP_HOME="/opt/rh/eap7/root/usr/share"' >> /etc/profile.d/eap_env.sh
 
-JBOSS_EAP_USER=$1
-JBOSS_EAP_PASSWORD=$2
-RHEL_OS_LICENSE_TYPE=$3
-RHSM_USER=$4
-RHSM_PASSWORD=$5
-RHSM_POOL=$6
+while getopts "a:t:p:f:" opt; do
+    case $opt in
+        a)
+            artifactsLocation=$OPTARG #base uri of the file including the container
+        ;;
+        t)
+            token=$OPTARG #saToken for the uri - use "?" if the artifact is not secured via sasToken
+        ;;
+        p)
+            pathToFile=$OPTARG #path to the file relative to artifactsLocation
+        ;;
+        f)
+            fileToDownload=$OPTARG #filename of the file to download from storage
+        ;;
+    esac
+done
+
+fileUrl="$artifactsLocation$pathToFile/$fileToDownload$token"
+
+JBOSS_EAP_USER=$9
+JBOSS_EAP_PASSWORD=${10}
+RHEL_OS_LICENSE_TYPE=${11}
+RHSM_USER=${12}
+RHSM_PASSWORD=${13}
+RHSM_POOL=${14}
 IP_ADDR=$(hostname -I)
-STORAGE_ACCOUNT_NAME=${7}
-CONTAINER_NAME=$8
-STORAGE_ACCESS_KEY=$(echo "${9}" | openssl enc -d -base64)
+STORAGE_ACCOUNT_NAME=${15}
+CONTAINER_NAME=${16}
+STORAGE_ACCESS_KEY=$(echo "${17}" | openssl enc -d -base64)
 
 echo "JBoss EAP admin user: " ${JBOSS_EAP_USER} | adddate >> jbosseap.install.log
 echo "Storage Account Name: " ${STORAGE_ACCOUNT_NAME} | adddate >> jbosseap.install.log
@@ -56,8 +75,7 @@ if [ $RHEL_OS_LICENSE_TYPE == "BYOS" ]
 then
     echo "Attaching Pool ID for RHEL OS" | adddate >> jbosseap.install.log
     echo "subscription-manager attach --pool=RHEL_POOL" | adddate  >> jbosseap.install.log
-    subscription-manager attach --pool=${10} >> jbosseap.install.log 2>&1
-    flag=$?; if [ $flag != 0 ] ; then echo  "ERROR! Pool Attach for RHEL OS Failed" | adddate >> jbosseap.install.log; exit $flag;  fi
+    subscription-manager attach --pool=${18} >> jbosseap.install.log 2>&1
 fi
 echo "Subscribing the system to get access to JBoss EAP 7.2 repos" | adddate >> jbosseap.install.log
 
@@ -113,12 +131,12 @@ chkconfig crond on | adddate >> jbosseap.install.log 2>&1
 echo "@reboot sleep 90 && /bin/jbossservice.sh" >>  /var/spool/cron/root
 chmod 600 /var/spool/cron/root
 
-echo "Deploy an application " | adddate >> jbosseap.install.log
-echo "git clone https://github.com/Suraj2093/eap-session-replication.git" | adddate >> jbosseap.install.log
-git clone https://github.com/Suraj2093/eap-session-replication.git >> jbosseap.install.log 2>&1
-flag=$?; if [ $flag != 0 ] ; then echo  "ERROR! Git clone Failed" | adddate >> jbosseap.install.log; exit $flag; fi
-echo "cp eap-session-replication/target/eap-session-replication.war $EAP_HOME/wildfly/standalone/deployments/" | adddate >> jbosseap.install.log
-cp eap-session-replication/target/eap-session-replication.war $EAP_HOME/wildfly/standalone/deployments/ | adddate >> jbosseap.install.log 2>&1
+echo "Deploy an application" | adddate >> jbosseap.install.log
+echo "wget $fileUrl" | adddate >> jbosseap.install.log
+wget $fileUrl >> jbosseap.install.log 2>&1
+flag=$?; if [ $flag != 0 ] ; then echo  "ERROR! Sample Application Download Failed" | adddate >> jbosseap.install.log; exit $flag; fi
+echo "cp ./eap-session-replication.war $EAP_HOME/wildfly/standalone/deployments/" | adddate >> jbosseap.install.log
+cp ./eap-session-replication.war $EAP_HOME/wildfly/standalone/deployments/ | adddate >> jbosseap.install.log 2>&1
 echo "touch $EAP_HOME/wildfly/standalone/deployments/eap-session-replication.war.dodeploy" | adddate >> jbosseap.install.log
 touch $EAP_HOME/wildfly/standalone/deployments/eap-session-replication.war.dodeploy | adddate >> jbosseap.install.log 2>&1
 
