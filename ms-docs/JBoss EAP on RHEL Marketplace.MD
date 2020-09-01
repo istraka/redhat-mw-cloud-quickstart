@@ -19,6 +19,8 @@ Azure Marketplace have offers using which you can deploy Azure [Red Hat Enterpri
 
 * RHEL options - Choose between Pay-As-You-Go (PAYG) or Bring-Your-Own-Subscription (BYOS).
 
+* [Azure Command-Line Interface](https://docs.microsoft.com/cli/azure/overview).
+
 ## Support and subscription notes
 
 The Azure Marketplace offers you the following combination of JBoss EAP on RHEL VM plans :
@@ -40,7 +42,29 @@ Check out [Red Hat Enterprise Linux pricing](https://azure.microsoft.com/pricing
 
 #### Using RHEL OS with BYOS Model
 
-In order to use BYOS for RHEL OS Licensing, you need to have a valid Red Hat subscription with entitlements to use RHEL OS in Azure. Once you deploy a VM using any of the above mentioned RHEL BYOS plan please run the following commands to register with your RHSM account and attach your BYOS Pool ID.
+In order to use BYOS for RHEL OS Licensing, you need to have a valid Red Hat subscription with entitlements to use RHEL OS in Azure. Complete the following prerequisites in order to use RHEL OS through BYOS model before you deploy the EAP on RHEL BYOS Plan from Azure Marketplace. You need to accept the Marketplace Terms and Conditions in Azure for the RHEL BYOS plans. You can complete this by running Azure CLI commands, as given below. Make sure you are running the latest Azure CLI version before moving on.
+
+1. Launch an Azure CLI session and authenticate with your Azure account. Refer to [Signing in with Azure CLI](https://docs.microsoft.com/cli/azure/authenticate-azure-cli?view=azure-cli-latest) for assistance. Make sure you are running the latest Azure CLI version before moving on.
+
+2. Verify the RHEL BYOS plans are available in your subscription by running the following CLI command. Ideally it should be available in all the subscriptions.
+
+    `az vm image list --offer jboss-eap-rhel7 --all` - ***EAP 7.2 on RHEL 7.7 BYOS VM***
+
+    `az vm image list --offer jboss-eap72-rhel8 --all` - ***EAP 7.2 on RHEL 8.0 BYOS VM***
+
+    `az vm image list --offer jboss-eap-rhel8 --all` - ***EAP 7.3 on RHEL 8.0 BYOS VM***
+
+3. Run the following command to accept the Marketplace Terms for RHEL 7.7 BYOS and RHEL 8.0 BYOS, respectively.
+
+    `az vm image terms accept --publisher redhat --offer rhel-byos --plan rhel-lvm77` - ***EAP 7.2 on RHEL 7.7 BYOS VM***
+
+    `az vm image terms accept --publisher redhat --offer rhel-byos --plan rhel-lvm77` - ***EAP 7.2 on RHEL 8.0 BYOS VM***
+
+    `az vm image terms accept --publisher redhat --offer rhel-byos --plan rhel-lvm77` - ***EAP 7.3 on RHEL 8.0 BYOS VM***
+
+4. Your subscription is now ready to deploy EAP on RHEL BYOS VM plans.
+
+ Once you deploy a VM using any of the above mentioned RHEL BYOS plan please run the following commands to register with your RHSM account and attach your BYOS Pool ID.
 
 1. Log into your RHEL BYOS VM.
 
@@ -104,7 +128,7 @@ Please refer to [Using the Azure Custom Script Extension Version 2 with Linux VM
 * Learn more about [JBoss EAP](https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html/getting_started_with_jboss_eap_for_openshift_online/introduction)
 * Learn more about [JBoss EAP on Azure Red Hat OpenShift](https://azure.microsoft.com/services/openshift/)
 * Learn more about [JBoss EAP on App Service Linux](https://docs.microsoft.com/azure/app-service/quickstart-java?pivots=platform-linux)
-* [Azure for Java developers documentation](https://docs.microsoft.com/azure/developer/java/?view=azure-java-stable)
+* [Azure for Java developers documentation](https://github.com/JasonFreeberg/jboss-on-app-service)
 
 ## Next steps
 
@@ -114,4 +138,4 @@ Please refer to [Using the Azure Custom Script Extension Version 2 with Linux VM
 * [MS Docs for Red Hat on Azure](https://aka.ms/rhel-docs)
 * [Deploy RHEL 7.7 VM from Azure Marketplace](https://azuremarketplace.microsoft.com/marketplace/apps/RedHat.RedHatEnterpriseLinux77-ARM?tab=Overview)
 * [Deploy RHEL 8.0 VM from Azure Marketplace](https://azuremarketplace.microsoft.com/marketplace/apps/RedHat.RedHatEnterpriseLinux80-ARM?tab=Overview)
-* For dev/test without Red Hat OS or App Server subscription, run WildFly instead of JBoss EAP: <a href="https://github.com/SpektraSystems/redhat-mw-cloud-quickstart/tree/master/wildfly-standalone-centos8" target="_blank"> WildFly on an Azure CentOS VM</a> - Standalone WildFly 18 with a sample web app on an Azure CentOS 8 VM.
+* For dev/test without Red Hat OS or App Server subscription, run WildFly instead of JBoss EAP: <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/wildfly-standalone-centos8" target="_blank"> WildFly on an Azure CentOS VM</a> - Standalone WildFly 18 with a sample web app on an Azure CentOS 8 VM.
