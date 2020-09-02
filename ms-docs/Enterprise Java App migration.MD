@@ -214,10 +214,10 @@ If you have any processes running outside the application server, such as monito
 
 In order to start the migration, first you need to deploy the JBoss EAP infrastructure. You have multiple options to deploy
 
-- **Azure Virtual Machine**
-- **Azure Virtual Machine Scale Set**
-- **Azure App Service**
-- **Containers**
+- [**Azure Virtual Machine**](https://azure.microsoft.com/overview/what-is-a-virtual-machine/)
+- [**Azure Virtual Machine Scale Set**](https://docs.microsoft.com/azure/virtual-machine-scale-sets/overview)
+- [**Azure App Service**](https://docs.microsoft.com/azure/app-service/overview)
+- [**Containers**](https://azure.microsoft.com/product-categories/containers/)
 
 Please refer to the getting started with Azure Marketplace section to evaluate your deployment infrastructure before you build the environment.
 
