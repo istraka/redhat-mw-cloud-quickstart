@@ -15,13 +15,13 @@ This guide provides information on how to migrate your enterprise Java applicati
 
 Red Hat and Microsoft have partnered to bring a set of Azure solution templates to the Azure Marketplace to provide a solid starting point for migrating to Azure. Consult the documentation for the list of offers and choose the one that most closely matches your existing deployment.
 
-If none of the existing offers are a good starting point, you'll have to reproduce the deployment by hand using Azure Virtual Machine resources. For more information, see [What is IaaS](https://azure.microsoft.com/overview/what-is-iaas/)?.
+If none of the existing offers is a good starting point, you'll have to reproduce the deployment by hand using Azure Virtual Machine resources. For more information, see [What is IaaS](https://azure.microsoft.com/overview/what-is-iaas/)?.
 
 **Azure Marketplace Offers**
 
-Red Hat in partnership with Microsoft have published following offerings in Azure Marketplace. You can access these offers from [Azure Marketplace](https://azuremarketplace.microsoft.com/)
+Red Hat in partnership with Microsoft has published the following offerings in Azure Marketplace. You can access these offers from [Azure Marketplace](https://azuremarketplace.microsoft.com/)
 
-It include various combinations of EAP and RHEL versions to support your requirements. JBOSS EAP licensing is always BYOS(Bring-Your-Own-Subscription) whereas for RHEL OS you can choose from BYOS(Bring-Your-Own-Subscription) or PAYG(Pay-As-You-Go).
+It includes various combinations of EAP and RHEL versions to support your requirements. JBoss EAP licensing is always BYOS(Bring-Your-Own-Subscription) whereas for RHEL OS you can choose from BYOS(Bring-Your-Own-Subscription) or PAYG(Pay-As-You-Go).
 
 * JBoss EAP 7.2 on RHEL 7.7 VM(BYOS)
 * JBoss EAP 7.2 on RHEL 7.7 VM(PAYG)
@@ -96,7 +96,7 @@ To ensure a successful migration, before you start, complete the assessment and 
 
 ### Validate the Compatibility
 
-It is recommended to make sure that you validate your current deployment model and version before planning for migration. You may have to make significant changes to your application if your current version aren’t supported.
+It is recommended to make sure that you validate your current deployment model and version before planning for migration. You may have to make significant changes to your application if your current version isn’t supported.
 
 **Validate Version**
 
@@ -222,10 +222,10 @@ Please refer to the getting started with Azure Marketplace section to evaluate y
 
 There are tools that can assist you in Migration : 
 
-* [Use Red Hat Application Migration Toolkit to Analyze Applications for Migration](https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/index#use_windup_to_analyze_applications_for_migration).
-* [Use the JBoss Server Migration Tool to Migrate Server Configurations](https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/index#migration_tool_server_migration_tool)
+* [Red Hat Application Migration Toolkit to Analyze Applications for Migration](https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/index#use_windup_to_analyze_applications_for_migration).
+* [JBoss Server Migration Tool to Migrate Server Configurations](https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/index#migration_tool_server_migration_tool)
 
-To migrate your server configuration from older JBoss EAP version to newer JBoss EAP version, you can either use the [JBoss Server Migration Tool](https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/index#migrate_server_migration_tool_option) or you can perform a manual migration with the help of the [management CLI migrate operation](https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/index#migrate__migrate_operation_option).
+To migrate your server configuration from the older JBoss EAP version to the newer JBoss EAP version, you can either use the [JBoss Server Migration Tool](https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/index#migrate_server_migration_tool_option) or you can perform a manual migration with the help of the [management CLI migrate operation](https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/index#migrate__migrate_operation_option).
 
 ### Run Red Hat Application Migration Toolkit
 
@@ -235,7 +235,8 @@ You can also [run the JBoss Server Migration Tool in Non-interactive Mode](https
 
 ### Review the Result of JBoss Server Migration toolkit execution
 
-When the migration is complete, review the migrated server configuration files in the *EAP_HOME/standalone/configuration/* and *EAP_HOME/domain/configuration/* directories. For more informatation, visit [Reviewing the Results of JBoss Server Migration Tool Execution](https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/using_the_jboss_server_migration_tool/index#migration_tool_server_results).
+When the migration is complete, review the migrated server configuration files in the *EAP_HOME/standalone/configuration/* and *EAP_HOME/domain/configuration/* directories. For more informa.
+tion, visit [Reviewing the Results of JBoss Server Migration Tool Execution](https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/using_the_jboss_server_migration_tool/index#migration_tool_server_results).
 
 ### Expose the Application
 
@@ -252,8 +253,8 @@ You can expose the application using the following methods which is suitable for
 After you've reached the migration goals you defined in the pre-migration step, perform some end-to-end acceptance testing to verify that everything works as expected. Some topics for post-migration enhancements include, but are certainly not limited to the following:
 
 * Using Azure Storage to serve static content mounted to the virtual machines. For more information, visit [Attach or detach a data disk to a virtual machine](https://docs.microsoft.com/azure/devtest-labs/devtest-lab-attach-detach-data-disk)
-* Deploy your applications to your migrated JBOSS cluster with Azure DevOps. For more information, visit [Azure DevOps getting started documentation](https://docs.microsoft.com/azure/devops/get-started/?view=azure-devops).
-* Consider using [Application Gateway](https://docs.microsoft.com/azure/application-gateway/quick-create-portal#create-an-application-gateway).
+* Deploy your applications to your migrated JBoss cluster with Azure DevOps. For more information, visit [Azure DevOps getting started documentation](https://docs.microsoft.com/azure/devops/get-started/?view=azure-devops).
+* Consider using [Application Gateway](https://docs.microsoft.com/azure/application-gateway/).
 * Enhance your network topology with advanced load balancing services. For more information, visit [Using load-balancing services in Azure](https://docs.microsoft.com/azure/traffic-manager/traffic-manager-load-balancing-azure).
 * Leverage Azure Managed Identities to managed secrets and assign role based access to Azure resources. For more information, visit [What are managed identities for Azure resources](https://docs.microsoft.com/azure/active-directory/managed-identities-azure-resources/overview)?
 * Use Azure Key Vault to store any information that functions as a "secret". For more information, visit [Azure Key Vault basic concepts](https://docs.microsoft.com/azure/key-vault/general/basic-concepts).
