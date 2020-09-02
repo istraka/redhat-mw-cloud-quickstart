@@ -153,10 +153,6 @@ keytool -list -v -keystore <path to keystore>
 
 Inventory all JNDI resources. Some, such as JMS message brokers, may require migration or reconfiguration.
 
-### Determine whether session replication is used
-
-If your application relies on session replication, you'll have to change your application to remove this dependency.
-
 #### Inside your application
 
 Inspect the WEB-INF/jboss-web.xml and/or WEB-INF/web.xml files.
@@ -185,12 +181,19 @@ If your application allows for static content that is uploaded/produced by your 
 
 #### Dynamic or internal content
 
-For files that are frequently written and read by your application (such as temporary data files), or static files that are visible only to your application, you can mount Azure Storage shares as persistent volumes. For more information, see [Dynamically create and use a persistent volume with Azure Files in Azure Kubernetes Service](/azure/aks/azure-files-dynamic-pv).
+For files that are frequently written and read by your application (such as temporary data files), or static files that are visible only to your application, you can mount Azure Storage shares as persistent volumes. For more information, see [Dynamically create and use a persistent volume with Azure Files in Azure Kubernetes Service](https://docs.microsoft.com/azure/aks/azure-files-dynamic-pv).
 
 ### Determine whether a connection to on-premises is needed
 
-
 If your application needs to access any of your on-premises services, you'll need to provision one of Azure's connectivity services. For more information, see [Choose a solution for connecting an on-premises network to Azure](/azure/architecture/reference-architectures/hybrid-networking/). Alternatively, you'll need to refactor your application to use publicly available APIs that your on-premises resources expose.
+
+### Determine whether Java Message Service (JMS) Queues or Topics are in use
+
+If your application is using JMS Queues or Topics, you'll need to migrate them to an externally hosted JMS server. Azure Service Bus and the Advanced Message Queuing Protocol (AMQP) can be a great migration strategy for those using JMS. For more information, visit [Use JMS with Azure Service Bus and AMQP 1.0](https://docs.microsoft.com/azure/service-bus-messaging/service-bus-java-how-to-use-jms-api-amqp).
+
+If JMS persistent stores have been configured, you must capture their configuration and apply it after the migration.
+
+
 
 ### Determine whether your application is composed of multiple WARs
 
