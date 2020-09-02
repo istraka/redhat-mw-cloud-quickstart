@@ -9,13 +9,19 @@ ms.date: 08/14/2020
 
 # Migrate Java apps to JBoss EAP on Azure VM and VMSS
 
-This guide provides information on how to migrate your enterprise Java applications to [JBoss Enterprise Application Platform (EAP)](https://www.redhat.com/en/technologies/jboss-middleware/application-platform) and from on-premises to Azure Linux Virtual Machines (VM) and Virtual Machine Scale Set (VMSS) if your cloud strategy is "Lift and Shift" of applications as-is.  However, if you want to "Lift and Optimize" then alternatively you can migrate your containerized applications to [Azure Red Hat OpenShift (ARO)](https://azure.microsoft.com/services/openshift/) with JBoss EAP images from the Red Hat Gallery, or to Azure App Service on Linux.
+This guide provides information on how to migrate your enterprise Java applications to [JBoss Enterprise Application Platform (EAP)](https://www.redhat.com/en/technologies/jboss-middleware/application-platform) and from on-premises to Azure Linux Virtual Machines (VM) and Virtual Machine Scale Set (VMSS) if your cloud strategy is "Lift and Shift" of applications as-is. However, if you want to "Lift and Optimize" then alternatively you can migrate your containerized applications to [Azure Red Hat OpenShift (ARO)](https://azure.microsoft.com/services/openshift/) with JBoss EAP images from the Red Hat Gallery, or to Azure App Service on Linux.
 
-# Best practice starting with Azure Marketplace offers
+## Best practice starting with Azure Marketplace offers
 
 Red Hat and Microsoft have partnered to bring a set of Azure solution templates to the Azure Marketplace to provide a solid starting point for migrating to Azure. Consult the documentation for the list of offers and choose the one that most closely matches your existing deployment.
 
-We have 6 Marketplace offers for JBoss EAP on Azure RHEL VM as follows :
+If none of the existing offers are a good starting point, you'll have to reproduce the deployment by hand using Azure Virtual Machine resources. For more information, see [What is IaaS](https://azure.microsoft.com/overview/what-is-iaas/)?.
+
+**Azure Marketplace Offers**
+
+Red Hat in partnership with Microsoft have published following offerings in Azure Marketplace. You can access these offers from [Azure Marketplace](https://azuremarketplace.microsoft.com/)
+
+It include various combinations of EAP and RHEL versions to support your requirements. JBOSS EAP licensing is always BYOS(Bring-Your-Own-Subscription) whereas for RHEL OS you can choose from BYOS(Bring-Your-Own-Subscription) or PAYG(Pay-As-You-Go).
 
 * JBoss EAP 7.2 on RHEL 7.7 VM(BYOS)
 * JBoss EAP 7.2 on RHEL 7.7 VM(PAYG)
@@ -24,33 +30,41 @@ We have 6 Marketplace offers for JBoss EAP on Azure RHEL VM as follows :
 * JBoss EAP 7.3 on RHEL 8.0 VM(BYOS)
 * JBoss EAP 7.3 on RHEL 8.0 VM(PAYG)
 
-We have the following solution templates in Azure QuickStart templates GitHub Repository. These contain JBoss EAP on Standalone RHEL VM, clustered RHEL VMs and clustered RHEL VMSS.
+**Azure QuickStart Templates**
 
-* <a href="https://github.com/SpektraSystems/redhat-mw-cloud-quickstart/tree/master/jboss-eap72-standalone-rhel7" target="_blank"> JBoss EAP 7.2 on RHEL 7.7 (stand-alone VM)</a> - This Azure template deploys a web application named JBoss-EAP on Azure on JBoss EAP 7.2 running on RHEL 7.7 VM.
+Along with Azure Marketplace offers, there are quickstart templates made available for you to give a quick start to your Azure migration journey. These quickstarts include pre-built ARM templates and script to deploy JBoss EAP on Azure in various configurations and version combinations. Solution architecture includes:
 
-* <a href="https://github.com/SpektraSystems/redhat-mw-cloud-quickstart/tree/master/jboss-eap72-standalone-rhel8" target="_blank"> JBoss EAP 7.2 on RHEL 8.0 (stand-alone VM)</a> - This Azure template deploys a web application named JBoss-EAP on Azure on JBoss EAP 7.2 running on RHEL 8.0 VM.
+* JBoss EAP on standalone RHEL VM
+* JBoss EAP clustered across Multiple RHEL VMs
+* JBoss EAP clustered using VMSS (Azure Virtual Machine Scale Set)
 
-* <a href="https://github.com/SpektraSystems/redhat-mw-cloud-quickstart/tree/master/jboss-eap73-standalone-rhel8" target="_blank"> JBoss EAP 7.3 on RHEL 8.0 (stand-alone VM)</a> - This Azure template deploys a web application named JBoss-EAP on Azure on JBoss EAP 7.3 running on RHEL 8.0 VM.
+You can choose to start with one of the quickstart templates which meets your desired deployment goal. Following is the list of available quickstart templates.
 
-* <a href="https://github.com/SpektraSystems/redhat-mw-cloud-quickstart/tree/master/jboss-eap-clustered-multivm-rhel7" target="_blank">JBoss EAP 7.2 on RHEL 7.7 (clustered VMs)</a> - This Azure template deploys a web application called eap-session-replication on JBoss EAP 7.2 cluster running on 'n' number RHEL 7.7 VMs where n is decided by the user and all the VMs are added to the backend pool of a Load Balancer.
+* <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap72-standalone-rhel7" target="_blank"> JBoss EAP 7.2 on RHEL 7.7 (stand-alone VM)</a> - This Azure template deploys a web application named JBoss-EAP on Azure on JBoss EAP 7.2 running on RHEL 7.7 VM.
 
-* <a href="https://github.com/SpektraSystems/redhat-mw-cloud-quickstart/tree/master/jboss-eap-clustered-multivm-rhel8" target="_blank">JBoss EAP 7.2 on RHEL 8.0 (clustered VMs)</a> - This Azure template deploys a web application called eap-session-replication on JBoss EAP 7.2 cluster running on 'n' number of RHEL 8.0 VMs where n is decided by the user and all the VMs are added to the backend pool of a Load Balancer.
+* <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap72-standalone-rhel8" target="_blank"> JBoss EAP 7.2 on RHEL 8.0 (stand-alone VM)</a> - This Azure template deploys a web application named JBoss-EAP on Azure on JBoss EAP 7.2 running on RHEL 8.0 VM.
 
-* <a href="https://github.com/SpektraSystems/redhat-mw-cloud-quickstart/tree/master/jboss-eap73-clustered-multivm-rhel8" target="_blank"> JBoss EAP 7.3 on RHEL 8.0 (clustered VMs)</a> - This Azure template deploys a web application called eap-session-replication on JBoss EAP 7.3 cluster running on 'n' number of RHEL 8.0 VMs where n is decided by the user and all the VMs are added to the backend pool of a Load Balancer.
+* <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap73-standalone-rhel8" target="_blank"> JBoss EAP 7.3 on RHEL 8.0 (stand-alone VM)</a> - This Azure template deploys a web application named JBoss-EAP on Azure on JBoss EAP 7.3 running on RHEL 8.0 VM.
 
-* <a href="https://github.com/SpektraSystems/redhat-mw-cloud-quickstart/tree/master/jboss-eap-clustered-vmss-rhel7" target="_blank"> JBoss EAP 7.2 on RHEL 7.7 (clustered VMSS)</a> - This Azure template deploys a web application called eap-session-replication on JBoss EAP 7.2 cluster running on RHEL 7.7 VMSS instances.
+* <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap-clustered-multivm-rhel7" target="_blank">JBoss EAP 7.2 on RHEL 7.7 (clustered VMs)</a> - This Azure template deploys a web application called eap-session-replication on JBoss EAP 7.2 cluster running on 'n' number RHEL 7.7 VMs where n is decided by the user and all the VMs are added to the backend pool of a Load Balancer.
 
-* <a href="https://github.com/SpektraSystems/redhat-mw-cloud-quickstart/tree/master/jboss-eap-clustered-vmss-rhel8" target="_blank">JBoss EAP 7.2 on RHEL 8.0 (clustered VMSS)</a> - This Azure template deploys a web application called eap-session-replication on JBoss EAP 7.2 cluster running on RHEL 8.0 VMSS instances.
+* <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap-clustered-multivm-rhel8" target="_blank">JBoss EAP 7.2 on RHEL 8.0 (clustered VMs)</a> - This Azure template deploys a web application called eap-session-replication on JBoss EAP 7.2 cluster running on 'n' number of RHEL 8.0 VMs where n is decided by the user and all the VMs are added to the backend pool of a Load Balancer.
 
-* <a href="https://github.com/SpektraSystems/redhat-mw-cloud-quickstart/tree/master/jboss-eap73-clustered-vmss-rhel8" target="_blank">JBoss EAP 7.3 on RHEL 8.0 (clustered VMSS)</a> - This Azure template deploys a web application called eap-session-replication on JBoss EAP 7.3 cluster running on RHEL 8.0 VMSS instances.
+* <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap73-clustered-multivm-rhel8" target="_blank"> JBoss EAP 7.3 on RHEL 8.0 (clustered VMs)</a> - This Azure template deploys a web application called eap-session-replication on JBoss EAP 7.3 cluster running on 'n' number of RHEL 8.0 VMs where n is decided by the user and all the VMs are added to the backend pool of a Load Balancer.
 
-## Prerequisites, app server and OS versions 
+* <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap-clustered-vmss-rhel7" target="_blank"> JBoss EAP 7.2 on RHEL 7.7 (clustered VMSS)</a> - This Azure template deploys a web application called eap-session-replication on JBoss EAP 7.2 cluster running on RHEL 7.7 VMSS instances.
+
+* <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap-clustered-vmss-rhel8" target="_blank">JBoss EAP 7.2 on RHEL 8.0 (clustered VMSS)</a> - This Azure template deploys a web application called eap-session-replication on JBoss EAP 7.2 cluster running on RHEL 8.0 VMSS instances.
+
+* <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap73-clustered-vmss-rhel8" target="_blank">JBoss EAP 7.3 on RHEL 8.0 (clustered VMSS)</a> - This Azure template deploys a web application called eap-session-replication on JBoss EAP 7.3 cluster running on RHEL 8.0 VMSS instances.
+
+## Prerequisites 
 
 **Prerequisites**
 
 * An Azure account with an active subscription. If you don't have an Azure subscription, you can activate your [MSDN subscriber benefits](https://azure.microsoft.com/pricing/member-offers/msdn-benefits-details) or [create an account for free](https://azure.microsoft.com/pricing/free-trial).
 
-* Red Hat Subscription with JBoss EAP entitlement - You need to have a Red Hat Account and your Red Hat Subscription Management (RHSM) account must have JBoss EAP entitlement to download Red Hat tested and certified JBoss EAP version.  If you don't have EAP entitlement, obtain a [JBoss EAP evaluation subscription](https://access.redhat.com/products/red-hat-jboss-enterprise-application-platform/evaluation) before you get started. If you would like to create a new Red Hat subscription, go to [Red Hat Customer Portal](https://access.redhat.com/) and set up an account.
+* Red Hat Subscription with JBoss EAP entitlement - You need to have a Red Hat Account and your Red Hat Subscription Management (RHSM) account must have JBoss EAP entitlement to download Red Hat tested and certified JBoss EAP version. If you don't have EAP entitlement, obtain a [JBoss EAP evaluation subscription](https://access.redhat.com/products/red-hat-jboss-enterprise-application-platform/evaluation) before you get started. If you would like to create a new Red Hat subscription, go to [Red Hat Customer Portal](https://access.redhat.com/) and set up an account.
 
 * Java source code and JDK
 
@@ -68,55 +82,181 @@ We have the following solution templates in Azure QuickStart templates GitHub Re
 
 ## Migration Flow and Architecture
 
-### Other Application Server to Red Hat JBoss EAP
-Before you start migrating your applications from previous versions of Red Hat JBoss EAP, you need to be very well informed about the new features available in this release, the deprecated and unsupported features, and any application and server configuration updates that might be required to prevent changes in application behavior. Once the application is successfully deployed and running, plans can be made to upgrade individual components to use the new functions and features of JBoss EAP 7.
+This section describes what you should be aware of when you want to migrate an existing JBoss EAP application to run on JBoss EAP on Azure.
 
-- [**JBoss EAP migration tool**](https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/index#migration_tool_server_migration_tool) - The JBoss Server Migration Tool is the preferred method to update your server configuration to include the new features and settings in JBoss EAP 7 while keeping your existing configuration. The JBoss Server Migration Tool reads your existing JBoss EAP server configuration files and adds configurations for any new subsystems, updates the existing subsystem configurations with new features, and removes any obsolete subsystem configurations.
+### Red Hat Migration Toolkit for Applications
 
-### Phases of on-premises to Azure migrations
-Azure Marketplace offer of JBoss EAP on RHEL will install and provision on Azure VM very easily your Azure subscription. The Azure marketplace offers you plans with JBoss EAP (7.2/7.3) on RHEL VM (7.7/8.0) as mentioned in the [Best practice starting with Azure Marketplace offers](#best-practice-starting-with-azure-marketplace-offers) earlier.
+It is recommended to use Red Hat Migration toolkit for Applications for planning and executing any EAP related migration project. The Migration Toolkit for Applications (MTA) is an assembly of tools that support large-scale Java application modernization and migration projects across a [broad range of transformations and use cases](https://developers.redhat.com/products/mta/use-cases). It accelerates application code analysis, supports effort estimation, accelerates code migration, and helps you move applications to the cloud and containers.
 
-You can also refer and use the templates in Azure QuickStart templates GitHub Repository mentioned in the [Best practice starting with Azure Marketplace offers](#best-practice-starting-with-azure-marketplace-offers) to build your infrastructure environment. Here you can deploy clustered environment as well which will have a Load Balancer (LB), Private IP for LB and VMs/VMSS, Virtual Network (VNET) with a single subnet, and a sample Java app.
+Red Hat MTA allows you to migrate applications from other application server to Red Hat JBoss EAP.
 
-If you need to access your on-premises services, you'll need to provision one of Azure's connectivity services. For more information, see [Choose a solution for connecting an on-premises network to Azure](https://docs.microsoft.com/azure/architecture/reference-architectures/hybrid-networking/).
+## Pre-migration
 
-Following are the phases of on-premises to Azure Migration process
+To ensure a successful migration, before you start, complete the assessment and inventory steps described in the following sections.
 
-- **Discovery**
-- **Cloud assessment**
-- **Proof of concept**
-- **Application migration**
-- **Data migration**
-- **Cloud operation**
+### Validate the Compatibility
 
-### Source stack
+It is recommended to make sure that you validate your current deployment model and version before planning for migration. You may have to make significant changes to your application if your current version aren’t supported.
 
-### Target stack
+**Validate Version**
 
-- [**Azure Virtual Machine**](https://azure.microsoft.com/overview/what-is-a-virtual-machine/)
-- [**Azure Virtual Machine Scale Set**](https://docs.microsoft.com/azure/virtual-machine-scale-sets/overview)
-- [**Azure Storage**](https://docs.microsoft.com/azure/storage/common/storage-introduction)
-- [**Azure SQL**](https://docs.microsoft.com/azure/azure-sql/) **or** [**PostgreSQL service**](https://docs.microsoft.com/azure/postgresql/)
+The Migration Toolkit for Applications (MTA) supports migrations from third-party enterprise application servers, such as Oracle WebLogic Server, to JBoss Enterprise Application Platform (JBoss EAP) and upgrades to the latest release of JBoss EAP.
 
-### Target architecture
+The following table describes the most common supported migration paths.
+
+|Target&nbsp;→<br><br>Source&nbsp;Platform&nbsp;↓|JBoss<br>EAP 6|JBoss<br>EAP 7|
+|---|---|---|---|---|---|---|
+| Oracle WebLogic Server            |&#x2714;|&#x2714;|
+| IBM WebSphere Application Server  |&#x2714;|&#x2714;|
+| JBoss EAP 4                       |&#x2714;|&#x2718;|
+| JBoss EAP 5                       |&#x2714;|&#x2714;|
+| JBoss EAP 6                       |  N/A   |&#x2714;|   
+| JBoss EAP 7                       |  N/A   |&#x2714;|
+| Oracle JDK                        |&#x2043;|&#x2043;|
+| Apache Camel 2                    |&#x2043;|&#x2043;|
+| Spring Boot                       |&#x2043;|&#x2043;|
+| Any Java application              |&#x2043;|&#x2043;|
+
+You can also check on the [system requirements](https://access.redhat.com/documentation/en-us/migration_toolkit_for_applications/5.0/html-single/introduction_to_the_migration_toolkit_for_applications/index#system_requirements_getting-started-guide) for the Migration Toolkit for Applications (MTA).
+
+Check on the [JBoss EAP 7.3 supported configurations](https://access.redhat.com/articles/2026253#EAP_73) and [JBoss EAP 7.2 supported configurations](https://access.redhat.com/articles/2026253#EAP_72) before planning for migration.
+
+To obtain your current Java version, sign in to your server and run the following command:
+
+```bash
+java -version
+```
+
+**Validate Operating Mode**
+
+JBoss EAP is supported on Red Hat Enterprise Linux, Windows Server, and Oracle Solaris. JBoss EAP runs in either a standalone server operating mode for managing discrete instances or managed domain operating mode for managing groups of instances from a single control point.
+
+JBoss EAP managed domains are not supported in Microsoft Azure. Only standalone JBoss EAP server instances are supported. Note that configuring JBoss EAP clusters using standalone JBoss EAP servers is supported in Azure.
+
+### Inventory server capacity
+
+Document the hardware (memory, CPU, disk) of the current production server(s) as well as the average and peak request counts and resource utilization. You'll need this information regardless of the migration path you choose. For additional information on the sizes, visit [Sizes for Cloud Services](https://docs.microsoft.com/azure/cloud-services/cloud-services-sizes-specs).
+
+### Inventory all secrets
+
+Before the advent of "configuration as a service" technologies such as Azure Key Vault, there wasn't a well-defined concept of "secrets". Instead, you had a disparate set of configuration settings that effectively functioned as what we now call "secrets". With app servers such as JBoss EAP, these secrets are in many different config files and configuration stores. Check all properties and configuration files on the production server(s) for any secrets and passwords. Be sure to check *jboss-web.xml* in your WARs. Configuration files containing passwords or credentials may also be found inside your application. For additional information on Azure Key Vault, visit [Azure Key Vault basic concepts](https://docs.microsoft.com/azure/key-vault/general/basic-concepts)
+
+### Inventory all certificates
+
+Document all the certificates used for public SSL endpoints. You can view all certificates on the production server(s) by running the following command:
+
+```bash
+keytool -list -v -keystore <path to keystore>
+```
+
+### Inventory JNDI resources
+
+Inventory all JNDI resources. Some, such as JMS message brokers, may require migration or reconfiguration.
+
+### Determine whether session replication is used
+
+If your application relies on session replication, you'll have to change your application to remove this dependency.
+
+#### Inside your application
+
+Inspect the WEB-INF/jboss-web.xml and/or WEB-INF/web.xml files.
+
+### Document datasources
+
+If your application uses any databases, you need to capture the following information:
+
+* What is the datasource name?
+* What is the connection pool configuration?
+* Where can I find the JDBC driver JAR file?
+
+For more information, see [About JBoss EAP Datasources](https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.3/html/configuration_guide/datasource_management) in the JBoss EAP documentation.
+
+### Determine whether and how the file system is used
+
+Any usage of the file system on the application server will require reconfiguration or, in rare cases, architectural changes. File system may be used by JBoss EAP modules or by your application code. You may identify some or all of the scenarios described in the following sections.
+
+#### Read-only static content
+
+If your application currently serves static content, you'll need an alternate location for it. You may wish to consider moving static content to Azure Blob Storage and adding Azure CDN for lightning-fast downloads globally. For more information, see [Static website hosting in Azure Storage](https://docs.microsoft.com/azure/storage/blobs/storage-blob-static-website) and [Quickstart: Integrate an Azure storage account with Azure CDN](https://docs.microsoft.com/azure/cdn/cdn-create-a-storage-account-with-cdn).
+
+#### Dynamically published static content
+
+If your application allows for static content that is uploaded/produced by your application but is immutable after its creation, you can use Azure Blob Storage and Azure CDN as described above, with an Azure Function to handle uploads and CDN refresh. We've provided a sample implementation for your use at [Uploading and CDN-preloading static content with Azure Functions](https://github.com/Azure-Samples/functions-java-push-static-contents-to-cdn).
+
+#### Dynamic or internal content
+
+For files that are frequently written and read by your application (such as temporary data files), or static files that are visible only to your application, you can mount Azure Storage shares as persistent volumes. For more information, see [Dynamically create and use a persistent volume with Azure Files in Azure Kubernetes Service](/azure/aks/azure-files-dynamic-pv).
+
+### Determine whether a connection to on-premises is needed
 
 
-## Tools
+If your application needs to access any of your on-premises services, you'll need to provision one of Azure's connectivity services. For more information, see [Choose a solution for connecting an on-premises network to Azure](/azure/architecture/reference-architectures/hybrid-networking/). Alternatively, you'll need to refactor your application to use publicly available APIs that your on-premises resources expose.
 
-- **Para**
-- **Workload Builder**
-- **Azure Migration Service and Programs**
-- **Red Hat Migration Service and Programs**
-- **Guideline**
+### Determine whether your application is composed of multiple WARs
 
-## Epic (optional)
+If your application is composed of multiple WARs, you should treat each of those WARs as separate applications and go through this guide for each of them.
 
-- **Plan the migration**
-- **Configure the infrastructure**
-- **Migrate data**
-- **Migrate application**
-- **Cut over**
-- **Close the project**
+### Determine whether your application is packaged as an EAR
+
+If your application is packaged as an EAR file, be sure to examine the application.xml file and capture the configuration.
+
+### Identify all outside processes and daemons running on the production servers
+
+If you have any processes running outside the application server, such as monitoring daemons, you'll need to eliminate them or migrate them elsewhere.
+
+
+## Migration
+
+### Provision the target infrastructure
+
+In order to start the migration, first you need to deploy the JBoss EAP infrastructure. You have multiple options to deploy
+
+- **Azure Virtual Machine**
+- **Azure Virtual Machine Scale Set**
+- **Azure App Service**
+- **Containers**
+
+Please refer to the getting started with Azure Marketplace section to evaluate your deployment infrastructure before you build the environment.
+
+### Perform the Migration
+
+There are tools that can assist you in Migration : 
+
+* [Use Red Hat Application Migration Toolkit to Analyze Applications for Migration](https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/index#use_windup_to_analyze_applications_for_migration).
+* [Use the JBoss Server Migration Tool to Migrate Server Configurations](https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/index#migration_tool_server_migration_tool)
+
+To migrate your server configuration from older JBoss EAP version to newer JBoss EAP version, you can either use the [JBoss Server Migration Tool](https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/index#migrate_server_migration_tool_option) or you can perform a manual migration with the help of the [management CLI migrate operation](https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/index#migrate__migrate_operation_option).
+
+### Run Red Hat Application Migration Toolkit
+
+You can [run the JBoss Server Migration Tool in Interactive Mode](https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/using_the_jboss_server_migration_tool/index#migration_tool_server_run_interactive_mode). By default, the JBoss Server Migration Tool runs interactively. This mode allows you to choose exactly which server configurations you want to migrate.
+
+You can also [run the JBoss Server Migration Tool in Non-interactive Mode](https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/using_the_jboss_server_migration_tool/index#migration_tool_server_run_noninteractive_mode). This mode allows it to run without prompts.
+
+### Review the Result of JBoss Server Migration toolkit execution
+
+When the migration is complete, review the migrated server configuration files in the *EAP_HOME/standalone/configuration/* and *EAP_HOME/domain/configuration/* directories. For more informatation, visit [Reviewing the Results of JBoss Server Migration Tool Execution](https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/using_the_jboss_server_migration_tool/index#migration_tool_server_results).
+
+### Expose the Application
+
+You can expose the application using the following methods which is suitable for your environment.
+
+* [Create a Public IP](https://docs.microsoft.com/azure/virtual-network/virtual-network-public-ip-address#create-a-public-ip-address) to access the server and the application.
+* [Create a Jump VM](https://docs.microsoft.com/azure/virtual-machines/windows/quick-create-portal#create-virtual-machine) in a different subnet (new subnet) in the same Virtual Network and access the server via a Jump VM. This Jump VM can be used to expose the application.
+* [Create a Jump VM](https://docs.microsoft.com/azure/virtual-machines/windows/quick-create-portal#create-virtual-machine) in a different Virtual Network and access the server and expose the application using [Virtual Network Peering](https://docs.microsoft.com/azure/virtual-network/tutorial-connect-virtual-networks-portal#peer-virtual-networks).
+* Expose the application using an [Application Gateway](https://docs.microsoft.com/azure/application-gateway/quick-create-portal#create-an-application-gateway)
+* Expose the application using an [External Load Balancer](https://docs.microsoft.com/azure/load-balancer/tutorial-load-balancer-standard-manage-portal#create-a-standard-load-balancer) (ELB).
+
+## Post-migration
+
+After you've reached the migration goals you defined in the pre-migration step, perform some end-to-end acceptance testing to verify that everything works as expected. Some topics for post-migration enhancements include, but are certainly not limited to the following:
+
+* Using Azure Storage to serve static content mounted to the virtual machines. For more information, visit [Attach or detach a data disk to a virtual machine](https://docs.microsoft.com/azure/devtest-labs/devtest-lab-attach-detach-data-disk)
+* Deploy your applications to your migrated JBOSS cluster with Azure DevOps. For more information, visit [Azure DevOps getting started documentation](https://docs.microsoft.com/azure/devops/get-started/?view=azure-devops).
+* Consider using [Application Gateway](https://docs.microsoft.com/azure/application-gateway/quick-create-portal#create-an-application-gateway).
+* Enhance your network topology with advanced load balancing services. For more information, visit [Using load-balancing services in Azure](https://docs.microsoft.com/azure/traffic-manager/traffic-manager-load-balancing-azure).
+* Leverage Azure Managed Identities to managed secrets and assign role based access to Azure resources. For more information, visit [What are managed identities for Azure resources](https://docs.microsoft.com/azure/active-directory/managed-identities-azure-resources/overview)?
+* Use Azure Key Vault to store any information that functions as a "secret". For more information, visit [Azure Key Vault basic concepts](https://docs.microsoft.com/azure/key-vault/general/basic-concepts).
 
 ## Resource Links
 
