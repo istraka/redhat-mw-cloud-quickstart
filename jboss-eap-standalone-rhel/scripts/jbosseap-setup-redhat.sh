@@ -40,11 +40,11 @@ RHSM_USER=${11}
 RHSM_PASSWORD=${12}
 RHEL_OS_LICENSE_TYPE=${13}
 RHSM_POOL=${14}
-EAP_RHEL-VERSION=${15}
+EAP_RHEL_VERSION=${15}
 IP_ADDR=$(hostname -I)
 
 echo "JBoss EAP admin user : " ${JBOSS_EAP_USER} | adddate >> jbosseap.install.log
-echo "JBoss EAP on RHEL version you selected : " ${EAP_RHEL-VERSION} | adddate >> eap.log
+echo "JBoss EAP on RHEL version you selected : " ${EAP_RHEL_VERSION} | adddate >> eap.log
 echo "Initial JBoss EAP setup" | adddate >> jbosseap.install.log
 echo "subscription-manager register --username RHSM_USER --password RHSM_PASSWORD" | adddate >> jbosseap.install.log
 subscription-manager register --username $RHSM_USER --password $RHSM_PASSWORD >> jbosseap.install.log 2>&1
@@ -59,7 +59,7 @@ then
     subscription-manager attach --pool=${16} >> jbosseap.install.log 2>&1
 fi
 
-if [ ${EAP_RHEL-VERSION} == "JBoss-EAP7.2-on-RHEL7.7" ]
+if [ ${EAP_RHEL_VERSION} == "JBoss-EAP7.2-on-RHEL7.7" ]
 then
 echo "Subscribing the system to get access to JBoss EAP 7.2 repos" | adddate >> jbosseap.install.log
 
@@ -79,7 +79,7 @@ echo "echo "AllowTcpForwarding no" >> /etc/ssh/sshd_config" | adddate >> jbossea
 echo "AllowTcpForwarding no" >> /etc/ssh/sshd_config | adddate >> jbosseap.install.log 2>&1
 fi
 
-if [ ${EAP_RHEL-VERSION} == "JBoss-EAP7.2-on-RHEL8.0" ]
+if [ ${EAP_RHEL_VERSION} == "JBoss-EAP7.2-on-RHEL8.0" ]
 then
 echo "Subscribing the system to get access to JBoss EAP 7.2 repos" | adddate >> jbosseap.install.log
 
@@ -99,7 +99,7 @@ echo "echo "AllowTcpForwarding no" >> /etc/ssh/sshd_config" | adddate >> jbossea
 echo "AllowTcpForwarding no" >> /etc/ssh/sshd_config | adddate >> jbosseap.install.log 2>&1
 fi
 
-if [ ${EAP_RHEL-VERSION} == "JBoss-EAP7.3-on-RHEL8.0" ]
+if [ ${EAP_RHEL_VERSION} == "JBoss-EAP7.3-on-RHEL8.0" ]
 then
 echo "Subscribing the system to get access to JBoss EAP 7.3 repos" | adddate >> jbosseap.install.log
 
