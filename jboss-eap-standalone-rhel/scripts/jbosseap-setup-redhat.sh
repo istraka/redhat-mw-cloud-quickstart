@@ -64,17 +64,17 @@ then
 echo "Subscribing the system to get access to JBoss EAP 7.2 repos" | adddate >> jbosseap.install.log
 
 # Install JBoss EAP 7.2
-echo "subscription-manager repos --enable=jb-eap-7.2-for-rhel-8-x86_64-rpms" | adddate >> jbosseap.install.log
-subscription-manager repos --enable=jb-eap-7.2-for-rhel-8-x86_64-rpms >> jbosseap.install.log 2>&1
+echo "subscription-manager repos --enable=jb-eap-7-for-rhel-7-server-rpms" | adddate >> jbosseap.install.log
+subscription-manager repos --enable=jb-eap-7-for-rhel-7-server-rpms >> jbosseap.install.log 2>&1
 flag=$?; if [ $flag != 0 ] ; then echo  "ERROR! Enabling repos for JBoss EAP Failed" | adddate >> jbosseap.install.log; exit $flag;  fi
+echo "yum-config-manager --disable rhel-7-server-htb-rpms" | adddate >> jbosseap.install.log
+yum-config-manager --disable rhel-7-server-htb-rpms | adddate >> jbosseap.install.log
 
 echo "Installing JBoss EAP 7.2 repos" | adddate >> jbosseap.install.log
 echo "yum groupinstall -y jboss-eap7" | adddate >> jbosseap.install.log
 yum groupinstall -y jboss-eap7 >> jbosseap.install.log 2>&1
 flag=$?; if [ $flag != 0 ] ; then echo  "ERROR! JBoss EAP installation Failed" | adddate >> jbosseap.install.log; exit $flag;  fi
 
-echo "sed -i 's/PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config" | adddate >> jbosseap.install.log
-sed -i 's/PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config | adddate >> jbosseap.install.log 2>&1
 echo "echo "AllowTcpForwarding no" >> /etc/ssh/sshd_config" | adddate >> jbosseap.install.log
 echo "AllowTcpForwarding no" >> /etc/ssh/sshd_config | adddate >> jbosseap.install.log 2>&1
 fi
