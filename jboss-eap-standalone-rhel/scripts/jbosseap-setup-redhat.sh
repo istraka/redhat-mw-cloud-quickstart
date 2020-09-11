@@ -60,6 +60,7 @@ then
 fi
 
 if [ ${EAP_RHEL-VERSION} == "JBoss-EAP7.2-on-RHEL7.7" ]
+then
 echo "Subscribing the system to get access to JBoss EAP 7.2 repos" | adddate >> jbosseap.install.log
 
 # Install JBoss EAP 7.2
@@ -79,6 +80,7 @@ echo "AllowTcpForwarding no" >> /etc/ssh/sshd_config | adddate >> jbosseap.insta
 fi
 
 if [ ${EAP_RHEL-VERSION} == "JBoss-EAP7.2-on-RHEL8.0" ]
+then
 echo "Subscribing the system to get access to JBoss EAP 7.2 repos" | adddate >> jbosseap.install.log
 
 # Install JBoss EAP 7.2
@@ -98,6 +100,7 @@ echo "AllowTcpForwarding no" >> /etc/ssh/sshd_config | adddate >> jbosseap.insta
 fi
 
 if [ ${EAP_RHEL-VERSION} == "JBoss-EAP7.3-on-RHEL8.0" ]
+then
 echo "Subscribing the system to get access to JBoss EAP 7.3 repos" | adddate >> jbosseap.install.log
 
 # Install JBoss EAP 7.3
