@@ -39,15 +39,15 @@ The only virtual machine operating systems supported for using JBoss EAP in Micr
 * Microsoft Windows Server 2012 R2
 * Microsoft Windows Server 2016
 
-The Red Hat Cloud Access program allows you to use a JBoss EAP subscription to install JBoss EAP on your own Azure virtual machine or one of the above On-Demand operating systems from the Microsoft Azure Marketplace. Note that virtual machine operating system subscriptions are separate from a JBoss EAP subscription. Red Hat Cloud Access is a Red Hat subscription feature that provides support for JBoss EAP on Red Hat certified cloud infrastructure providers, such as Amazon EC2 and Microsoft Azure. Red Hat Cloud Access allows you to move your subscriptions between traditional servers and public cloud-based resources in a simple and cost-effective manner.
+The Red Hat Cloud Access program allows you to use a JBoss EAP subscription to install JBoss EAP on your Azure virtual machine or one of the above On-Demand operating systems from the Microsoft Azure Marketplace. Note that virtual machine operating system subscriptions are separate from a JBoss EAP subscription. Red Hat Cloud Access is a Red Hat subscription feature that provides support for JBoss EAP on Red Hat certified cloud infrastructure providers, such as Amazon EC2 and Microsoft Azure. Red Hat Cloud Access allows you to move your subscriptions between traditional servers and public cloud-based resources in a simple and cost-effective manner.
 
 You can find more information about [Red Hat Cloud Access on the Customer Portal](https://www.redhat.com/en/technologies/cloud-computing/cloud-access).
 
-Every Red Hat JBoss EAP release is tested and supported on a variety of market-leading operating systems, Java Virtual Machines (JVMs), and database combinations. Red Hat provides both production and development support for supported configurations and tested integrations according to your subscription agreement in both physical and virtual environments. Other than the above operating system restrictions, check [supported configurations for JBoss EAP](https://access.redhat.com/articles/2026253), such as supported Java Development Kit (JDK) vendors and versions. It gives you information on supported configurations of various JBoss EAP versions like 7.0, 7.1, 7.2 and 7.3.
+Every Red Hat JBoss EAP release is tested and supported on a variety of market-leading operating systems, Java Virtual Machines (JVMs), and database combinations. Red Hat provides both production and development support for supported configurations and tested integrations according to your subscription agreement in both physical and virtual environments. Other than the above operating system restrictions, check [supported configurations for JBoss EAP](https://access.redhat.com/articles/2026253), such as supported Java Development Kit (JDK) vendors and versions. It gives you information on supported configurations of various JBoss EAP versions like 7.0, 7.1, 7.2, and 7.3.
 
 There are some unsupported features when using JBoss EAP in a Microsoft Azure environment.
 
-* Managed Domains - The managed domain operating mode allows for the management of multiple JBoss EAP instances from a single control point. Unfortunately JBoss EAP managed domains are not supported in Microsoft Azure. Only standalone JBoss EAP server instances are supported. Note that configuring JBoss EAP clusters using standalone JBoss EAP servers is supported in Azure.
+* Managed Domains - The managed domain operating mode allows for the management of multiple JBoss EAP instances from a single control point. Unfortunately, JBoss EAP managed domains are not supported in Microsoft Azure. Only standalone JBoss EAP server instances are supported. Note that configuring JBoss EAP clusters using standalone JBoss EAP servers is supported in Azure.
 
 * ActiveMQ Artemis High Availability Using a Shared Store - JBoss EAP messaging high availability using Artemis shared stores is not supported in Microsoft Azure.
 
@@ -55,9 +55,9 @@ There are some unsupported features when using JBoss EAP in a Microsoft Azure en
 
 ## Creating Your Microsoft Azure Environment
 
-You must create the virtual machines that will host your JBoss EAP instances in your Microsoft Azure environment. The virtual machines must use an Azure size of Standard_A2 or higher. You can use either the Azure On-Demand premium images to create your virtual machines or create your own virtual machines manually. For example you can deploy Red Hat Enterprise Linux virtual machines as follows :
+You must create the virtual machines that will host your JBoss EAP instances in your Microsoft Azure environment. The virtual machines must use an Azure size of Standard_A2 or higher. You can use either the Azure On-Demand premium images to create your virtual machines or create your own virtual machines manually. For example, you can deploy Red Hat Enterprise Linux virtual machines as follows :
 
-* Using the On-Demand Marketplace Red Hat Enterprise Linux 7 image in Azure - There are several offers in Azure Marketplace from where you can select the RHEL VM that you want to setup the JBoss EAP. Visit [deploy RHEL 7 VM from Azure Marketplace](https://access.redhat.com/articles/2421451).
+* Using the On-Demand Marketplace Red Hat Enterprise Linux 7 image in Azure - There are several offers in Azure Marketplace from where you can select the RHEL VM that you want to set up the JBoss EAP. Visit [deploy RHEL 7 VM from Azure Marketplace](https://access.redhat.com/articles/2421451).
 
 * [Manually creating and provisioning a Red Hat Enterprise Linux 7 image for Azure](https://access.redhat.com/articles/uploading-rhel-image-to-azure)
 
@@ -65,7 +65,7 @@ For Microsoft Windows Server virtual machines, see the [Microsoft Azure document
 
 ## JBoss EAP Installation
 
-Once your virtual machine is setup, you can install the JBoss EAP. For installing JBoss EAP you need access to [Red Hat Customer Portal](https://access.redhat.com), which is the centralized platform for Red Hat knowledge and subscription resources. You can use the Red Hat Customer Portal to do the following:
+Once your virtual machine is set up, you can install the JBoss EAP. For installing JBoss EAP you need access to [Red Hat Customer Portal](https://access.redhat.com), which is the centralized platform for Red Hat knowledge and subscription resources. You can use the Red Hat Customer Portal to do the following:
 
 - Manage and maintain Red Hat entitlements and support contracts.
 - Download officially-supported software.
@@ -88,11 +88,11 @@ We have used the variable *EAP_HOME* to denote the path to the JBoss EAP install
 
 There are several different ways to install JBoss EAP. Each method is best used in certain situations. If you are using a Red Hat Enterprise Linux On-Demand virtual machine from the Microsoft Azure Marketplace, you must install JBoss EAP using the ZIP or installer methods. You must not register a Red Hat Enterprise Linux On-Demand virtual machine to Red Hat Subscription Management, as you will be billed twice for that virtual machine.
 
-* ZIP Installation - The ZIP archive is suitable for installation on all supported operating systems. This method should be used if you wish to extract the instance manually. The ZIP installation provides a default installation of JBoss EAP, and all configuration must be done following installation. Please check [Zip Installation method](https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.3/html-single/installation_guide/index#zip_installation) for more details.
+* ZIP Installation - The ZIP archive is suitable for installation on all supported operating systems. This method should be used if you wish to extract the instance manually. The ZIP installation provides a default installation of JBoss EAP, and all configuration must be done following installation. Please check the [Zip Installation method](https://access.redhat.com/documentation/en/red_hat_jboss_enterprise_application_platform/7.3/html-single/installation_guide/index#zip_installation) for more details.
 
-* JAR Installer - The JAR installer can either be run in a console or as a graphical wizard. Both options provide step-by-step instructions for installing and configuring the server instance. This is the preferred method to install JBoss EAP on all supported platforms. For more information about check [JAR Installer](https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.3/html-single/installation_guide/index#installer_installation).
+* JAR Installer - The JAR installer can either be run in a console or as a graphical wizard. Both options provide step-by-step instructions for installing and configuring the server instance. This is the preferred method to install JBoss EAP on all supported platforms. For more information about check [JAR Installer](https://access.redhat.com/documentation/en/red_hat_jboss_enterprise_application_platform/7.3/html-single/installation_guide/index#installer_installation).
 
-* RPM Installation - JBoss EAP can be installed using RPM packages on supported installations of Red Hat Enterprise Linux 6, Red Hat Enterprise Linux 7, and Red Hat Enterprise Linux 8. For more information about check [RPM Installation](https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.3/html-single/installation_guide/index#rpm_installation).
+* RPM Installation - JBoss EAP can be installed using RPM packages on supported installations of Red Hat Enterprise Linux 6, Red Hat Enterprise Linux 7, and Red Hat Enterprise Linux 8. For more information about check [RPM Installation](https://access.redhat.com/documentation/en/red_hat_jboss_enterprise_application_platform/7.3/html-single/installation_guide/index#rpm_installation).
 
 
 ## Other offers by Azure and Red Hat
@@ -142,7 +142,7 @@ You can choose to start with one of the quickstart templates which meets your de
 
 ## Configuring JBoss EAP to Work on Cloud Platforms
 
-Once you install the JBoss EAP in your virtual machine, you can configure JBoss EAP to run as a service. Configuring JBoss EAP to run as a service depends on the JBoss EAP installation method and type of virtual machine OS. For more information check [Configuring JBoss EAP to run as a service](https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.3/html-single/installation_guide/index#configuring_jboss_eap_to_run_as_a_service).
+Once you install the JBoss EAP in your virtual machine, you can configure JBoss EAP to run as a service. Configuring JBoss EAP to run as a service depends on the JBoss EAP installation method and type of virtual machine OS. For more information check [Configuring JBoss EAP to run as a service](https://access.redhat.com/documentation/en/red_hat_jboss_enterprise_application_platform/7.3/html-single/installation_guide/index#configuring_jboss_eap_to_run_as_a_service).
 
 ### Starting and Stopping JBoss EAP
 
@@ -209,7 +209,7 @@ When a client makes a web service request using `Service.create(wsdlURL, service
 
 Messaging-activemq subsystem configure JMS destinations, connection factories, and other settings for Artemis, the integrated messaging provider. Messaging systems allow you to loosely couple heterogeneous systems together with added reliability. More information for the *messaging-activemq* subsystem can be found in [Configuring Messaging](https://access.redhat.com/documentation/en/red_hat_jboss_enterprise_application_platform/7.3/html-single/configuring_messaging/index) for JBoss EAP.
 
-When using messaging on a cloud platform, the connection factory that the client uses must have a connector pointing to the server’s public IP address. For this reason a new connector and socket binding must be created for JBoss EAP servers running a full profile.
+When using messaging on a cloud platform, the connection factory that the client uses must have a connector pointing to the server’s public IP address. For this reason, a new connector and socket binding must be created for JBoss EAP servers running a full profile.
 
 1. The referenced *http-public* socket binding must be created within the *socket-binding-group*:
 
@@ -236,7 +236,7 @@ This is done by configuring *client-mappings* for the *remoting* subsystem socke
 
 ## Using JBoss EAP High Availability in Microsoft Azure
 
-Microsoft Azure does not support JGroups discovery protocols that are based on UDP multicast. JGroups uses the UDP stack by default, make sure you change that to TCP since Azure does not support UDP. Although you can use other JGroups discovery protocols like TCPPING, JDBC_PING etc, we would recommend the shared file discovery protocol specifically developed for Azure which is the *Azure_PING*.
+Microsoft Azure does not support JGroups discovery protocols that are based on UDP multicast. JGroups uses the UDP stack by default, make sure you change that to TCP since Azure does not support UDP. Although you can use other JGroups discovery protocols like TCPPING, JDBC_PING, we would recommend the shared file discovery protocol specifically developed for Azure which is the *Azure_PING*.
 
 *AZURE_PING* uses a common blob container in a Microsoft Azure storage account. If you do not already have a blob container that AZURE_PING can use, create one that your virtual machines can access. For more information, check [Configuring JBoss EAP High Availability in Microsoft Azure](https://access.redhat.com/documentation/en/red_hat_jboss_enterprise_application_platform/7.3/html-single/using_jboss_eap_in_microsoft_azure/index#using_jboss_eap_high_availability_in_microsoft_azure).
 
