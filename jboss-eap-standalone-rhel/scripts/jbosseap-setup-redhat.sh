@@ -44,7 +44,7 @@ EAP_RHEL_VERSION=${15}
 IP_ADDR=$(hostname -I)
 
 echo "JBoss EAP admin user : " ${JBOSS_EAP_USER} | adddate >> jbosseap.install.log
-echo "JBoss EAP on RHEL version you selected : " ${EAP_RHEL_VERSION} | adddate >> eap.log
+echo "JBoss EAP on RHEL version you selected : " ${EAP_RHEL_VERSION} | adddate >> jbosseap.install.log
 echo "Initial JBoss EAP setup" | adddate >> jbosseap.install.log
 echo "subscription-manager register --username RHSM_USER --password RHSM_PASSWORD" | adddate >> jbosseap.install.log
 subscription-manager register --username $RHSM_USER --password $RHSM_PASSWORD >> jbosseap.install.log 2>&1
