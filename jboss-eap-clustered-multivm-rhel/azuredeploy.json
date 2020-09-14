@@ -158,11 +158,6 @@
     "vmNameBYOS": "jbosseap-byos-server",
     "asName": "jbosseap-as",
     "skuName": "Aligned",
-    "imagePublisher": "redhat",
-    "imageOfferPAYG": "RHEL",
-    "imageSkuPAYG": "8",
-    "imageOfferBYOS": "rhel-byos",
-    "imageSkuBYOS": "rhel-lvm8",
     "nicName": "jbosseap-server-nic",
     "addressPrefix": "10.0.0.0/16",
     "subnetName": "jbosseap-server-subnet",
@@ -183,6 +178,33 @@
             "keyData": "[parameters('adminPasswordOrSSHKey')]"
           }
         ]
+      }
+    },
+    "planBYOS": {
+      "name": "[if(equals(parameters('eapOnRHELVersion'),'JBoss-EAP7.2-on-RHEL7.7'), 'rhel-lvm77', 'rhel-lvm8')]",
+      "publisher": "redhat",
+      "product": "rhel-byos"
+    },
+    "storageProfilePAYG": {
+      "osDisk": {
+        "createOption": "FromImage"
+      },
+      "imageReference": {
+        "publisher": "redhat",
+        "offer": "rhel",
+        "sku": "[if(equals(parameters('eapOnRHELVersion'), 'JBoss-EAP7.2-on-RHEL7.7'), '7.7', '8')]",
+        "version": "latest"
+      }
+    },
+    "storageProfileBYOS": {
+      "osDisk": {
+        "createOption": "FromImage"    
+      },
+      "imageReference": {
+        "publisher": "redhat",
+        "offer": "rhel-byos",
+        "sku": "[if(equals(parameters('eapOnRHELVersion'), 'JBoss-EAP7.2-on-RHEL7.7'), 'rhel-lvm77', 'rhel-lvm8')]",
+        "version": "latest"
       }
     },
     "storageAccountName": "[concat('jbosstrg', uniqueString(resourceGroup().id))]",
@@ -344,17 +366,7 @@
           "adminPassword": "[parameters('adminPasswordOrSSHKey')]",
           "linuxConfiguration": "[if(equals(parameters('authenticationType'), 'password'), json('null'), variables('linuxConfiguration'))]"
         },
-        "storageProfile": {
-          "imageReference": {
-            "publisher": "[variables('imagePublisher')]",
-            "offer": "[variables('imageOfferPAYG')]",
-            "sku": "[variables('imageSkuPAYG')]",
-            "version": "latest"
-          },
-          "osDisk": {
-            "createOption": "FromImage"
-          }
-        },
+        "storageProfile": "[variables('storageProfilePAYG')]",
         "diagnosticsProfile": {
           "bootDiagnostics": {
             "enabled": true,
@@ -386,7 +398,7 @@
               ]
             },
             "protectedSettings": {
-              "commandToExecute": "[concat(variables('customScriptCommand'),' ',variables('scriptArgs'),' ',parameters('jbossEAPUserName'),' ',variables('singlequote'),parameters('jbossEAPPassword'),variables('singlequote'),' ',parameters('rhelOSLicenseType'),' ',parameters('rhsmUserName'),' ',variables('singlequote'),parameters('rhsmPassword'),variables('singlequote'),' ', parameters('rhsmPoolEAP'),' ',variables('storageAccountName'),' ',variables('containerName'),' ',base64(listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2019-04-01').keys[0].value), ' ', parameters('rhsmPoolRHEL'),' ', variables('singlequote'))]"
+              "commandToExecute": "[concat(variables('customScriptCommand'),' ',variables('scriptArgs'),' ',parameters('jbossEAPUserName'),' ',variables('singlequote'),parameters('jbossEAPPassword'),variables('singlequote'),' ',parameters('rhelOSLicenseType'),' ',parameters('rhsmUserName'),' ',variables('singlequote'),parameters('rhsmPassword'),variables('singlequote'),' ', parameters('rhsmPoolEAP'),' ',variables('storageAccountName'),' ',variables('containerName'),' ',base64(listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2019-04-01').keys[0].value), ' ', parameters('eapOnRHELVersion'),' ', parameters('rhsmPoolRHEL'),' ', variables('singlequote'))]"
             }
           }
         }
@@ -398,11 +410,7 @@
       "apiVersion": "2019-12-01",
       "name": "[concat(variables('vmNameBYOS'), copyIndex())]",
       "location": "[parameters('location')]",
-      "plan": {
-          "name": "rhel-lvm8",
-          "publisher": "redhat",
-          "product": "rhel-byos"
-      },
+      "plan": "[variables('planBYOS')]",
       "copy": {
           "name": "virtualMachineLoop",
           "count": "[parameters('numberOfInstances')]"
@@ -436,17 +444,7 @@
           "adminPassword": "[parameters('adminPasswordOrSSHKey')]",
           "linuxConfiguration": "[if(equals(parameters('authenticationType'), 'password'), json('null'), variables('linuxConfiguration'))]"
         },
-        "storageProfile": {
-          "imageReference": {
-            "publisher": "[variables('imagePublisher')]",
-            "offer": "[variables('imageOfferBYOS')]",
-            "sku": "[variables('imageSkuBYOS')]",
-            "version": "latest"
-          },
-          "osDisk": {
-            "createOption": "FromImage"
-          }
-        },
+        "storageProfile": "[variables('storageProfileBYOS')]",
         "diagnosticsProfile": {
           "bootDiagnostics": {
             "enabled": true,
@@ -478,7 +476,7 @@
               ]
             },
             "protectedSettings": {
-              "commandToExecute": "[concat(variables('customScriptCommand'),' ',variables('scriptArgs'),' ',parameters('jbossEAPUserName'),' ',variables('singlequote'),parameters('jbossEAPPassword'),variables('singlequote'),' ',parameters('rhelOSLicenseType'),' ',parameters('rhsmUserName'),' ',variables('singlequote'),parameters('rhsmPassword'),variables('singlequote'),' ', parameters('rhsmPoolEAP'),' ',variables('storageAccountName'),' ',variables('containerName'),' ',base64(listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2019-04-01').keys[0].value), ' ', parameters('rhsmPoolRHEL'),' ', variables('singlequote'))]"
+              "commandToExecute": "[concat(variables('customScriptCommand'),' ',variables('scriptArgs'),' ',parameters('jbossEAPUserName'),' ',variables('singlequote'),parameters('jbossEAPPassword'),variables('singlequote'),' ',parameters('rhelOSLicenseType'),' ',parameters('rhsmUserName'),' ',variables('singlequote'),parameters('rhsmPassword'),variables('singlequote'),' ', parameters('rhsmPoolEAP'),' ',variables('storageAccountName'),' ',variables('containerName'),' ',base64(listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2019-04-01').keys[0].value), ' ', parameters('eapOnRHELVersion'),' ', parameters('rhsmPoolRHEL'),' ', variables('singlequote'))]"
             }
           }
         }

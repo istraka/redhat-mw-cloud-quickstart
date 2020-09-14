@@ -46,7 +46,7 @@ STORAGE_ACCESS_KEY=$(echo "${17}" | openssl enc -d -base64)
 EAP_RHEL_VERSION=${18}
 
 echo "JBoss EAP admin user: " ${JBOSS_EAP_USER} | adddate >> jbosseap.install.log
-echo "JBoss EAP on RHEL version you selected : " ${EAP_RHEL-VERSION} | adddate >> jbosseap.install.log
+echo "JBoss EAP on RHEL version you selected : " ${EAP_RHEL_VERSION} | adddate >> jbosseap.install.log
 echo "Storage Account Name: " ${STORAGE_ACCOUNT_NAME} | adddate >> jbosseap.install.log
 echo "Storage Container Name: " ${CONTAINER_NAME} | adddate >> jbosseap.install.log
 echo "RHSM_USER: " ${RHSM_USER} | adddate >> jbosseap.install.log
