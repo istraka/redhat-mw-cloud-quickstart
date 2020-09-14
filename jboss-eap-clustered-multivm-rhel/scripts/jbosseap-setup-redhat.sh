@@ -6,7 +6,7 @@ adddate() {
     done
 }
 
-echo "Red Hat JBoss EAP 7.2 Cluster Intallation Start " | adddate >> jbosseap.install.log
+echo "Red Hat JBoss EAP Cluster Intallation Start " | adddate >> jbosseap.install.log
 /bin/date +%H:%M:%S  >> jbosseap.install.log
 
 echo 'export EAP_HOME="/opt/rh/eap7/root/usr/share"' >> ~/.bash_profile
@@ -66,7 +66,7 @@ sudo firewall-cmd --reload | adddate >> jbosseap.install.log 2>&1
 echo "iptables-save" | adddate >> jbosseap.install.log
 sudo iptables-save | adddate >> jbosseap.install.log 2>&1
 
-echo "Initial JBoss EAP 7.2 setup" | adddate >> jbosseap.install.log
+echo "Initial JBoss EAP setup" | adddate >> jbosseap.install.log
 echo "subscription-manager register --username RHSM_USER --password RHSM_PASSWORD" | adddate >> jbosseap.install.log
 subscription-manager register --username $RHSM_USER --password $RHSM_PASSWORD >> jbosseap.install.log 2>&1
 flag=$?; if [ $flag != 0 ] ; then echo  "ERROR! Red Hat Manager Registration Failed" | adddate >> jbosseap.install.log; exit $flag;  fi
@@ -190,5 +190,5 @@ flag=$?; if [ $flag != 0 ] ; then echo  "ERROR! JBoss EAP management user config
 # Seeing a race condition timing error so sleep to delay
 sleep 20
 
-echo "Red Hat JBoss EAP 7.2 Cluster Intallation End " | adddate >> jbosseap.install.log
+echo "Red Hat JBoss EAP Cluster Intallation End " | adddate >> jbosseap.install.log
 /bin/date +%H:%M:%S  >> jbosseap.install.log
