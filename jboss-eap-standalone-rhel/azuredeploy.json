@@ -25,6 +25,18 @@
         "description": "Password or SSH key for the Virtual Machine"
       }
     },
+    "eapOnRHELVersion": {
+      "type": "string",
+      "defaultValue": "JBoss-EAP7.2-on-RHEL8.0",
+      "allowedValues": [
+        "JBoss-EAP7.2-on-RHEL7.7",
+        "JBoss-EAP7.2-on-RHEL8.0",
+        "JBoss-EAP7.3-on-RHEL8.0"
+      ],
+      "metadata": {
+        "description": "Version of EAP on RHEL"
+      }
+    },
     "jbossEAPUserName": {
       "type": "string",
       "metadata": {
@@ -73,18 +85,6 @@
         "description": "Red Hat Subscription Manager Pool ID (Should have RHEL entitlement). Mandartory if you select the BYOS RHEL OS License Type"
       },
       "defaultValue": ""
-    },
-    "eapOnRHELVersion": {
-      "type": "string",
-      "defaultValue": "JBoss-EAP7.2-on-RHEL8.0",
-      "allowedValues": [
-        "JBoss-EAP7.2-on-RHEL7.7",
-        "JBoss-EAP7.2-on-RHEL8.0",
-        "JBoss-EAP7.3-on-RHEL8.0"
-      ],
-      "metadata": {
-        "description": "Version of EAP on RHEL"
-      }
     },
     "_artifactsLocation": {
       "type": "string",
