@@ -178,7 +178,7 @@ Once the deployment is successful, go to the outputs section of the deployment t
        <img src="images/app.png"/>
      </a>
 
-   - Log into the JBoss EAP Admin Console - open a web browser and go to *http://<PUBLIC_HOSTNAME>:9990*. Enter the JBoss EAP username and password to login.
+   - Log into the JBoss EAP Admin Console - open a web browser and go to *http://<PUBLIC_HOSTNAME>:9990*. Enter the JBoss EAP username and password to log in.
 
      ![alt text](images/admin.png)
 
@@ -198,7 +198,7 @@ Once the deployment is successful, go to the outputs section of the deployment t
        <img src="images/app.png"/>
      </a>
      
-   - Access the JBoss EAP Admin Console - paste the Admin Console URL that you copied from the output page in a browser inside the Jump VM to access the JBoss EAP Admin Console and enter the JBoss EAP username and password to login.
+   - Access the JBoss EAP Admin Console - paste the Admin Console URL that you copied from the output page in a browser inside the Jump VM to access the JBoss EAP Admin Console and enter the JBoss EAP username and password to log in.
 
      ![alt text](images/admin.png)
 
@@ -218,7 +218,7 @@ Once the deployment is successful, go to the outputs section of the deployment t
        <img src="images/app.png"/>
      </a>
      
-   - Access the JBoss EAP Admin Console - paste the Admin Console URL copied from the output page in a browser inside the Jump VM, enter the JBoss EAP username and password to login.
+   - Access the JBoss EAP Admin Console - paste the Admin Console URL copied from the output page in a browser inside the Jump VM, enter the JBoss EAP username and password to log in.
 
      ![alt text](images/admin.png)
 
@@ -238,7 +238,7 @@ Once the deployment is successful, go to the outputs section of the deployment t
        <img src="images/app.png"/>
      </a>
 
-   - To log into the JBoss EAP Admin Console - open a web browser and go to *http://<PUBLIC_IP_AppGateway>:9990*. Enter the JBoss EAP username and password to login.
+   - To log into the JBoss EAP Admin Console - open a web browser and go to *http://<PUBLIC_IP_AppGateway>:9990*. Enter the JBoss EAP username and password to log in.
 
      ![alt text](images/admin.png)
 
@@ -258,7 +258,7 @@ Once the deployment is successful, go to the outputs section of the deployment t
        <img src="images/app.png"/>
      </a>
 
-   - To log into the JBoss EAP Admin Console - open a web browser and go to *http://<PUBLIC_IP_LoadBalancer>:9990*. Enter the JBoss EAP username and password to login.
+   - To log into the JBoss EAP Admin Console - open a web browser and go to *http://<PUBLIC_IP_LoadBalancer>:9990*. Enter the JBoss EAP username and password to log in.
 
      ![alt text](images/admin.png)
 

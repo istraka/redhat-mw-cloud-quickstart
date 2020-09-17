@@ -179,7 +179,7 @@ Once the deployment is successful, go to the outputs section of the deployment t
 
    - Access Jump VM Public IP - once the Jump VM is successfully deployed, go to the VM details page and copy the Public IP. Log into the Jump VM using this Public IP.
 
-   - To obtain the Private IP of a RHEL VM, go to the VM details page. Under Settings section go to *Networking* and copy the NIC Private IP. Open a web browser inside the Jump VM, go to **http://<PRIVATE_IP_Address>:8080** and you should see the web page as follows. Use the same Private IP to login to the RHEL VM.
+   - To obtain the Private IP of a RHEL VM, go to the VM details page. Under Settings section go to *Networking* and copy the NIC Private IP. Open a web browser inside the Jump VM, go to **http://<PRIVATE_IP_Address>:8080** and you should see the web page as follows. Use the same Private IP to log into the RHEL VM.
 
      ![alt text](images/eap.png)
 
@@ -207,7 +207,7 @@ Once the deployment is successful, go to the outputs section of the deployment t
 
    - Go to the Jump VM details page and copy the Public IP. Log into the Jump VM using this Public IP.
 
-   - To obtain the Private IP of a RHEL VM, go to the VM details page. Under Settings section go to *Networking* and copy the NIC Private IP. Open a web browser inside the Jump VM, go to **http://<PRIVATE_IP_Address>:8080** and you should see the web page as follows. Use the same Private IP to login to the RHEL VM.
+   - To obtain the Private IP of a RHEL VM, go to the VM details page. Under Settings section go to *Networking* and copy the NIC Private IP. Open a web browser inside the Jump VM, go to **http://<PRIVATE_IP_Address>:8080** and you should see the web page as follows. Use the same Private IP to log into the RHEL VM.
 
      ![alt text](images/eap.png)
 
@@ -249,7 +249,7 @@ Once the deployment is successful, go to the outputs section of the deployment t
 
      ![alt text](images/eap-ses-rep.png)
 
-   - To log into the JBoss EAP Admin Console of a VM - open a web browser and go to *http://<PUBLIC_IP_AppGateway>:listener_port*. Enter the JBoss EAP username and password to login. The listener port should be the port of the listener which you have configured in routing rule associated with the particular RHEL VM.
+   - To log into the JBoss EAP Admin Console of a VM - open a web browser and go to *http://<PUBLIC_IP_AppGateway>:listener_port*. Enter the JBoss EAP username and password to log in. The listener port should be the port of the listener which you have configured in routing rule associated with the particular RHEL VM.
 
      ![alt text](images/eap-admin-console.png)
 
