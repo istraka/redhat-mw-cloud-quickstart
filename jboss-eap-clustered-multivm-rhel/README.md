@@ -2,7 +2,7 @@
 
 [![Deploy To Azure](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.svg?sanitize=true)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FSpektraSystems%2Fredhat-mw-cloud-quickstart%2Fmaster%2Fjboss-eap-clustered-multivm-rhel%2Fazuredeploy.json)
 
-`Tags: JBoss, Red Hat, EAP 7.2, Cluster, Load Balancer, RHEL 8.0, Azure, Azure VM, Java EE`
+`Tags: JBoss, Red Hat, EAP 7.2, EAP 7.3, Cluster, Load Balancer, RHEL 7.7, RHEL 8.0, Azure, Azure VM, Java EE`
 
 <!-- TOC -->
 
@@ -26,20 +26,26 @@ Red Hat Subscription Management (RHSM) is a customer-driven, end-to-end solution
 
 ## Template Solution Architecture
 
-This Azure Resource Manager (ARM) template creates all the Azure compute resources to run JBoss EAP 7.2 cluster running 'n' number of Red Hat Enterprise Linux (RHEL) 8.0 VMs, where 'n' is decided by the user and all the VMs are added to the backend pool of a Load Balancer. The following resources are created by this template:
+This Azure Resource Manager (ARM) template creates all the Azure compute resources to run JBoss EAP 7.2/EAP 7.3 cluster running 'n' number of Red Hat Enterprise Linux (RHEL) 7.7/8.0 VMs, where 'n' is decided by the user and all the VMs are added to the backend pool of a Load Balancer. The following resources are created by this template:
 
-- RHEL 8.0 Virtual Machines
+- RHEL 7.7/8.0 Virtual Machines
 - 1 Load Balancer
 - Virtual Network with a single subnet
-- JBoss EAP 7.2 cluster setup on the RHEL VMs
-- Sample Java application called **eap-session-replication** deployed on JBoss EAP 7.2
+- JBoss EAP 7.2/EAP 7.3 cluster setup on the RHEL VMs
+- Sample Java application called **eap-session-replication** deployed on JBoss EAP
 - Storage Account
+
+Note that the users also have the option to choose between the Red Hat Enterprise Linux versions 7.7 and 8.0 and JBoss EAP versions 7.2 and 7.3. Users can select one of the following combinations for deployment
+
+- JBoss EAP 7.2 on RHEL 7.7
+- JBoss EAP 7.2 on RHEL 8.0
+- JBoss EAP 7.3 on RHEL 8.0
 
 Following is the Architecture:
 
 ![alt text](images/arch.png)
 
-To learn more about the JBoss Enterprise Application Platform, visit: [Documentation for JBoss EAP 7.2](https://access.redhat.com/documentation/red_hat_jboss_enterprise_application_platform/7.2/)
+To learn more about the JBoss Enterprise Application Platform, visit: [Documentation for JBoss EAP 7.2](https://access.redhat.com/documentation/red_hat_jboss_enterprise_application_platform/7.2/) and [Documentation for JBoss EAP 7.3](https://access.redhat.com/documentation/red_hat_jboss_enterprise_application_platform/7.3/).
 
 ## Subscriptions and Costs
 
@@ -50,9 +56,9 @@ This ARM template is designed with flexible operating system (OS) options:
 
 #### Using RHEL OS with PAYG Model
 
-By default this template uses the on-demand Red Hat Enterprise Linux 8.0 PAYG image from the Azure Gallery. When using this on-demand image, there is an additional hourly RHEL subscription charge for using this image on top of the normal compute, network and storage costs. At the same time, the instance will be registered to your Red Hat subscription, therefore consuming one of your entitlements. This will lead to "double billing". To avoid this, you would need to build your own RHEL image, which is defined in this Red Hat KB article for [uploading RHEL image to Azure](https://access.redhat.com/articles/uploading-rhel-image-to-azure) or use RHEL Gold Image from the Azure Private Gallery offering.
+By default this template uses the on-demand Red Hat Enterprise Linux PAYG image from the Azure Gallery. When using this on-demand image, there is an additional hourly RHEL subscription charge for using this image on top of the normal compute, network and storage costs. At the same time, the instance will be registered to your Red Hat subscription, therefore consuming one of your entitlements. This will lead to "double billing". To avoid this, you would need to build your own RHEL image, which is defined in this Red Hat KB article for [uploading RHEL image to Azure](https://access.redhat.com/articles/uploading-rhel-image-to-azure) or use RHEL Gold Image from the Azure Private Gallery offering.
 
-Read [Red Hat Enterprise Linux pricing](https://azure.microsoft.com/pricing/details/virtual-machines/red-hat/) for details on the RHEL VMs pricing with PAYG model. In order to use RHEL in PAYG model, you will need an Azure Subscription with the specified payment method (RHEL 8.0 is an [Azure Marketplace](https://azuremarketplace.microsoft.com/marketplace/apps/RedHat.RedHatEnterpriseLinux80-ARM?tab=Overview) product and requires a payment method to be specified in the Azure Subscription).
+Read [Red Hat Enterprise Linux pricing](https://azure.microsoft.com/pricing/details/virtual-machines/red-hat/) for details on the RHEL VMs pricing with PAYG model. In order to use RHEL in PAYG model, you will need an Azure Subscription with the specified payment method ([RHEL 7.7](https://azuremarketplace.microsoft.com/marketplace/apps/RedHat.RedHatEnterpriseLinux77-ARM?tab=Overview) and [RHEL 8.0](https://azuremarketplace.microsoft.com/marketplace/apps/RedHat.RedHatEnterpriseLinux80-ARM?tab=Overview) are Azure Marketplace products and require a payment method to be specified in the Azure Subscription).
 
 #### Using RHEL OS with BYOS Model
 
@@ -83,11 +89,13 @@ In order to use BYOS for RHEL OS Licensing, you need to have a valid Red Hat sub
 
     `az vm image list --offer rhel-byos --all`
 
-    3.4 Run the following command to accept the Marketplace Terms for RHEL 8.0 BYOS.
+    3.4 Run the following command to accept the Marketplace Terms for RHEL BYOS.
 
-    `az vm image terms accept --publisher redhat --offer rhel-byos --plan rhel-lvm8`
+    `az vm image terms accept --publisher redhat --offer rhel-byos --plan rhel-lvm77` - *For RHEL 7.7 BYOS VM*
 
-4. Your subscription is now ready to deploy RHEL 8.0 BYOS virtual machines.
+    `az vm image terms accept --publisher redhat --offer rhel-byos --plan rhel-lvm8` - *For RHEL 8.0 BYOS VM*
+
+4. Your subscription is now ready to deploy RHEL 7.7/8.0 BYOS virtual machines.
 
 #### Using JBoss EAP with BYOS Model
 
@@ -109,7 +117,7 @@ JBoss EAP is available on Azure through BYOS model only; you need to supply your
     
 ## Deployment Steps
 
-Build your environment with JBoss EAP 7.2 cluster setup on 'n' number of RHEL 8.0 VMs where 'n' is decided by the user and all the VMs are added to the backend pool of a Load Balancer on Azure in a few simple steps:
+Build your environment with JBoss EAP 7.2/EAP 7.3 cluster setup on 'n' number of RHEL 7.7/8.0 VMs where 'n' is decided by the user and all the VMs are added to the backend pool of a Load Balancer on Azure in a few simple steps:
 1. Launch the template by clicking the **Deploy to Azure** button.
 2. Complete the following parameter values and accept the Terms and Conditions before clicking on the **Purchase** button.
 
@@ -125,6 +133,8 @@ Build your environment with JBoss EAP 7.2 cluster setup on 'n' number of RHEL 8.
 
     - **Admin Password or SSH key** - User account password or SSH key data which is an SSH RSA public key for logging into the RHEL VM.
 
+    - **EAP on RHEL Version** - Select the EAP on RHEL version combination from the dropdown options, the default option selected here is JBoss EAP 7.2 on RHEL 8.0.
+
     - **JBoss EAP Username** - Username for JBoss EAP Admin Console.
 
     - **JBoss EAP Password** - User account password for JBoss EAP Admin Console.
@@ -137,7 +147,7 @@ Build your environment with JBoss EAP 7.2 cluster setup on 'n' number of RHEL 8.
    
     - **RHSM Pool ID for JBoss EAP** - RHSM Pool ID (ensure you have EAP entitlement)
 
-    - **RHSM Pool ID for RHEL** - RHSM Pool ID (ensure you have RHEL entitlement). This is **mandatory when selecting BYOS RHEL OS** as Subscription Type.  This should be left blank when selecting RHEL OS PAYG Subscription Type.
+    - **RHSM Pool ID for RHEL** - RHSM Pool ID (ensure you have RHEL entitlement). This is **mandatory when selecting BYOS RHEL OS** as Subscription Type. This should be left blank when selecting RHEL OS PAYG Subscription Type.
 
     - **Storage Replication** - Select the [Replication Strategy](https://docs.microsoft.com/azure/storage/common/storage-redundancy) for the Storage account.
 
@@ -289,6 +299,10 @@ Your Private Offer will be tagged with *Private* as seen below.
 ![alt text](images/rhel-byos.png)
 
 Please refer to [Using the Azure Custom Script Extension Version 2 with Linux VMs](https://docs.microsoft.com/azure/virtual-machines/extensions/custom-script-linux) for more details on troubleshooting VM custom script extensions.
+
+#### Cleanup
+
+If your deployment fails due to any reason (like the ones mentioned above), make sure you delete the whole resource group so that you are not charged for any of the resources deployed so far before failure occurred. In case of successful deployment, follow the same process of deleting the resource group created by the template and related resources (if created in other resource groups) to optimize Azure cost. Once your resources are deleted make sure you log into your RHSM account and remove the system you registered for the deployment of the template, so that you do not hit the "Maximum Enabled Entitlement Quantity" (if you have set any). You can remove the registered system under the *Systems* section in the Red Hat portal.
 
 ## Support
 
