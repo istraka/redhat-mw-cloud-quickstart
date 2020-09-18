@@ -38,25 +38,19 @@ Along with Azure Marketplace offers, there are quickstart templates made availab
 * JBoss EAP clustered across Multiple RHEL VMs
 * JBoss EAP clustered using VMSS (Azure Virtual Machine Scale Set)
 
-You can choose to start with one of the quickstart templates which meets your desired deployment goal. Following is the list of available quickstart templates.
+Note that the users also have the option to choose between the Red Hat Enterprise Linux versions 7.7 and 8.0 and JBoss EAP versions 7.2 and 7.3. Users can select one of the following combinations for deployment.
 
-* <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap72-standalone-rhel7" target="_blank"> JBoss EAP 7.2 on RHEL 7.7 (stand-alone VM)</a> - This Azure template deploys a web application named JBoss-EAP on Azure on JBoss EAP 7.2 running on RHEL 7.7 VM.
+- JBoss EAP 7.2 on RHEL 7.7
+- JBoss EAP 7.2 on RHEL 8.0
+- JBoss EAP 7.3 on RHEL 8.0
 
-* <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap72-standalone-rhel8" target="_blank"> JBoss EAP 7.2 on RHEL 8.0 (stand-alone VM)</a> - This Azure template deploys a web application named JBoss-EAP on Azure on JBoss EAP 7.2 running on RHEL 8.0 VM.
+You can choose to start with one of the quickstart templates with required JBoss EAP on RHEL combination which meets your desired deployment goal. Following is the list of available quickstart templates.
 
-* <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap73-standalone-rhel8" target="_blank"> JBoss EAP 7.3 on RHEL 8.0 (stand-alone VM)</a> - This Azure template deploys a web application named JBoss-EAP on Azure on JBoss EAP 7.3 running on RHEL 8.0 VM.
+* <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap-standalone-rhel" target="_blank"> JBoss EAP on RHEL (stand-alone VM)</a> - This Azure template deploys a web application named JBoss-EAP on Azure on JBoss EAP 7.2/EAP 7.3 running on RHEL 7.7/8.0 VM.
 
-* <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap-clustered-multivm-rhel7" target="_blank">JBoss EAP 7.2 on RHEL 7.7 (clustered VMs)</a> - This Azure template deploys a web application called eap-session-replication on JBoss EAP 7.2 cluster running on 'n' number RHEL 7.7 VMs where n is decided by the user and all the VMs are added to the backend pool of a Load Balancer.
+* <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap-clustered-multivm-rhel" target="_blank"> JBoss EAP on RHEL (clustered, multi-VM)</a> - This Azure template deploys a web application called eap-session-replication on JBoss EAP 7.2/EAP 7.3 cluster running on 'n' number RHEL 7.7/8.0 VMs where n is decided by the user and all the VMs are added to the backend pool of a Load Balancer.
 
-* <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap-clustered-multivm-rhel8" target="_blank">JBoss EAP 7.2 on RHEL 8.0 (clustered VMs)</a> - This Azure template deploys a web application called eap-session-replication on JBoss EAP 7.2 cluster running on 'n' number of RHEL 8.0 VMs where n is decided by the user and all the VMs are added to the backend pool of a Load Balancer.
-
-* <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap73-clustered-multivm-rhel8" target="_blank"> JBoss EAP 7.3 on RHEL 8.0 (clustered VMs)</a> - This Azure template deploys a web application called eap-session-replication on JBoss EAP 7.3 cluster running on 'n' number of RHEL 8.0 VMs where n is decided by the user and all the VMs are added to the backend pool of a Load Balancer.
-
-* <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap-clustered-vmss-rhel7" target="_blank"> JBoss EAP 7.2 on RHEL 7.7 (clustered VMSS)</a> - This Azure template deploys a web application called eap-session-replication on JBoss EAP 7.2 cluster running on RHEL 7.7 VMSS instances.
-
-* <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap-clustered-vmss-rhel8" target="_blank">JBoss EAP 7.2 on RHEL 8.0 (clustered VMSS)</a> - This Azure template deploys a web application called eap-session-replication on JBoss EAP 7.2 cluster running on RHEL 8.0 VMSS instances.
-
-* <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap73-clustered-vmss-rhel8" target="_blank">JBoss EAP 7.3 on RHEL 8.0 (clustered VMSS)</a> - This Azure template deploys a web application called eap-session-replication on JBoss EAP 7.3 cluster running on RHEL 8.0 VMSS instances.
+* <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap-clustered-vmss-rhel" target="_blank"> JBoss EAP on RHEL (clustered, VMSS)</a> - This Azure template deploys a web application called eap-session-replication on JBoss EAP 7.2/EAP 7.3 cluster running on RHEL 7.7/8.0 VMSS instances.
 
 ## Prerequisites 
 
@@ -192,8 +186,6 @@ If your application needs to access any of your on-premises services, you'll nee
 If your application is using JMS Queues or Topics, you'll need to migrate them to an externally hosted JMS server. Azure Service Bus and the Advanced Message Queuing Protocol (AMQP) can be a great migration strategy for those using JMS. For more information, visit [Use JMS with Azure Service Bus and AMQP 1.0](https://docs.microsoft.com/azure/service-bus-messaging/service-bus-java-how-to-use-jms-api-amqp).
 
 If JMS persistent stores have been configured, you must capture their configuration and apply it after the migration.
-
-
 
 ### Determine whether your application is composed of multiple WARs
 

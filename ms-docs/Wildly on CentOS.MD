@@ -85,18 +85,12 @@ For production environment, check out the Red Hat JBoss EAP Azure Quickstart ARM
 
 Stand-alone RHEL virtual machine with sample application:
 
-*  <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap72-standalone-rhel7" target="_blank"> JBoss EAP 7.2 on RHEL 7.7 (stand-alone VM)</a>
-*  <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap72-standalone-rhel8" target="_blank"> JBoss EAP 7.2 on RHEL 8.0 (stand-alone VM)</a>
-*  <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap73-standalone-rhel8" target="_blank"> JBoss EAP 7.3 on RHEL 8.0 (stand-alone VM)</a>
+*  <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap-standalone-rhel" target="_blank"> JBoss EAP on RHEL (stand-alone VM)</a>
 
 Clustered RHEL virtual machines with sample application:
 
-<a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap-clustered-multivm-rhel7" target="_blank">JBoss EAP 7.2 on RHEL 7.7 (clustered VMs)</a>
-* <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap-clustered-multivm-rhel8" target="_blank">JBoss EAP 7.2 on RHEL 8.0 (clustered VMs)</a>
-* <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap73-clustered-multivm-rhel8" target="_blank">JBoss EAP 7.3 on RHEL 8.0 (clustered VMs)</a>
+* <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap-clustered-multivm-rhel" target="_blank"> JBoss EAP on RHEL (clustered, multi-VM)</a>
 
 Clustered RHEL virtual machine scale set with sample application:
 
-* <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap-clustered-vmss-rhel7" target="_blank">JBoss EAP 7.2 on RHEL 7.7 (clustered VMSS)</a>
-* <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap-clustered-vmss-rhel8"  target="_blank">JBoss EAP 7.2 on RHEL 8.0 (clustered VMSS)</a>
-* <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap73-clustered-vmss-rhel8" target="_blank">JBoss EAP 7.3 on RHEL 8.0 (clustered VMSS)</a>
+* <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap-clustered-vmss-rhel" target="_blank"> JBoss EAP on RHEL (clustered, VMSS)</a>

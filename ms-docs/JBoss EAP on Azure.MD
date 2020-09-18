@@ -38,7 +38,22 @@ JBoss EAP 7.2 and 7.3 are certified implementations of the Java Enterprise Editi
 * Hibernate Applications - Developers and administrators can develop and deploy JPA/Hibernate applications with JBoss EAP. Hibernate Core is an object-relational mapping framework for the Java language. It provides a framework for mapping an object-oriented domain model to a relational database, allowing applications to avoid direct interaction with the database. Hibernate EntityManager implements the programming interfaces and lifecycle rules as defined by the [Java Persistence API (JPA) 2.1 specification](https://www.jcp.org/en/jsr/overview). Together with Hibernate Annotations, this wrapper implements a complete (and standalone) JPA solution on top of the mature Hibernate Core. Additional information on [Developing Hibernate Applications](https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html/development_guide/java_persistence_api) is available from Red Hat.
 
 ### Migrate from on-premises to Azure
-The Azure Marketplace offer of JBoss EAP on RHEL will install and provision on Azure VMs or VMSS in less than 20 minutes. You will have a Load Balancer (LB), Private IP for LB and VMs, Virtual Network (VNET) with a single subnet, cluster, or stand-alone setup, Network Security Group (NSG), and a sample Java app.
+The Azure Marketplace offer of JBoss EAP on RHEL will install and provision on Azure VMs in less than 20 minutes. You can access these offers from [Azure Marketplace](https://azuremarketplace.microsoft.com/)
+
+It includes various combinations of EAP and RHEL versions to support your requirements. JBoss EAP licensing is always BYOS(Bring-Your-Own-Subscription) whereas for RHEL OS you can choose from BYOS(Bring-Your-Own-Subscription) or PAYG(Pay-As-You-Go).
+
+* JBoss EAP 7.2 on RHEL 7.7 VM(BYOS)
+* JBoss EAP 7.2 on RHEL 7.7 VM(PAYG)
+* JBoss EAP 7.2 on RHEL 8.0 VM(BYOS)
+* JBoss EAP 7.2 on RHEL 8.0 VM(PAYG)
+* JBoss EAP 7.3 on RHEL 8.0 VM(BYOS)
+* JBoss EAP 7.3 on RHEL 8.0 VM(PAYG)
+
+Along with Azure Marketplace offers, there are quickstart templates made available for you to give a quick start to your Azure migration journey. These quickstarts include pre-built ARM templates and script to deploy JBoss EAP on Azure in various configurations and version combinations.You will have a Load Balancer (LB), Private IP for LB and VMs, Virtual Network (VNET) with a single subnet, cluster, or stand-alone setup, Network Security Group (NSG), and a sample Java app. Solution architecture for these templates includes:
+
+* JBoss EAP on standalone RHEL VM
+* JBoss EAP clustered across Multiple RHEL VMs
+* JBoss EAP clustered using VMSS (Azure Virtual Machine Scale Set)
 
 ## Server configuration choice
 
@@ -60,9 +75,9 @@ JBoss EAP can also work in Cluster mode, check out [JBoss EAP Clustering](https:
 
 ## Support and subscription notes
 
-These Quickstarts templates are offered as: 
+The Quickstarts templates are offered as: 
 
-- RHEL OS is offered as Pay-As-You-Go (PAYG) or Bring-Your-Own-Subscription (BYOS).
+- RHEL OS is offered as Pay-As-You-Go (PAYG) or Bring-Your-Own-Subscription (BYOS) via Red Hat Gold Image model.
 - JBoss EAP is offered as BYOS only.
 
 #### Using RHEL OS with PAYG Model
@@ -98,9 +113,9 @@ In order to use BYOS for RHEL OS Licensing, you need to have a valid Red Hat sub
 
     3.3 Run the following command to accept the Marketplace Terms for RHEL 7.7 BYOS and RHEL 8.0 BYOS, respectively.
 
-    `az vm image terms accept --publisher redhat --offer rhel-byos --plan rhel-lvm77`
+    `az vm image terms accept --publisher redhat --offer rhel-byos --plan rhel-lvm77` - *For RHEL 7.7 BYOS VM*
 
-    `az vm image terms accept --publisher redhat --offer rhel-byos --plan rhel-lvm8`
+    `az vm image terms accept --publisher redhat --offer rhel-byos --plan rhel-lvm8` - *For RHEL 8.0 BYOS VM*
 
 4. Your subscription is now ready to deploy RHEL 7.7 or 8.0 BYOS virtual machines.
 
@@ -128,23 +143,13 @@ You can deploy the template in three following ways:
 
 ## ARM templates
 
-* <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap72-standalone-rhel7" target="_blank"> JBoss EAP 7.2 on RHEL 7.7 (stand-alone VM)</a> - This Azure template deploys a web application named JBoss-EAP on Azure on JBoss EAP 7.2 running on RHEL 7.7 VM.
+You can choose to start with one of the quickstart templates with required JBoss EAP on RHEL combination which meets your desired deployment goal. Following is the list of available quickstart templates.
 
-* <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap72-standalone-rhel8" target="_blank"> JBoss EAP 7.2 on RHEL 8.0 (stand-alone VM)</a> - This Azure template deploys a web application named JBoss-EAP on Azure on JBoss EAP 7.2 running on RHEL 8.0 VM.
+* <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap-standalone-rhel" target="_blank"> JBoss EAP on RHEL (stand-alone VM)</a> - This Azure template deploys a web application named JBoss-EAP on Azure on JBoss EAP 7.2/EAP 7.3 running on RHEL 7.7/8.0 VM.
 
-* <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap73-standalone-rhel8" target="_blank"> JBoss EAP 7.3 on RHEL 8.0 (stand-alone VM)</a> - This Azure template deploys a web application named JBoss-EAP on Azure on JBoss EAP 7.3 running on RHEL 8.0 VM.
+* <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap-clustered-multivm-rhel" target="_blank"> JBoss EAP on RHEL (clustered, multi-VM)</a> - This Azure template deploys a web application called eap-session-replication on JBoss EAP 7.2/EAP 7.3 cluster running on 'n' number RHEL 7.7/8.0 VMs where n is decided by the user and all the VMs are added to the backend pool of a Load Balancer.
 
-* <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap-clustered-multivm-rhel7" target="_blank">JBoss EAP 7.2 on RHEL 7.7 (clustered VMs)</a> - This Azure template deploys a web application called eap-session-replication on JBoss EAP 7.2 cluster running on 'n' number RHEL 7.7 VMs; where n can be specified at deployment time.
-
-* <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap-clustered-multivm-rhel8" target="_blank">JBoss EAP 7.2 on RHEL 8.0 (clustered VMs)</a> - This Azure template deploys a web application called eap-session-replication on JBoss EAP 7.2 cluster running on 'n' number of RHEL 8.0 VMs; where n can be specified at deployment time.
-
-* <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap73-clustered-multivm-rhel8" target="_blank"> JBoss EAP 7.3 on RHEL 8.0 (clustered VMs)</a> - This Azure template deploys a web application called eap-session-replication on JBoss EAP 7.3 cluster running on 'n' number of RHEL 8.0 VMs; where n can be specified at deployment time.
-
-* <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap-clustered-vmss-rhel7" target="_blank"> JBoss EAP 7.2 on RHEL 7.7 (clustered VMSS)</a> - This Azure template deploys a web application called eap-session-replication on JBoss EAP 7.2 cluster running on RHEL 7.7 VMSS instances.
-
-* <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap-clustered-vmss-rhel8" target="_blank">JBoss EAP 7.2 on RHEL 8.0 (clustered VMSS)</a> - This Azure template deploys a web application called eap-session-replication on JBoss EAP 7.2 cluster running on RHEL 8.0 VMSS instances.
-
-* <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap73-clustered-vmss-rhel8" target="_blank">JBoss EAP 7.3 on RHEL 8.0 (clustered VMSS)</a> - This Azure template deploys a web application called eap-session-replication on JBoss EAP 7.3 cluster running on RHEL 8.0 VMSS instances.
+* <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap-clustered-vmss-rhel" target="_blank"> JBoss EAP on RHEL (clustered, VMSS)</a> - This Azure template deploys a web application called eap-session-replication on JBoss EAP 7.2/EAP 7.3 cluster running on RHEL 7.7/8.0 VMSS instances.
 
 ## Resource Links:
 
