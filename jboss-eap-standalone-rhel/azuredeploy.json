@@ -8,21 +8,67 @@
         "description": "Linux VM user account name"
       }
     },
-    "authenticationType": {
-      "type": "string",
-      "defaultValue": "password",
+    "authenticationType": {	
+      "type": "string",	
+      "defaultValue": "password",	
+      "allowedValues": [	
+        "password",		
+        "sshPublicKey"	
+      ],	
+      "metadata": {	
+        "description": "Type of authentication to use on the Virtual Machine"	
+      }	
+    },
+    "adminPasswordOrSSHKey": {	
+      "type": "securestring",	
+      "metadata": {	
+        "description": "Password or SSH key for the Virtual Machine"	
+      }	
+    },
+    "virtualNetworkNewOrExisting": {
+      "defaultValue": "new",
+      "type": "String",
       "allowedValues": [
-        "password",
-        "sshPublicKey"
+        "new",		
+        "existing"
       ],
       "metadata": {
-        "description": "Type of authentication to use on the Virtual Machine"
+        "description": "Determines whether or not a new virtual network should be provisioned."
       }
     },
-    "adminPasswordOrSSHKey": {
-      "type": "securestring",
+    "virtualNetworkName": {
+      "defaultValue": "jbosseap-vnet",
+      "type": "String",
       "metadata": {
-        "description": "Password or SSH key for the Virtual Machine"
+        "description": "Name of the virtual network"
+      }
+    },
+    "addressPrefix": {
+      "defaultValue": "10.0.0.0/16",
+      "type": "String",
+      "metadata": {
+        "description": "Address prefix of the virtual network"
+      }
+    },
+    "subnetName": {
+      "defaultValue": "jbosseap-server-subnet",
+      "type": "String",
+      "metadata": {
+        "description": "Name of the subnet"
+      }
+    },
+    "subnetPrefix": {
+      "defaultValue": "10.0.0.0/24",
+      "type": "String",
+      "metadata": {
+        "description": "Subnet prefix of the virtual network"
+      }
+    },
+    "virtualNetworkResourceGroupName": {
+      "defaultValue": "[resourceGroup().name]",
+      "type": "String",
+      "metadata": {
+        "description": "Name of the resource group for the existing virtual network"
       }
     },
     "eapOnRHELVersion": {
@@ -51,10 +97,10 @@
       }
     },
     "rhelOSLicenseType": {
-      "type": "string",
+      "type": "string",	
       "defaultValue": "PAYG",
       "allowedValues": [
-        "PAYG",
+        "PAYG",		
         "BYOS"
       ],
       "metadata": {
@@ -91,7 +137,7 @@
       "metadata": {
         "description": "The base URI where artifacts required by this template are located. When the template is deployed using the accompanying scripts, a private location in the subscription will be used and this value will be automatically generated"
       },
-      "defaultValue": "https://raw.githubusercontent.com/SpektraSystems/redhat-mw-cloud-quickstart/master/jboss-eap-standalone-rhel/"
+      "defaultValue": "https://raw.githubusercontent.com/SpektraSystems/redhat-mw-cloud-quickstart/suraj-templatev2/jboss-eap-standalone-rhel/"
     },
     "_artifactsLocationSasToken": {
       "type": "securestring",
@@ -128,14 +174,16 @@
   },
   "variables": {
     "singlequote": "'",
-    "nicName": "jbosseap-server-nic",
-    "addressPrefix": "10.0.0.0/16",
-    "subnetName": "jbosseap-server-subnet",
-    "subnetPrefix": "10.0.0.0/24",
+    "imagePublisher": "redhat",
+    "imageOfferPAYG": "rhel",
+    "imageSkuPAYG": "7.7",
+    "imageOfferBYOS": "rhel-byos",
+    "imageSkuBYOS": "rhel-lvm77",
+    "nicName": "[concat(uniquestring(resourceGroup().id), '-nic')]",
     "vmNamePAYG": "jbosseap-payg-server",
     "vmNameBYOS": "jbosseap-byos-server",
-    "virtualNetworkName": "jbosseap-vnet",
-    "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnetName'))]",
+    "scriptFileName": "jbosseap-setup-redhat.sh",
+    "subnetRef": "[resourceId(parameters('virtualNetworkResourceGroupName'), 'Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('subnetName'))]",
     "bootStorageAccountName": "[concat('bootstrg', uniqueString(resourceGroup().id))]",
     "storageAccountType": "Standard_LRS",
     "linuxConfiguration": {
@@ -171,7 +219,7 @@
       "osDisk": {
         "name": "[concat(variables('vmNameBYOS'),'_OSDisk')]",
         "caching": "ReadWrite",
-        "createOption": "FromImage"    
+        "createOption": "FromImage"
       },
       "imageReference": {
         "publisher": "redhat",
@@ -186,94 +234,53 @@
   },
   "resources": [
     {
-      "condition": "[equals(parameters('eapOnRHELVersion'),'JBoss-EAP7.2-on-RHEL7.7')]",
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2019-05-01",
-      "name": "pid-9a72dd7b-3568-469b-a84f-d953207f2a1a",
-      "properties": {
-        "mode": "Incremental",
-        "template": {
-          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-          "contentVersion": "1.0.0.0",
-          "resources": []
-        }
-      }
-    },
-    {
-      "condition": "[equals(parameters('eapOnRHELVersion'),'JBoss-EAP7.2-on-RHEL8.0')]",
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2019-05-01",
-      "name": "pid-cf1bb11d-01b8-449d-9052-aae316c75698",
-      "properties": {
-        "mode": "Incremental",
-        "template": {
-          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-          "contentVersion": "1.0.0.0",
-          "resources": []
-        }
-      }
-    },
-    {
-      "condition": "[equals(parameters('eapOnRHELVersion'),'JBoss-EAP7.3-on-RHEL8.0')]",
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2019-05-01",
-      "name": "pid-32c5d1f7-1ff7-43fc-a113-a64831e5e32e",
-      "properties": {
-        "mode": "Incremental",
-        "template": {
-          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-          "contentVersion": "1.0.0.0",
-          "resources": []
-        }
-      }
-    },
-    {
       "type": "Microsoft.Storage/storageAccounts",
-      "apiVersion": "2019-06-01",
       "name": "[variables('bootStorageAccountName')]",
+      "apiVersion": "2019-06-01",
       "location": "[parameters('location')]",
+      "tags": {
+                "QuickstartName": "JBoss EAP 7.2 on RHEL 7.7 (stand-alone VM)"
+            },
       "sku": {
           "name": "[variables('storageAccountType')]"
       },
-      "kind": "Storage",
-      "tags": {
-                "QuickstartName": "JBoss EAP on RHEL (stand-alone VM)"
-            }
+      "kind": "Storage"
     },
     {
-      "type": "Microsoft.Network/virtualNetworks",
       "apiVersion": "2019-11-01",
-      "name": "[variables('virtualNetworkName')]",
+      "type": "Microsoft.Network/virtualNetworks",
+      "name": "[parameters('virtualNetworkName')]",
       "location": "[parameters('location')]",
+      "condition": "[equals(parameters('virtualNetworkNewOrExisting'), 'new')]",
       "tags": {
-                "QuickstartName": "JBoss EAP on RHEL (stand-alone VM)"
+                "QuickstartName": "JBoss EAP 7.2 on RHEL 7.7 (stand-alone VM)"
             },
       "properties": {
         "addressSpace": {
           "addressPrefixes": [
-            "[variables('addressPrefix')]"
+              "[parameters('addressPrefix')]"
           ]
         },
         "subnets": [
           {
-            "name": "[variables('subnetName')]",
+            "name": "[parameters('subnetName')]",
             "properties": {
-              "addressPrefix": "[variables('subnetPrefix')]"
+              "addressPrefix": "[parameters('subnetPrefix')]"
             }
           }
         ]
       }
     },
     {
-      "type": "Microsoft.Network/networkInterfaces",
       "apiVersion": "2019-11-01",
+      "type": "Microsoft.Network/networkInterfaces",
       "name": "[variables('nicName')]",
       "location": "[parameters('location')]",
       "dependsOn": [
-        "[variables('virtualNetworkName')]"
+        "[concat('Microsoft.Network/virtualNetworks/', parameters('virtualNetworkName'))]"
       ],
       "tags": {
-                "QuickstartName": "JBoss EAP on RHEL (stand-alone VM)"
+                "QuickstartName": "JBoss EAP 7.2 on RHEL 7.7 (stand-alone VM)"
             },
       "properties": {
         "ipConfigurations": [
@@ -291,8 +298,8 @@
     },
     {
       "condition": "[equals(parameters('rhelOSLicenseType'),'PAYG')]",
+      "apiVersion":  "2019-12-01", 
       "type": "Microsoft.Compute/virtualMachines",
-      "apiVersion":  "2019-12-01",
       "name": "[variables('vmNamePAYG')]",
       "location": "[parameters('location')]",
       "dependsOn": [
@@ -300,7 +307,7 @@
         "[variables('bootStorageAccountName')]"
       ],
       "tags": {
-                "QuickstartName": "JBoss EAP on RHEL (stand-alone VM)"
+                "QuickstartName": "JBoss EAP 7.2 on RHEL 7.7 (stand-alone VM)"
             },
       "properties": {
         "hardwareProfile": {
@@ -331,14 +338,14 @@
     {
       "condition": "[equals(parameters('rhelOSLicenseType'),'PAYG')]",
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "apiVersion": "2019-12-01",
       "name": "[concat(variables('vmNamePAYG'),'/jbosseap-setup-extension')]",
+      "apiVersion": "2019-12-01",
       "location": "[parameters('location')]",
       "dependsOn": [
-        "[variables('vmNamePAYG')]"
+        "[concat('Microsoft.Compute/virtualMachines/', variables('vmNamePAYG'))]"
       ],
       "tags": {
-                "QuickstartName": "JBoss EAP on RHEL (stand-alone VM)"
+                "QuickstartName": "JBoss EAP 7.2 on RHEL 7.7 (stand-alone VM)"
             },
       "properties": {
         "publisher": "Microsoft.Azure.Extensions",
@@ -357,8 +364,8 @@
     },
     {
       "condition": "[equals(parameters('rhelOSLicenseType'),'BYOS')]",
-      "type": "Microsoft.Compute/virtualMachines",
       "apiVersion":  "2019-12-01",
+      "type": "Microsoft.Compute/virtualMachines",
       "name": "[variables('vmNameBYOS')]",
       "location": "[parameters('location')]",
       "plan": "[variables('planBYOS')]",
@@ -367,7 +374,7 @@
         "[variables('bootStorageAccountName')]"
       ],
       "tags": {
-                "QuickstartName": "JBoss EAP on RHEL (stand-alone VM)"
+                "QuickstartName": "JBoss EAP 7.2 on RHEL 7.7 (stand-alone VM)"
             },
       "properties": {
         "hardwareProfile": {
@@ -398,14 +405,14 @@
     {
       "condition": "[equals(parameters('rhelOSLicenseType'),'BYOS')]",
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "apiVersion": "2019-12-01",
       "name": "[concat(variables('vmNameBYOS'),'/jbosseap-setup-extension')]",
+      "apiVersion": "2019-12-01",
       "location": "[parameters('location')]",
       "dependsOn": [
-        "[variables('vmNameBYOS')]"
+        "[concat('Microsoft.Compute/virtualMachines/', variables('vmNameBYOS'))]"
       ],
       "tags": {
-                "QuickstartName": "JBoss EAP on RHEL (stand-alone VM)"
+                "QuickstartName": "JBoss EAP 7.2 on RHEL 7.7 (stand-alone VM)"
             },
       "properties": {
         "publisher": "Microsoft.Azure.Extensions",
