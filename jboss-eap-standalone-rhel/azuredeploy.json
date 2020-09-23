@@ -8,28 +8,28 @@
         "description": "Linux VM user account name"
       }
     },
-    "authenticationType": {	
-      "type": "string",	
-      "defaultValue": "password",	
-      "allowedValues": [	
-        "password",		
-        "sshPublicKey"	
-      ],	
-      "metadata": {	
-        "description": "Type of authentication to use on the Virtual Machine"	
-      }	
+    "authenticationType": {
+      "type": "string",
+      "defaultValue": "password",
+      "allowedValues": [
+        "password",
+        "sshPublicKey"
+      ],
+      "metadata": {
+        "description": "Type of authentication to use on the Virtual Machine"
+      }
     },
-    "adminPasswordOrSSHKey": {	
-      "type": "securestring",	
-      "metadata": {	
-        "description": "Password or SSH key for the Virtual Machine"	
-      }	
+    "adminPasswordOrSSHKey": {
+      "type": "securestring",
+      "metadata": {
+        "description": "Password or SSH key for the Virtual Machine"
+      }
     },
     "virtualNetworkNewOrExisting": {
       "defaultValue": "new",
       "type": "String",
       "allowedValues": [
-        "new",		
+        "new",
         "existing"
       ],
       "metadata": {
@@ -97,10 +97,10 @@
       }
     },
     "rhelOSLicenseType": {
-      "type": "string",	
+      "type": "string",
       "defaultValue": "PAYG",
       "allowedValues": [
-        "PAYG",		
+        "PAYG",
         "BYOS"
       ],
       "metadata": {
@@ -174,7 +174,7 @@
   },
   "variables": {
     "singlequote": "'",
-    "nicName": "[concat(uniquestring(resourceGroup().id), '-nic')]",
+    "nicName": "jbosseap-server-nic",
     "vmNamePAYG": "jbosseap-payg-server",
     "vmNameBYOS": "jbosseap-byos-server",
     "subnetRef": "[resourceId(parameters('virtualNetworkResourceGroupName'), 'Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('subnetName'))]",
