@@ -26,6 +26,52 @@
           "description": "Password or SSH key for the Virtual Machine"
         }
     },
+    "virtualNetworkNewOrExisting": {
+      "defaultValue": "new",
+      "type": "String",
+      "allowedValues": [
+        "new",		
+        "existing"
+      ],
+      "metadata": {
+        "description": "Determines whether or not a new virtual network should be provisioned."
+      }
+    },
+    "virtualNetworkName": {
+      "defaultValue": "jbosseap-vnet",
+      "type": "String",
+      "metadata": {
+        "description": "Name of the virtual network"
+      }
+    },
+    "addressPrefix": {
+      "defaultValue": "10.0.0.0/16",
+      "type": "String",
+      "metadata": {
+        "description": "Address prefix of the virtual network"
+      }
+    },
+    "subnetName": {
+      "defaultValue": "jbosseap-server-subnet",
+      "type": "String",
+      "metadata": {
+        "description": "Name of the subnet"
+      }
+    },
+    "subnetPrefix": {
+      "defaultValue": "10.0.0.0/24",
+      "type": "String",
+      "metadata": {
+        "description": "Subnet prefix of the virtual network"
+      }
+    },
+    "virtualNetworkResourceGroupName": {
+      "defaultValue": "[resourceGroup().name]",
+      "type": "String",
+      "metadata": {
+        "description": "Name of the resource group for the existing virtual network"
+      }
+    },
     "location": {
       "type": "string",
       "defaultValue": "[resourceGroup().location]",
@@ -99,7 +145,7 @@
       "metadata": {
        "description": "The base URI where artifacts required by this template are located. When the template is deployed using the accompanying scripts, a private location in the subscription will be used and this value will be automatically generated"
      },
-     "defaultValue": "https://raw.githubusercontent.com/SpektraSystems/redhat-mw-cloud-quickstart/master/jboss-eap-clustered-vmss-rhel/"
+     "defaultValue": "https://raw.githubusercontent.com/SpektraSystems/redhat-mw-cloud-quickstart/suraj-templatev2/jboss-eap-clustered-vmss-rhel/"
     },
     "_artifactsLocationSasToken": {
       "type": "securestring",
@@ -167,10 +213,6 @@
     "vmssNamePAYG": "[concat('jbosseap-payg-server',parameters('vmssName'))]",
     "vmssNameBYOS": "[concat('jbosseap-byos-server',parameters('vmssName'))]",
     "nicName": "jbosseap-server-nic",
-    "addressPrefix": "10.0.0.0/16",
-    "subnetName": "jbosseap-server-subnet",
-    "subnetPrefix": "10.0.0.0/24",
-    "virtualNetworkName": "jbosseap-vnet",
     "backendPoolName": "jbosseap-server",
     "frontendName" : "LoadBalancerFrontEnd",
     "healthProbe" : "eap-lb-health",
@@ -223,48 +265,6 @@
   },
   "resources": [
     {
-      "condition": "[equals(parameters('eapOnRHELVersion'),'JBoss-EAP7.2-on-RHEL7.7')]",
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2019-05-01",
-      "name": "pid-92abde63-f331-4e50-96ca-e0e5c2339caa",
-      "properties": {
-        "mode": "Incremental",
-        "template": {
-          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-          "contentVersion": "1.0.0.0",
-          "resources": []
-        }
-      }
-    },
-    {
-      "condition": "[equals(parameters('eapOnRHELVersion'),'JBoss-EAP7.2-on-RHEL8.0')]",
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2019-05-01",
-      "name": "pid-4d9c78a6-451b-467d-a6da-d86c71c4a6c7",
-      "properties": {
-        "mode": "Incremental",
-        "template": {
-          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-          "contentVersion": "1.0.0.0",
-          "resources": []
-        }
-      }
-    },
-    {
-      "condition": "[equals(parameters('eapOnRHELVersion'),'JBoss-EAP7.3-on-RHEL8.0')]",
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2019-05-01",
-      "name": "pid-8c47eaba-ad48-4d3b-b2f8-9f69a44b57f5",
-      "properties": {
-        "mode": "Incremental",
-        "template": {
-          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-          "contentVersion": "1.0.0.0",
-          "resources": []
-        }
-      }
-    },
-    {
       "type": "Microsoft.Storage/storageAccounts",
       "apiVersion": "2019-06-01",
       "name": "[variables('bootStorageAccountName')]",
@@ -278,9 +278,10 @@
             }
     },
     {
+      "condition": "[equals(parameters('virtualNetworkNewOrExisting'), 'new')]",
       "type": "Microsoft.Network/virtualNetworks",
       "apiVersion": "2019-11-01",
-      "name": "[variables('virtualNetworkName')]",
+      "name": "[parameters('virtualNetworkName')]",
       "location": "[parameters('location')]",
       "tags": {
                 "QuickstartName": "JBoss EAP on RHEL (clustered, VMSS)"
@@ -288,14 +289,14 @@
       "properties": {
         "addressSpace": {
           "addressPrefixes": [
-            "[variables('addressPrefix')]"
+            "[parameters('addressPrefix')]"
           ]
         },
         "subnets": [
           {
-            "name": "[variables('subnetName')]",
+            "name": "[parameters('subnetName')]",
             "properties": {
-              "addressPrefix": "[variables('subnetPrefix')]"
+              "addressPrefix": "[parameters('subnetPrefix')]"
             }
           }
         ]
@@ -314,7 +315,7 @@
       },
       "dependsOn": [
         "[variables('loadBalancersName')]",
-        "[variables('virtualNetworkName')]",
+        "[parameters('virtualNetworkName')]",
         "[variables('storageAccountName')]",
         "[variables('bootStorageAccountName')]"
       ],
@@ -345,7 +346,7 @@
                      "name": "ipconfig",
                      "properties": {
                        "subnet": {
-                        "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnetName'))]"
+                        "id": "[resourceId(parameters('virtualNetworkResourceGroupName'), 'Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('subnetName'))]"
                        },
                         "loadBalancerBackendAddressPools": [
                           {
@@ -403,7 +404,7 @@
       "plan": "[variables('planBYOS')]",
       "dependsOn": [
         "[variables('loadBalancersName')]",
-        "[variables('virtualNetworkName')]",
+        "[parameters('virtualNetworkName')]",
         "[variables('storageAccountName')]",
         "[variables('bootStorageAccountName')]"
       ],
@@ -434,7 +435,7 @@
                      "name": "ipconfig",
                      "properties": {
                        "subnet": {
-                        "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnetName'))]"
+                        "id": "[resourceId(parameters('virtualNetworkResourceGroupName'), 'Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('subnetName'))]"
                        },
                         "loadBalancerBackendAddressPools": [
                           {
@@ -487,7 +488,7 @@
        "name": "Basic"
      },
      "dependsOn": [
-       "[variables('virtualNetworkName')]"
+       "[parameters('virtualNetworkName')]"
      ],
      "tags": {
                 "QuickstartName": "JBoss EAP on RHEL (clustered, VMSS)"
@@ -499,7 +500,7 @@
           "properties": {
             "privateIPAllocationMethod": "Dynamic",
             "subnet": {
-                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnetName'))]"
+                "id": "[resourceId(parameters('virtualNetworkResourceGroupName'), 'Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('subnetName'))]"
             },
             "privateIPAddressVersion": "IPv4"
           }

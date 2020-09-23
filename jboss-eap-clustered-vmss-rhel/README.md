@@ -1,6 +1,6 @@
 # JBoss EAP on RHEL (clustered, VMSS)
 
-[![Deploy To Azure](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.svg?sanitize=true)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FSpektraSystems%2Fredhat-mw-cloud-quickstart%2Fmaster%2Fjboss-eap-clustered-vmss-rhel%2Fazuredeploy.json)
+[![Deploy To Azure](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.svg?sanitize=true)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FSpektraSystems%2Fredhat-mw-cloud-quickstart%2Fsuraj-templatev2%2Fjboss-eap-clustered-vmss-rhel%2Fazuredeploy.json)
 
 `Tags: JBoss, Red Hat, EAP 7.2, EAP 7.3, Cluster, Load Balancer, RHEL 7.7, RHEL 8.0, Azure, Azure VMSS, Java EE`
 
