@@ -133,8 +133,8 @@
     "subnetName": "jbosseap-server-subnet",
     "subnetPrefix": "10.0.0.0/24",
     "vmNameMap": {
-        "BYOS": "jbosseap-payg-server",
-        "PAYG": "jbosseap-byos-server"
+        "BYOS": "jbosseap-byos-server",
+        "PAYG": "jbosseap-payg-server"
     },
     "vmName": "[variables('vmNameMap')[parameters('rhelOSLicenseType')]]",
     "virtualNetworkName": "jbosseap-vnet",
