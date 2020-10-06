@@ -1,7 +1,15 @@
 
 # Microsoft Azure Quickstart templates for Red Hat JBoss EAP
 
-This project contains the Azure Quickstart templates for Red Hat JBoss Enterprise Application Platform (EAP) running on Red Hat Enterprise Linux (RHEL).  Versions of the template includes:
+This project contains the Azure Quickstart templates for Red Hat JBoss Enterprise Application Platform (EAP) running on Red Hat Enterprise Linux (RHEL).  Users have the option to select the EAP on RHEL version for the following samples
+
+* [JBoss EAP on RHEL (stand-alone VM)](jboss-eap-standalone-rhel/README.md) - This Azure template deploys a web application named "JBoss-EAP on Azure" on JBoss EAP 7.2/EAP 7.3 running on RHEL 7.7/8.0 VM where users can select the EAP on RHEL version.
+
+* [JBoss EAP on RHEL (clustered, multi-VM)](jboss-eap-clustered-multivm-rhel/README.md) - This Azure template deploys a web application called "eap-session-replication" on JBoss EAP 7.2/EAP 7.3 cluster running on 'n' number RHEL 7.7/8.0 VMs where 'n' is decided by the user and all the VMs are added to the backend pool of a Load Balancer.
+
+* [JBoss EAP on RHEL (clustered, VMSS)](jboss-eap-clustered-vmss-rhel/README.md) - This Azure template deploys a web application called "eap-session-replication" on JBoss EAP 7.2/EAP 7.3 cluster running on RHEL 7.7/8.0 Virtual Machine Scale Sets (VMSS) instances.
+
+We also have broken down the above mentioned templates and the versions of the template includes:
 
 * [JBoss EAP 7.2 on RHEL 7.7 (stand-alone VM)](jboss-eap72-standalone-rhel7/README.md) - This Azure template deploys a web application named "JBoss-EAP on Azure" on JBoss EAP 7.2 running on RHEL 7.7 VM.
 
@@ -20,5 +28,7 @@ This project contains the Azure Quickstart templates for Red Hat JBoss Enterpris
 * [JBoss EAP 7.2 on RHEL 8.0 (clustered, VMSS)](jboss-eap-clustered-vmss-rhel8/README.md) - This Azure template deploys a web application called "eap-session-replication" on JBoss EAP 7.2 cluster running on RHEL 8.0 Virtual Machine Scale Sets (VMSS) instances.
 
 * [JBoss EAP 7.3 on RHEL 8.0 (clustered, VMSS)](jboss-eap73-clustered-vmss-rhel8/README.md) - This Azure template deploys a web application called "eap-session-replication" on JBoss EAP 7.3 cluster running on RHEL 8.0 Virtual Machine Scale Sets (VMSS) instances.
+
+We have one Azure Quickstart template for WildFly running on CentOS 8 VM.
 
 * [WildFly 18 on CentOS 8 (stand-alone VM)](wildfly-standalone-centos8/README.md) - This Azure quickstart template deploys a web application named "JBoss-EAP on Azure" on WildFly 18.0.1.Final running on CentOS 8 VM.
