@@ -127,7 +127,6 @@
     }
   },
   "variables": {
-    "singlequote": "'",
     "nicName": "jbosseap-server-nic",
     "addressPrefix": "10.0.0.0/16",
     "subnetName": "jbosseap-server-subnet",
@@ -335,7 +334,6 @@
           ]
         },
         "protectedSettings": {
-
           "commandToExecute": "[format('sh jbosseap-setup-redhat.sh {0} {1} ''{2}'' {3} ''{4}'' {5} {6} {7} {8}', variables('scriptArgs'), parameters('jbossEAPUserName'), parameters('jbossEAPPassword'), parameters('rhsmUserName'), parameters('rhsmPassword'), parameters('rhelOSLicenseType'), parameters('rhsmPoolEAP'), parameters('eapOnRHELVersion'), parameters('rhsmPoolRHEL'))]"
         }
       }
