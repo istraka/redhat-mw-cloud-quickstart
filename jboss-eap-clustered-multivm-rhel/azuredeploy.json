@@ -29,7 +29,7 @@
       "defaultValue": "new",
       "type": "String",
       "allowedValues": [
-        "new",		
+        "new",
         "existing"
       ],
       "metadata": {

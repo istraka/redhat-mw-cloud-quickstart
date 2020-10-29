@@ -30,7 +30,7 @@
       "defaultValue": "new",
       "type": "String",
       "allowedValues": [
-        "new",		
+        "new",
         "existing"
       ],
       "metadata": {
@@ -371,7 +371,7 @@
                       "properties": {
                         "subnet": {
                           "id": "[resourceId(parameters('virtualNetworkResourceGroupName'), 'Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('subnetName'))]"
-                       },
+                        },
                         "loadBalancerBackendAddressPools": [
                           {
                             "id": "[resourceId('Microsoft.Network/loadBalancers/backendAddressPools', variables('loadBalancersName'), variables('backendPoolName'))]"
@@ -523,11 +523,11 @@
         }
       ]
     }
-   ],
-   "outputs": {
-     "appURL": {
-        "type": "string",
-        "value": "[concat('http://', reference(variables('loadBalancersName')).frontendIPConfigurations[0].properties.privateIPAddress, '/eap-session-replication/')]"
-     }
-   }
- }
+  ],
+  "outputs": {
+    "appURL": {
+      "type": "string",
+      "value": "[concat('http://', reference(variables('loadBalancersName')).frontendIPConfigurations[0].properties.privateIPAddress, '/eap-session-replication/')]"
+    }
+  }
+}
