@@ -36,7 +36,7 @@ It includes various combinations of EAP and RHEL versions to support your requir
 
 Along with Azure Marketplace offers, there are quickstart templates made available for you to give a quick start to your Azure migration journey. These quickstarts include pre-built ARM templates and script to deploy JBoss EAP on Azure in various configurations and version combinations. Solution architecture includes:
 
-* JBoss EAP on standalone RHEL VM
+* JBoss EAP on stand-alone RHEL VM
 * JBoss EAP clustered across Multiple RHEL VMs
 * JBoss EAP clustered using VMSS (Azure Virtual Machine Scale Set)
 
@@ -125,9 +125,9 @@ java -version
 
 **Validate Operating Mode**
 
-JBoss EAP is supported on Red Hat Enterprise Linux, Windows Server, and Oracle Solaris. JBoss EAP runs in either a standalone server operating mode for managing discrete instances or managed domain operating mode for managing groups of instances from a single control point.
+JBoss EAP is supported on Red Hat Enterprise Linux, Windows Server, and Oracle Solaris. JBoss EAP runs in either a stand-alone server operating mode for managing discrete instances or managed domain operating mode for managing groups of instances from a single control point.
 
-JBoss EAP managed domains are not supported in Microsoft Azure. Only standalone JBoss EAP server instances are supported. Note that configuring JBoss EAP clusters using standalone JBoss EAP servers is supported in Azure.
+JBoss EAP managed domains are not supported in Microsoft Azure. Only stand-alone JBoss EAP server instances are supported. Note that configuring JBoss EAP clusters using stand-alone JBoss EAP servers is supported in Azure.
 
 ### Inventory server capacity
 
