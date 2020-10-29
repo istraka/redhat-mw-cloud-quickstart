@@ -38,7 +38,7 @@ JBoss EAP 7.2 and 7.3 are certified implementations of the Java Enterprise Editi
 * Hibernate Applications - Developers and administrators can develop and deploy Java Persistence API (JPA)/Hibernate applications with JBoss EAP. Hibernate Core is an object-relational mapping framework for the Java language. It provides a framework for mapping an object-oriented domain model to a relational database, allowing applications to avoid direct interaction with the database. Hibernate Entity Manager implements the programming interfaces and lifecycle rules as defined by the [JPA 2.1 specification](https://www.jcp.org/en/jsr/overview). Together with Hibernate Annotations, this wrapper implements a complete (and standalone) JPA solution on top of the mature Hibernate Core. To learn more about Hibernate, visit [JPA on EAP 7.2](https://access.redhat.com/documentation/en/red_hat_jboss_enterprise_application_platform/7.2/html/development_guide/java_persistence_api) or  [Jakarta Persistence on EAP 7.3](https://access.redhat.com/documentation/en/red_hat_jboss_enterprise_application_platform/7.3/html/development_guide/java_persistence_api).
 
 #### Red Hat Migration Toolkit for Applications (MTA)
-MTA is a migration tool for Java application servers. Use this tool to migrate from another app server to JBoss EAP. It works with IDE plugins for [Eclipse IDE](https://www.eclipse.org/ide/), [Red Hat CodeReady Workspaces](https://developers.redhat.com/products/codeready-workspaces/overview), and Visual Studio Code ([VS Code])(https://code.visualstudio.com/docs/languages/java) for Java.  MTA is a free and open-source tool that will:
+[Red Hat Migration Toolkit for Applications (MTA)](https://developers.redhat.com/products/mta/overview) is a migration tool for Java application servers. Use this tool to migrate from another app server to JBoss EAP. It works with IDE plugins for [Eclipse IDE](https://www.eclipse.org/ide/), [Red Hat CodeReady Workspaces](https://developers.redhat.com/products/codeready-workspaces/overview), and [Visual Studio Code (VS Code)](https://code.visualstudio.com/docs/languages/java) for Java.  MTA is a free and open-source tool that will:
 * Automate application analysis
 * Support effort estimation
 * Accelerate code migration
@@ -176,7 +176,7 @@ You can start with one of the Quickstart templates of JBoss EAP on RHEL combinat
 
 ## Resource Links:
 
-* [Azure Hybrid Benefits)(https://docs.microsoft.com/azure/virtual-machines/windows/hybrid-use-benefit-licensing)
+* [Azure Hybrid Benefits](https://docs.microsoft.com/azure/virtual-machines/windows/hybrid-use-benefit-licensing)
 * [Configuring a Java app for Azure App Service](https://docs.microsoft.com/azure/app-service/configure-language-java)
 * [JBoss EAP on Azure Red Hat OpenShift](https://azure.microsoft.com/services/openshift/)
 * [JBoss EAP on Azure App Service Linux](https://docs.microsoft.com/azure/app-service/quickstart-java) Quickstart
