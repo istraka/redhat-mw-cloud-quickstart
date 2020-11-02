@@ -44,7 +44,9 @@ To start your standalone WildFly server with another provided configuration, use
 
 For example, to use the Jakarta EE Platform 8 with clustering capabilities use the following command:
 
-`./standalone.sh --server-config=standalone-full-ha.xml`
+```
+./standalone.sh --server-config=standalone-full-ha.xml
+```
 
 To learn more about the configurations, check out the [WildFly Getting Started Guide](https://docs.wildfly.org/18/Getting_Started_Guide.html#wildfly-10-configurations).
 
@@ -58,15 +60,23 @@ You can deploy the template in the following three ways:
 
 - Use PowerShell - Deploy the template by running the following commands: (Check out [Azure PowerShell](https://docs.microsoft.com/powershell/azure/) for information on installing and configuring Azure PowerShell).
 
-    `New-AzResourceGroup -Name <resource-group-name> -Location <resource-group-location> #use this command when you need to create a new Resource Group for your deployment`
+    ```
+    New-AzResourceGroup -Name <resource-group-name> -Location <resource-group-location> #use this command when you need to create a new Resource Group for your deployment
+    ```
 
-    `New-AzResourceGroupDeployment -ResourceGroupName <resource-group-name> -TemplateUri https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/wildfly-standalone-centos8/azuredeploy.json`
+    ```
+    New-AzResourceGroupDeployment -ResourceGroupName <resource-group-name> -TemplateUri https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/wildfly-standalone-centos8/azuredeploy.json
+    ```
     
 - Use Azure CLI - Deploy the template by running the following commands: (Check out [Azure Cross-Platform Command Line](https://docs.microsoft.com/cli/azure/install-azure-cli) for details on installing and configuring the Azure Cross-Platform Command-Line Interface).
 
-    `az group create --name <resource-group-name> --location <resource-group-location> #use this command when you need to create a new Resource Group for your deployment`
+    ```
+    az group create --name <resource-group-name> --location <resource-group-location> #use this command when you need to create a new Resource Group for your deployment
+    ```
 
-    `az group deployment create --resource-group <my-resource-group> --template-uri https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/wildfly-standalone-centos8/azuredeploy.json`
+    ```
+    az group deployment create --resource-group <my-resource-group> --template-uri https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/wildfly-standalone-centos8/azuredeploy.json
+    ```
 
 - Use Azure portal - Deploy the template by clicking <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure%2Fazure-quickstart-templates%2Fmaster%2Fwildfly-standalone-centos8%2Fazuredeploy.json" target="_blank">here</a> and log into your Azure portal.
 

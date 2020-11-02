@@ -119,7 +119,7 @@ Check on the [JBoss EAP 7.3 supported configurations](https://access.redhat.com/
 
 To obtain your current Java version, sign in to your server and run the following command:
 
-```bash
+```
 java -version
 ```
 
@@ -141,7 +141,7 @@ Before the advent of "configuration as a service" technologies such as Azure Key
 
 Document all the certificates used for public SSL endpoints. You can view all certificates on the production server(s) by running the following command:
 
-```bash
+```
 keytool -list -v -keystore <path to keystore>
 ```
 
