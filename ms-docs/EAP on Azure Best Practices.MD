@@ -135,13 +135,17 @@ JBoss EAP is supported on Red Hat Enterprise Linux, and Windows Server, and runs
 
 - Command to start the JBoss EAP (installed via ZIP or installer method) as a Standalone server in RHEL VM :
 
-    `$EAP_HOME/bin/standalone.sh`
+    ```
+    $EAP_HOME/bin/standalone.sh
+    ```
 
 - For Windows Server use the `EAP_HOME\bin\standalone.bat` script to start the JBoss EAP as a Standalone server. 
 
 - Starting JBoss EAP is different for an RPM installation compared to a ZIP or installer installation. For example, for Red Hat Enterprise Linux 7 and later, you must use the following command :
 
-    `systemctl start eap7-standalone.service`
+    ```
+    systemctl start eap7-standalone.service
+    ```
 
 The startup script used to start the JBoss EAP (installed via ZIP or installer method) uses the `EAP_HOME/bin/standalone.conf` file, or `standalone.conf.bat` for Windows Server, to set some default preferences, such as JVM options. You can customize the settings in this file. JBoss EAP uses the *standalone.xml* configuration file by default, but can be started using a different one. For changing the default configuration file used for starting JBoss EAP installed via RPM method you can use /etc/opt/rh/eap7/wildfly/eap7-standalone.conf. You can use the same eap7-standalone.conf file to make other configuration changes like WildFly bind address.
 
@@ -157,7 +161,9 @@ Stopping JBoss EAP is different for an RPM installation compared to a ZIP or ins
 
 - For example, for Red Hat Enterprise Linux 7 and later, you must use the following command :
 
-    `systemctl stop eap7-standalone.service`
+    ```
+    systemctl stop eap7-standalone.service
+    ```
 
 JBoss EAP can also be suspended or shut down gracefully. This allows active requests to complete normally, without accepting any new requests. Once the server has been suspended, it can be shut down, returned back to a running state, or left in a suspended state to perform maintenance. While the server is suspended, management requests are still processed. The server can be suspended and resumed using the management console or the management CLI.
 
@@ -205,17 +211,6 @@ Once you have installed the JBoss EAP server, and you have created a management 
 ## Support
 
 For any support related questions, issues or customization requirements, please contact [Red Hat Support](https://access.redhat.com/support).
-
-
-
-
-
-
-
-
-
-
-
 
 
 
