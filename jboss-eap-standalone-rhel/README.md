@@ -33,7 +33,7 @@ This Azure Resource Manager (ARM) template creates all the Azure compute resourc
 - Sample Java application named **JBoss-EAP on Azure** deployed on JBoss EAP
 - Storage Account
 
-Users have the option to choose an existing Virtual Network setup or create a new Virtual Network with the provided VNET and subnet details in the parameters. Note that the users also have the option to choose between the Red Hat Enterprise Linux versions 7.7 and 8.0 and JBoss EAP versions 7.2 and 7.3. Users can select one of the following combinations for deployment.
+You have the option to choose an existing Virtual Network setup or create a new Virtual Network with the provided VNET and subnet details in the parameters. Note that the template will not allow you to create a new subnet in the existing virtual network. You also have the option to choose between the Red Hat Enterprise Linux versions 7.7 and 8.0 and JBoss EAP versions 7.2 and 7.3. Users can select one of the following combinations for deployment.
 
 - JBoss EAP 7.2 on RHEL 7.7
 - JBoss EAP 7.2 on RHEL 8.0
@@ -54,7 +54,7 @@ This ARM template is designed with flexible operating system (OS) options:
 
 #### Using RHEL OS with PAYG Model
 
-By default this template uses the on-demand Red Hat Enterprise Linux PAYG image from the Azure Gallery. When using this on-demand image, there is an additional hourly RHEL subscription charge for using this image on top of the normal compute, network and storage costs. At the same time, the instance will be registered to your Red Hat subscription, therefore consuming one of your entitlements. This will lead to "double billing". To avoid this, you would need to build your own RHEL image, which is defined in this Red Hat KB article for [uploading RHEL image to Azure](https://access.redhat.com/articles/uploading-rhel-image-to-azure) or use RHEL Gold Image from the Azure Private Gallery offering.
+By default, this template uses the on-demand Red Hat Enterprise Linux PAYG image from the Azure Gallery. When using this on-demand image, there is an additional hourly RHEL subscription charge for using this image on top of the normal compute, network and storage costs. At the same time, the instance will be registered to your Red Hat subscription, therefore consuming one of your entitlements. This will lead to "double billing". To avoid this, you would need to build your own RHEL image, which is defined in this Red Hat KB article for [uploading RHEL image to Azure](https://access.redhat.com/articles/uploading-rhel-image-to-azure) or use RHEL Gold Image from the Azure Private Gallery offering.
 
 Read [Red Hat Enterprise Linux pricing](https://azure.microsoft.com/pricing/details/virtual-machines/red-hat/) for details on the RHEL VMs pricing with PAYG model. In order to use RHEL in PAYG model, you will need an Azure Subscription with the specified payment method ([RHEL 7.7](https://azuremarketplace.microsoft.com/marketplace/apps/RedHat.RedHatEnterpriseLinux77-ARM?tab=Overview) and [RHEL 8.0](https://azuremarketplace.microsoft.com/marketplace/apps/RedHat.RedHatEnterpriseLinux80-ARM?tab=Overview) are Azure Marketplace products and require a payment method to be specified in the Azure Subscription).
 
@@ -116,7 +116,7 @@ JBoss EAP is available on Azure through BYOS model only; you need to supply your
    - **Admin Username** and password or SSH key data which is an SSH RSA public key for the VM
 
    - **JBoss EAP Username** and password
-    
+
    - **RHSM Username** and password
 
    - **RHSM Pool ID for JBoss EAP and/or RHEL OS**
@@ -147,7 +147,7 @@ Build your environment with JBoss EAP 7.2/EAP 7.3 on a VM running RHEL 7.7/8.0 o
 
    - **Subnet Prefix** - Enter the subnet prefix of the virtual network.
 
-   - **Virtual Network Resource Group Name** - Enter the name of the resource group if you intend to deploy the resources in an existing virtaul network or else if you want to create a new VNET, the default value will deploy a new VNET in the resource group where the template is deployed.
+   - **Virtual Network Resource Group Name** - Enter the name of the resource group if you intend to deploy the resources in an existing virtual network or else if you want to create a new VNET, the default value will deploy a new VNET in the resource group where the template is deployed.
 
    - **EAP on RHEL Version** - Select the EAP on RHEL version combination from the dropdown options, the default option selected here is JBoss EAP 7.2 on RHEL 8.0.
 
@@ -156,7 +156,7 @@ Build your environment with JBoss EAP 7.2/EAP 7.3 on a VM running RHEL 7.7/8.0 o
    - **JBoss EAP Password** - User account password for JBoss EAP Admin Console.
 
    - **RHEL OS License Type** - Select the type of RHEL OS license from the dropdown options for deploying the VM. You will have either the option of PAYG (by default) or BYOS.
-    
+
    - **RHSM Username** - Username for the Red Hat Subscription Manager account.
 
    - **RHSM Password** - User account password for your RHSM account.
@@ -177,7 +177,7 @@ The deployment takes approximately 10 minutes to complete.
 
 Once the deployment is successful, go to the outputs section of the deployment to obtain the **Private IP of the RHEL VM**, **app URL** and the **Admin Console URL**. You can access the RHEL VM and the application by following one of the 5 options:
 
-1. Create a Jump VM in a different Virtual Network and access the RHEL VM using Virtual Network Peering. (recommended method)
+1. Create a Jump VM in a different Virtual Network and access the RHEL VM using Virtual Network Peering. (recommended method).
 2. Create a Public IP to access the RHEL VM and JBoss EAP Admin Console.
 3. Create a Jump VM in a different subnet (new subnet) in the same Virtual Network and access the RHEL VM via a Jump VM.
 4. Using an Application Gateway.
@@ -207,7 +207,7 @@ Once the deployment is successful, go to the outputs section of the deployment t
 
 **Option 2 of 5**. Create Public IP to access the RHEL VM and JBoss EAP Admin Console
 
-   - The RHEL VM you created does not have a Public IP associated with it. You can [create a Public IP](https://docs.microsoft.com/azure/virtual-network/virtual-network-public-ip-address#create-a-public-ip-address) for accessing the VM and [associate the Public IP to the VM](https://docs.microsoft.com/azure/virtual-network/associate-public-ip-address-vm). All this can be done using Azure Portal or Powershell commands or CLI commands.
+   - The RHEL VM you created does not have a Public IP associated to it. You can [create a Public IP](https://docs.microsoft.com/azure/virtual-network/virtual-network-public-ip-address#create-a-public-ip-address) for accessing the VM and [associate the Public IP to the VM](https://docs.microsoft.com/azure/virtual-network/associate-public-ip-address-vm). All this can be done using Azure Portal or Powershell commands or CLI commands.
 
    - Obtain the Public IP of a VM - go to the VM details page and copy the Public IP. You can use this Public IP to access the VM and JBoss EAP Admin Console.
 
@@ -223,9 +223,9 @@ Once the deployment is successful, go to the outputs section of the deployment t
 
 **Option 3 of 5**. Create a Jump VM in a different subnet (new subnet) in the same Virtual Network and access the RHEL VM via Jump VM.
 
-   - [Add a new subnet](https://docs.microsoft.com/azure/virtual-network/virtual-network-manage-subnet#add-a-subnet) in the existing Virtual Network which contains the RHEL VM.
+   - [Add a new subnet](https://docs.microsoft.com/azure/virtual-network/virtual-network-manage-subnet#add-a-subnet) in the existing Virtual Network which is associated with the RHEL VM.
 
-   - [Create a Windows Virtual Machine](https://docs.microsoft.com/azure/virtual-machines/windows/quick-create-portal#create-virtual-machine) in Azure in the same Resource Group as the RHEL VM. Provide the required details and leave other configurations as default except for the Virtual Network and subnet. Make sure you select the existing Virtual Network in the Resource Group and select the subnet you just created in the step above. This will be your Jump VM.
+   - [Create a Windows Virtual Machine](https://docs.microsoft.com/azure/virtual-machines/windows/quick-create-portal#create-virtual-machine) in Azure in the same Resource Group as the RHEL VM. Provide the required details and leave other configurations as default except for the Virtual Network and subnet. Make sure you select the existing Virtual Network associated with the deployed resources in the Resource Group and select the subnet you just created in the step above. This will be your Jump VM.
 
    - Access Jump VM Public IP - once successfully deployed, go to the VM details page and copy the Public IP. Log into the Jump VM using this Public IP.
 
@@ -249,7 +249,7 @@ Once the deployment is successful, go to the outputs section of the deployment t
 
    - Set access ports - under *Configuration* section add routing rules to access the ports 8080 and 9990 of the RHEL VM.
 
-   - Copy Public IP of Application Gateway - once the Application Gateway is created with the required configurations, go to the  overview page and copy the Public IP of the Application Gateway.
+   - Copy Public IP of Application Gateway - once the Application Gateway is created with the required configurations, go to the overview page and copy the Public IP of the Application Gateway.
 
    - To view the JBoss EAP on Azure web page - open a web browser and go to *http://<PUBLIC_IP_AppGateway>:8080/JBoss-EAP_on_Azure/* and you should see the application running.
 

@@ -33,7 +33,7 @@ This Azure Resource Manager (ARM) template creates all the Azure compute resourc
 - Sample Java application called **eap-session-replication** deployed on JBoss EAP
 - Storage Account
 
-Users have the option to choose an existing Virtual Network setup or create a new Virtual Network with the provided VNET and subnet details in the parameters. Note that the users also have the option to choose between the Red Hat Enterprise Linux versions 7.7 and 8.0 and JBoss EAP versions 7.2 and 7.3. Users can select one of the following combinations for deployment.
+You have the option to choose an existing Virtual Network setup or create a new Virtual Network with the provided VNET and subnet details in the parameters. Note that the template will not allow you to create a new subnet in the existing virtual network. You also have the option to choose between the Red Hat Enterprise Linux versions 7.7 and 8.0 and JBoss EAP versions 7.2 and 7.3. Users can select one of the following combinations for deployment.
 
 - JBoss EAP 7.2 on RHEL 7.7
 - JBoss EAP 7.2 on RHEL 8.0
@@ -54,7 +54,7 @@ This ARM template is designed with flexible operating system (OS) options:
 
 #### Using RHEL OS with PAYG Model
 
-By default this template uses the on-demand Red Hat Enterprise Linux PAYG image from the Azure Gallery. When using this on-demand image, there is an additional hourly RHEL subscription charge for using this image on top of the normal compute, network and storage costs. At the same time, the instance will be registered to your Red Hat subscription, therefore consuming one of your entitlements. This will lead to "double billing". To avoid this, you would need to build your own RHEL image, which is defined in this Red Hat KB article for [uploading RHEL image to Azure](https://access.redhat.com/articles/uploading-rhel-image-to-azure) or use RHEL Gold Image from the Azure Private Gallery offering.
+By default, this template uses the on-demand Red Hat Enterprise Linux PAYG image from the Azure Gallery. When using this on-demand image, there is an additional hourly RHEL subscription charge for using this image on top of the normal compute, network and storage costs. At the same time, the instance will be registered to your Red Hat subscription, therefore consuming one of your entitlements. This will lead to "double billing". To avoid this, you would need to build your own RHEL image, which is defined in this Red Hat KB article for [uploading RHEL image to Azure](https://access.redhat.com/articles/uploading-rhel-image-to-azure) or use RHEL Gold Image from the Azure Private Gallery offering.
 
 Read [Red Hat Enterprise Linux pricing](https://azure.microsoft.com/pricing/details/virtual-machines/red-hat/) for details on the RHEL VMs pricing with PAYG model. In order to use RHEL in PAYG model, you will need an Azure Subscription with the specified payment method ([RHEL 7.7](https://azuremarketplace.microsoft.com/marketplace/apps/RedHat.RedHatEnterpriseLinux77-ARM?tab=Overview) and [RHEL 8.0](https://azuremarketplace.microsoft.com/marketplace/apps/RedHat.RedHatEnterpriseLinux80-ARM?tab=Overview) are Azure Marketplace products and require a payment method to be specified in the Azure Subscription).
 
@@ -134,7 +134,7 @@ Build your environment with JBoss EAP 7.2/EAP 7.3 cluster setup on 'n' number of
     - **Location** - Choose the appropriate location for deployment.
 
     - **Admin Username** - User account name for logging into the RHEL VM.
-    
+
     - **Authentication Type** - Type of authentication to use on the VM (password or SSH key).
 
     - **Admin Password or SSH key** - User account password or SSH key data which is an SSH RSA public key for logging into the RHEL VM.
@@ -149,7 +149,7 @@ Build your environment with JBoss EAP 7.2/EAP 7.3 cluster setup on 'n' number of
 
     - **Subnet Prefix** - Enter the subnet prefix of the virtual network.
 
-    - **Virtual Network Resource Group Name** - Enter the name of the resource group if you intend to deploy the resources in an existing virtaul network or else if you want to create a new VNET, the default value will deploy a new VNET in the resource group where the template is deployed.
+    - **Virtual Network Resource Group Name** - Enter the name of the resource group if you intend to deploy the resources in an existing virtual network or else if you want to create a new VNET, the default value will deploy a new VNET in the resource group where the template is deployed.
 
     - **EAP on RHEL Version** - Select the EAP on RHEL version combination from the dropdown options, the default option selected here is JBoss EAP 7.2 on RHEL 8.0.
 
@@ -162,7 +162,7 @@ Build your environment with JBoss EAP 7.2/EAP 7.3 cluster setup on 'n' number of
     - **RHSM Username** - Username for the Red Hat Subscription Manager account.
 
     - **RHSM Password** - User account password for your RHSM account.
-   
+
     - **RHSM Pool ID for JBoss EAP** - RHSM Pool ID (ensure you have EAP entitlement)
 
     - **RHSM Pool ID for RHEL** - RHSM Pool ID (ensure you have RHEL entitlement). This is **mandatory when selecting BYOS RHEL OS** as Subscription Type. This should be left blank when selecting RHEL OS PAYG Subscription Type.
@@ -174,7 +174,7 @@ Build your environment with JBoss EAP 7.2/EAP 7.3 cluster setup on 'n' number of
     - **Number of Instances** - Enter the number of VMs to be deployed.
 
     - Leave the rest of the parameter values (Artifacts and Location) as is, accept the Terms and Conditions, and proceed to purchase.
-    
+
 ## Deployment Time
 
 The deployment takes approximately 10 minutes to complete.
@@ -191,7 +191,7 @@ Once the deployment is successful, go to the outputs section of the deployment t
 
 **Option 1 of 3**. Create a Jump VM in a different Virtual Network and access the Load Balancer and RHEL VM using Virtual Network Peering.
 
-   - [Create a Windows Virtual Machine](https://docs.microsoft.com/azure/virtual-machines/windows/quick-create-portal#create-virtual-machine) - in a new Azure Resource Group, create a Windows VM. This should be in the same location as the Resource Group you deployed the template. Provide the required details and leave other configurations as default. This will create the Jump VM in a new Virtual Network.
+   - [Create a Windows Virtual Machine](https://docs.microsoft.com/azure/virtual-machines/windows/quick-create-portal#create-virtual-machine) - in a new Azure Resource Group, create a Windows VM. This should be in the same location as the resources in the Resource Group you deployed the template. Provide the required details and leave other configurations as default. This will create the Jump VM in a new Virtual Network.
 
    - [Peer the Virtual Networks](https://docs.microsoft.com/azure/virtual-network/tutorial-connect-virtual-networks-portal#peer-virtual-networks) - this is how you associate the Load Balancer with the Jump VM. Once the Virtual Network peering is successful, they can communicate with each other.
 
@@ -205,7 +205,7 @@ Once the deployment is successful, go to the outputs section of the deployment t
 
      ![alt text](images/eap-admin-console.png)
 
-   - To access the App UI console - copy the app URL from the output page of the deployment and paste it in a browser inside the Jump VM. The web application displays the *Session ID*, *Session counter* and *Timestamp* (these are variables stored in the session that are replicated) and the VM Private IP address that the web page and session is being hosted from. Clicking on the *Increment Counter* updates the session counter and clicking on *Refresh* will refresh the page.
+   - To access the App UI console - copy the app URL from the output page of the deployment and paste it into a browser inside the Jump VM. The web application displays the *Session ID*, *Session counter* and *Timestamp* (these are variables stored in the session that are replicated) and the VM Private IP address that the web page and session is being hosted from. Clicking on the *Increment Counter* updates the session counter and clicking on *Refresh* will refresh the page.
 
      <a href="mailto:appdevonazure@redhat.com">
        <img src="images/eap-session.png"/>
@@ -219,9 +219,9 @@ Once the deployment is successful, go to the outputs section of the deployment t
 
 **Option 2 of 3**. Create a Jump VM in a different subnet (new subnet) in the same Virtual Network and access the Load Balancer and RHEL VM via Jump VM.
 
-   - [Add a new subnet](https://docs.microsoft.com/azure/virtual-network/virtual-network-manage-subnet#add-a-subnet) in the existing Virtual Network which contains the RHEL VMs.
+   - [Add a new subnet](https://docs.microsoft.com/azure/virtual-network/virtual-network-manage-subnet#add-a-subnet) in the existing Virtual Network which is associated with the RHEL VMs.
 
-   - [Create a Windows Virtual Machine](https://docs.microsoft.com/azure/virtual-machines/windows/quick-create-portal#create-virtual-machine) in Azure in the same Resource Group you deployed the template. Provide the required details and leave other configurations as default except for the Virtual Network and subnet. Make sure you select the existing Virtual Network in the Resource Group and select the subnet you just created in the step above. This will be your Jump VM.
+   - [Create a Windows Virtual Machine](https://docs.microsoft.com/azure/virtual-machines/windows/quick-create-portal#create-virtual-machine) in Azure in the same Resource Group you deployed the template. Provide the required details and leave other configurations as default except for the Virtual Network and subnet. Make sure you select the existing Virtual Network associated with the deployed resources in the Resource Group and select the subnet you just created in the step above. This will be your Jump VM.
 
    - Access Jump VM Public IP - once the Jump VM is successfully deployed, go to the VM details page and copy the Public IP. Log into the Jump VM using this Public IP.
 
@@ -233,7 +233,7 @@ Once the deployment is successful, go to the outputs section of the deployment t
 
      ![alt text](images/eap-admin-console.png)
 
-   - To access the App UI console - copy the app URL from the output page of the deployment and paste it in a browser inside the Jump VM. The web application displays the *Session ID*, *Session counter* and *Timestamp* (these are variables stored in the session that are replicated) and the VM Private IP address that the web page and session is being hosted from. Clicking on the *Increment Counter* updates the session counter and clicking on *Refresh* will refresh the page.
+   - To access the App UI console - copy the app URL from the output page of the deployment and paste it into a browser inside the Jump VM. The web application displays the *Session ID*, *Session counter* and *Timestamp* (these are variables stored in the session that are replicated) and the VM Private IP address that the web page and session is being hosted from. Clicking on the *Increment Counter* updates the session counter and clicking on *Refresh* will refresh the page.
 
      <a href="mailto:appdevonazure@redhat.com">
        <img src="images/eap-session.png"/>
@@ -275,7 +275,7 @@ Once the deployment is successful, go to the outputs section of the deployment t
 
 This section includes common errors faced during deployments and details on how you can troubleshoot these errors. 
 
-#### Azure Platform 
+#### Azure Platform
 
 - If the parameter criteria are not fulfilled (ex - the admin password criteria was not met) or if any mandatory parameters are not provided in the parameters section then the deployment will not start. The *Terms & Conditions* must be accepted before clicking on *Purchase*.
 
@@ -314,7 +314,7 @@ Follow the steps below to troubleshoot this further:
     more jbosseap.install.log
     ```
 
-This log file will have details that include deployment failure reason and possible solutions. If your deployment failed due to RHSM account or entitlements, please refer to 'Subscriptions and Costs' section to complete the prerequisites and try again. You should also make sure that the deployment does not hit the quota limit, hence check your regional vCPU quotas and VM series VCPU quotas before you provide the number of instances for deployment. If your subscription or region does not have enough quota limit [request for quota](https://docs.microsoft.com/azure/azure-portal/supportability/regional-quota-requests) from you Azure portal. Note that after your Azure subscription receives access to Red Hat Gold Images, you can locate them in the Azure portal. Go to **Create a Resource** > **See all**. At the top of the page, you'll see that **You have private offers available** bar, click on *View private offers* link to view your private offers.
+This log file will have details that include deployment failure reason and possible solutions. If your deployment failed due to RHSM account or entitlements, please refer to 'Subscriptions and Costs' section to complete the prerequisites and try again. You should also make sure that the deployment does not hit the quota limit, hence check your regional vCPU quotas and VM series vCPU quotas before you provide the number of instances for deployment. If your subscription or region does not have enough quota limit [request for quota](https://docs.microsoft.com/azure/azure-portal/supportability/regional-quota-requests) from you Azure portal. Note that after your Azure subscription receives access to Red Hat Gold Images, you can locate them in the Azure portal. Go to **Create a Resource** > **See all**. At the top of the page, you'll see that **You have private offers available** bar, click on *View private offers* link to view your private offers.
 
 ![alt text](images/private-offer.png)
 
