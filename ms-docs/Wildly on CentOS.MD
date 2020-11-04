@@ -86,7 +86,7 @@ You can deploy the template in the following three ways:
 
 ## Resource Links:
 
-* Learn more about [WildFly 18](https://wildfly.org/18)
+* Learn more about [WildFly 18](https://docs.wildfly.org/18/)
 * Learn more about [Linux distributions on Azure](https://docs.microsoft.com/azure/virtual-machines/linux/endorsed-distros)
 * [Azure for Java developers documentation](https://github.com/JasonFreeberg/jboss-on-app-service)
 
