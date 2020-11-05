@@ -118,9 +118,9 @@ Once you deploy a VM using any of the above mentioned RHEL BYOS plans please run
 
 JBoss EAP is available on Azure through BYOS model only. When deploying your JBoss EAP on RHEL plan, you need to supply your RHSM credentials along with RHSM Pool ID with valid EAP entitlements. If you don't have EAP entitlement, obtain a [JBoss EAP evaluation subscription](https://access.redhat.com/products/red-hat-jboss-enterprise-application-platform/evaluation) before you get started. Run the following command to attach the Pool ID with EAP entitlement, where EAP_POOL is RHSM pool ID with EAP entitlement.
 
-    ```
-    subscription-manager attach --pool=EAP_POOL
-    ```
+```
+subscription-manager attach --pool=EAP_POOL
+```
 
 ## Troubleshooting
 
