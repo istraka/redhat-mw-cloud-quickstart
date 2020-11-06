@@ -1,8 +1,6 @@
 1.2 Kickstart JBoss EAP on Azure experience
 
-Red Hat and Microsoft have partnered to bring a set of Azure solution templates to the Azure Marketplace to provide a solid starting point for migrating to Azure. Consult the documentation for the list of offers and choose a suitable environment.
-
-Red Hat in partnership with Microsoft has published offer of JBoss EAP on RHEL that will install and provision on Azure VM instance in less than 20 minutes. You can access these offers from [Azure Marketplace](https://azuremarketplace.microsoft.com/)
+Red Hat and Microsoft have partnered to bring a set of Azure solution templates to the Azure Marketplace to provide a solid starting point for migrating to Azure. Consult the documentation for the list of offers and choose a suitable environment. They have published offers of JBoss EAP on RHEL that will install and provision on Azure VM instance in less than 20 minutes. You can access these offers from [Azure Marketplace](https://azuremarketplace.microsoft.com/)
 
 This Marketplace offer includes various combinations of EAP and RHEL versions to support your requirements on either standalone RHEL VM or clustered RHEL VMSS. JBoss EAP licensing is always BYOS(Bring-Your-Own-Subscription) whereas for RHEL OS you can choose from BYOS or PAYG (Pay-As-You-Go). Following are the 12 plans we provide for EAP on RHEL offer.
 
@@ -26,12 +24,6 @@ Along with Azure Marketplace offers, there are Quickstart templates made availab
 * Virtual Network (VNET) with a single subnet
 * VM configuration (cluster or stand-alone)
 * A sample Java application
-
-Solution architecture for these templates includes:
-
-* JBoss EAP on stand-alone RHEL VM
-* JBoss EAP clustered across Multiple RHEL VMs
-* JBoss EAP clustered using Azure Virtual Machine Scale Set
 
 Note that the users also have the option to choose between the Red Hat Enterprise Linux versions 7.7 and 8.0 and JBoss EAP versions 7.2 and 7.3. Users can select one of the following combinations for deployment of Quickstart template.
 
