@@ -25,6 +25,59 @@
         "description": "Password or SSH key for the Virtual Machine"
       }
     },
+    "virtualNetworkNewOrExisting": {
+      "defaultValue": "new",
+      "type": "String",
+      "allowedValues": [
+        "new",
+        "existing"
+      ],
+      "metadata": {
+        "description": "Determines whether or not a new virtual network should be provisioned."
+      }
+    },
+    "virtualNetworkName": {
+      "defaultValue": "centosvm-vnet",
+      "type": "String",
+      "metadata": {
+        "description": "Name of the virtual network"
+      }
+    },
+    "addressPrefix": {
+      "defaultValue": "10.0.0.0/16",
+      "type": "String",
+      "metadata": {
+        "description": "Address prefix of the virtual network"
+      }
+    },
+    "subnetName": {
+      "defaultValue": "centosvm-subnet",
+      "type": "String",
+      "metadata": {
+        "description": "Name of the subnet"
+      }
+    },
+    "subnetPrefix": {
+      "defaultValue": "10.0.0.0/24",
+      "type": "String",
+      "metadata": {
+        "description": "Subnet prefix of the virtual network"
+      }
+    },
+    "virtualNetworkResourceGroupName": {
+      "defaultValue": "[resourceGroup().name]",
+      "type": "String",
+      "metadata": {
+        "description": "Name of the resource group for the existing virtual network"
+      }
+    },
+    "location": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().location]",
+      "metadata": {
+        "description": "Location for all resources"
+      }
+    },
     "wildflyUserName": {
       "type": "string",
       "metadata": {
@@ -43,7 +96,7 @@
       "metadata": {
         "description": "The base URI where artifacts required by this template are located. When the template is deployed using the accompanying scripts, a private location in the subscription will be used and this value will be automatically generated"
       },
-      "defaultValue": "https://raw.githubusercontent.com/SpektraSystems/redhat-mw-cloud-quickstart/master/wildfly-standalone-centos8/"
+      "defaultValue": "https://raw.githubusercontent.com/SpektraSystems/redhat-mw-cloud-quickstart/suraj-templatev2/wildfly-standalone-centos8/"
     },
     "_artifactsLocationSasToken": {
       "type": "securestring",
@@ -51,13 +104,6 @@
         "description": "The sasToken required to access _artifactsLocation.  When the template is deployed using the accompanying scripts, a sasToken will be automatically generated"
       },
       "defaultValue": ""
-    },
-    "location": {
-      "type": "string",
-      "defaultValue": "[resourceGroup().location]",
-      "metadata": {
-        "description": "Location for all resources"
-      }
     },
     "vmSize": {
       "type": "string",
@@ -83,14 +129,8 @@
     "imagePublisher": "OpenLogic",
     "imageOffer": "CentOS",
     "imageSKU": "8.0",
-    "nicName": "[concat(uniquestring(resourceGroup().id), '-nic')]",
-    "addressPrefix": "10.0.0.0/16",
-    "subnetName": "centosvm-subnet",
-    "subnetPrefix": "10.0.0.0/24",
+    "nicName": "centos-vm-nic",
     "vmName": "centos-vm",
-    "virtualNetworkName": "centosvm-vnet",
-    "scriptFolder": "scripts",
-    "scriptFileName": "wildfly-setup.sh",
     "bootStorageAccountName": "[concat('bootstrg', uniqueString(resourceGroup().id))]",
     "storageAccountType": "Standard_LRS",
     "linuxConfiguration": {
@@ -104,13 +144,16 @@
         ]
       }
     },
-    "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnetName'))]"
+    "subnetRef": "[resourceId(parameters('virtualNetworkResourceGroupName'), 'Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('subnetName'))]",
+    "scriptFolder": "scripts",
+    "fileToBeDownloaded": "JBoss-EAP_on_Azure.war",
+    "scriptArgs": "[concat('-a ', uri(parameters('_artifactsLocation'), '.'), ' -t \"', parameters('_artifactsLocationSasToken'), '\" -p ', variables('scriptFolder'), ' -f ', variables('fileToBeDownloaded'))]"
   },
   "resources": [
     {
+      "type": "Microsoft.Resources/deployments",
       "apiVersion": "2019-05-01",
       "name": "pid-2c0c0514-a608-492e-b64e-bc4ace59035b",
-      "type": "Microsoft.Resources/deployments",
       "properties": {
         "mode": "Incremental",
         "template": {
@@ -122,21 +165,22 @@
     },
     {
       "type": "Microsoft.Storage/storageAccounts",
-      "name": "[variables('bootStorageAccountName')]",
       "apiVersion": "2019-06-01",
+      "name": "[variables('bootStorageAccountName')]",
       "location": "[parameters('location')]",
-      "tags": {
-                "QuickstartName": "WildFly 18 on CentOS 8 (stand-alone VM)"
-            },
       "sku": {
           "name": "[variables('storageAccountType')]"
       },
-      "kind": "Storage"
+      "kind": "Storage",
+      "tags": {
+                "QuickstartName": "WildFly 18 on CentOS 8 (stand-alone VM)"
+            }
     },
     {
-      "apiVersion": "2019-11-01",
+      "condition": "[equals(parameters('virtualNetworkNewOrExisting'), 'new')]",
       "type": "Microsoft.Network/virtualNetworks",
-      "name": "[variables('virtualNetworkName')]",
+      "apiVersion": "2019-11-01",
+      "name": "[parameters('virtualNetworkName')]",
       "location": "[parameters('location')]",
       "tags": {
                 "QuickstartName": "WildFly 18 on CentOS 8 (stand-alone VM)"
@@ -144,26 +188,26 @@
       "properties": {
         "addressSpace": {
           "addressPrefixes": [
-            "[variables('addressPrefix')]"
+            "[parameters('addressPrefix')]"
           ]
         },
         "subnets": [
           {
-            "name": "[variables('subnetName')]",
+            "name": "[parameters('subnetName')]",
             "properties": {
-              "addressPrefix": "[variables('subnetPrefix')]"
+              "addressPrefix": "[parameters('subnetPrefix')]"
             }
           }
         ]
       }
     },
     {
-      "apiVersion": "2019-11-01",
       "type": "Microsoft.Network/networkInterfaces",
+      "apiVersion": "2019-11-01",
       "name": "[variables('nicName')]",
       "location": "[parameters('location')]",
       "dependsOn": [
-        "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]"
+        "[parameters('virtualNetworkName')]"
       ],
       "tags": {
                 "QuickstartName": "WildFly 18 on CentOS 8 (stand-alone VM)"
@@ -183,13 +227,13 @@
       }
     },
     {
-      "apiVersion":  "2019-12-01", 
       "type": "Microsoft.Compute/virtualMachines",
+      "apiVersion":  "2019-12-01",
       "name": "[variables('vmName')]",
       "location": "[parameters('location')]",
       "dependsOn": [
-        "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'))]",
-        "[concat('Microsoft.Storage/storageAccounts/', variables('bootStorageAccountName'))]"
+        "[variables('nicName')]",
+        "[variables('bootStorageAccountName')]"
       ],
       "tags": {
                 "QuickstartName": "WildFly 18 on CentOS 8 (stand-alone VM)"
@@ -227,18 +271,18 @@
         "diagnosticsProfile": {
           "bootDiagnostics": {
             "enabled": true,
-            "storageUri": "[concat('https://', variables('bootStorageAccountName'), '.blob.core.windows.net')]"
+            "storageUri": "[reference(variables('bootStorageAccountName'), '2019-06-01').primaryEndpoints['blob']]"
           }
         }
       }
     },
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[concat(variables('vmName'),'/wildfly-setup')]",
       "apiVersion": "2019-12-01",
+      "name": "[concat(variables('vmName'),'/wildfly-setup')]",
       "location": "[parameters('location')]",
       "dependsOn": [
-        "[concat('Microsoft.Compute/virtualMachines/', variables('vmName'))]"
+        "[variables('vmName')]"
       ],
       "tags": {
                 "QuickstartName": "WildFly 18 on CentOS 8 (stand-alone VM)"
@@ -250,17 +294,19 @@
         "autoUpgradeMinorVersion": true,
         "settings": {
           "fileUris": [
-            "[concat(parameters('_artifactsLocation'), variables('scriptFolder'), '/', variables('scriptFileName'), parameters('_artifactsLocationSasToken'))]"
-          ],
-          "commandToExecute": "[concat('sh wildfly-setup.sh',' ',parameters('wildflyUserName'),' ',variables('singlequote'),parameters('wildflyPassword'),variables('singlequote'))]"
+            "[uri(parameters('_artifactsLocation'), concat('scripts/wildfly-setup.sh', parameters('_artifactsLocationSasToken')))]"
+          ]
+        },
+        "protectedSettings": {
+          "commandToExecute": "[concat('sh wildfly-setup.sh',' ',variables('scriptArgs'),' ',parameters('wildflyUserName'),' ',variables('singlequote'),parameters('wildflyPassword'),variables('singlequote'))]"
         }
       }
     }
   ],
   "outputs": {
     "vm Private IP Address": {
-        "type": "string",
-        "value": "[reference(variables('nicName')).ipConfigurations[0].properties.privateIPAddress]"
+      "type": "string",
+      "value": "[reference(variables('nicName')).ipConfigurations[0].properties.privateIPAddress]"
     },
     "appURL": {
       "type": "string",
