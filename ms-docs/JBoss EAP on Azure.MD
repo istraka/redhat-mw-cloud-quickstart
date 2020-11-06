@@ -45,16 +45,6 @@ In addition to providing functionality and APIs to its applications, JBoss EAP h
     
     For a complete listing of all available startup script arguments and their purposes, use the --help argument or see the [Server Runtime Arguments](https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html/configuration_guide/reference_material#reference_of_switches_and_arguments_to_pass_at_server_runtime) section.
     
-- **Start JBoss EAP in a Managed Domain** - The domain controller must be started before the servers in any of the server groups in the domain. Use the following script to first start the domain controller, and then for each associated host controller.
-
-    `$EAP_HOME/bin/domain.sh`
-    
-    This startup script uses the EAP_HOME/bin/domain.conf file, to set some default preferences, such as JVM options.  These settings can be customized in the file.  JBoss EAP uses the host.xml host configuration file to start on managed domain by default, but can be started using a different mode. For details on the available managed domain configuration files and how to use them, see the [Managed Domain Configuration Files](https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html/configuration_guide/jboss_eap_management#managed_domain_configuration_files) section. To start JBoss EAP with a different configuration, use the --host-config argument. For example:
-    
-    `$EAP_HOME/bin/domain.sh --host-config=host-master.xml`
-    
-    When setting up a managed domain, additional arguments will need to be passed into the startup script. For a complete listing of all available startup script arguments and their purposes, use the --help argument or see the [Server Runtime Arguments](https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html/configuration_guide/reference_material#reference_of_switches_and_arguments_to_pass_at_server_runtime) section.
-    
 JBoss EAP can also work in Cluster, please check [JBoss EAP Clustering](https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html/configuring_messaging/clusters_overview) to learn more.
 
 > Note that this quickstart tells you how to deploy 11 templates mentioned below in *ARM Template* section and none of them deploy JBoss EAP in Domain Server mode.
