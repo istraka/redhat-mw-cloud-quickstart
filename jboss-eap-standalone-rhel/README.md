@@ -33,7 +33,7 @@ This Azure Resource Manager (ARM) template creates all the Azure compute resourc
 - Sample Java application named **JBoss-EAP on Azure** deployed on JBoss EAP
 - Storage Account
 
-You have the option to choose an existing Virtual Network setup or create a new Virtual Network with the provided VNET and subnet details in the parameters. Note that the template will not allow you to create a new subnet in the existing virtual network. You also have the option to choose between the Red Hat Enterprise Linux versions 7.7 and 8.0 and JBoss EAP versions 7.2 and 7.3. Users can select one of the following combinations for deployment.
+You have the option to choose an existing Virtual Network setup or create a new Virtual Network by providing the VNET and subnet details in the parameters. Note that the template will not allow you to create a new subnet in the existing virtual network. You also have the option to choose between the Red Hat Enterprise Linux versions 7.7 and 8.0 and JBoss EAP versions 7.2 and 7.3. Users can select one of the following combinations for deployment.
 
 - JBoss EAP 7.2 on RHEL 7.7
 - JBoss EAP 7.2 on RHEL 8.0
@@ -177,7 +177,7 @@ The deployment takes approximately 10 minutes to complete.
 
 Once the deployment is successful, go to the outputs section of the deployment to obtain the **Private IP of the RHEL VM**, **app URL** and the **Admin Console URL**. You can access the RHEL VM and the application by following one of the 5 options:
 
-1. Create a Jump VM in a different Virtual Network and access the RHEL VM using Virtual Network Peering. (recommended method).
+1. Create a Jump VM in a different Virtual Network and access the RHEL VM using Virtual Network Peering. (recommended method)
 2. Create a Public IP to access the RHEL VM and JBoss EAP Admin Console.
 3. Create a Jump VM in a different subnet (new subnet) in the same Virtual Network and access the RHEL VM via a Jump VM.
 4. Using an Application Gateway.
@@ -209,7 +209,7 @@ Once the deployment is successful, go to the outputs section of the deployment t
 
    - The RHEL VM you created does not have a Public IP associated to it. You can [create a Public IP](https://docs.microsoft.com/azure/virtual-network/virtual-network-public-ip-address#create-a-public-ip-address) for accessing the VM and [associate the Public IP to the VM](https://docs.microsoft.com/azure/virtual-network/associate-public-ip-address-vm). All this can be done using Azure Portal or Powershell commands or CLI commands.
 
-   - Obtain the Public IP of a VM - go to the VM details page and copy the Public IP. You can use this Public IP to access the VM and JBoss EAP Admin Console.
+   - Obtain the Public IP of the VM - go to the VM details page and copy the Public IP. You can use this Public IP to access the VM and JBoss EAP Admin Console.
 
    - View the JBoss EAP on Azure web page - open a web browser and go to *http://<PUBLIC_HOSTNAME>:8080/JBoss-EAP_on_Azure/* and you should see the application running.
 

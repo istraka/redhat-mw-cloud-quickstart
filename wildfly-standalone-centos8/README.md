@@ -2,8 +2,6 @@
 
 [![Deploy To Azure](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.svg?sanitize=true)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FSpektraSystems%2Fredhat-mw-cloud-quickstart%2Fsuraj-templatev2%2Fwildfly-standalone-centos8%2Fazuredeploy.json)
 
-`Tags: WildFly 18.0.1.Final, Red Hat, CentOS, Java, Java EE, Jakarta EE, Azure, Azure VM`
-
 <!-- TOC -->
 
 1. [Solution Overview](#solution-overview)
@@ -20,24 +18,25 @@
 
 ## Solution Overview
 
-This template creates a standalone node of WildFly on CentOS VM of Standard_DS2_v2 size (users can select the size of the VM from the dropdown options) in your Resource Group (RG) which includes a Public DNS name, Virtual Network and Network Security Group. It is ideal for development and testing of enterprise Java applications on Azure.
+This template creates a standalone node of WildFly on CentOS VM of Standard_DS2_v2 size (users can select the size of the VM from the dropdown options) in your Resource Group (RG) which includes a Private IP, Virtual Network and a diagnostics Storage Account. It is ideal for development and testing of enterprise Java applications on Azure.
 
-WildFly is an open-source application server runtime that is exceptionally fast, flexible, lightweight and powerful. It is Jakarta EE 8 Full Platform and Web Profile compatible.  The state-of-the-art architecture built on the Modular Service Container enables services on-demand when your application requires them.
+WildFly is an open-source application server runtime that is exceptionally fast, flexible, lightweight and powerful. It is Jakarta EE 8 Full Platform and Web Profile compatible. The state-of-the-art architecture built on the Modular Service Container enables services on-demand when your application requires them.
 
 The technology behind WildFly is also available in Red Hat JBoss Enterprise Application Platform (EAP), a hardened enterprise subscription including Red Hat world-class support, long multi-year maintenance cycles and exclusive content. JBoss EAP is an open-soure application server that you can download for free for development use. To obtain a Red Hat Subscription Management (RHSM) account for JBoss EAP, go to: www.redhat.com. Red Hat Subscription Management (RHSM) is a customer-driven, end-to-end solution that provides tools for subscription status and management and integrates with Red Hat's system management tools.
 
-To learn more visit the [Wildfly Documentation](https://docs.wildfly.org/18/) site.
+To learn more visit the [WildFly Documentation](https://docs.wildfly.org/18/) site.
 
 ## Template Solution Architecture 
 
-This Azure Resource Manager (ARM) template creates all the Azure compute resources to run WildFly 18.0.1.Final on top of CentOS 8.0 VM. The following resources are created by this template:
+This Azure Resource Manager (ARM) template creates all the Azure compute resources to run WildFly 18.0.1.Final setup on CentOS 8.0 VM. The following resources are created by this template:
 
 - CentOS 8 Virtual Machine
-- Public IP 
-- Virtual Network 
-- Network Security Group 
+- Virtual Network
 - WildFly 18.0.1.Final
-- Sample Java application named JBoss-EAP on Azure deployed on WildFly
+- Sample Java application named **JBoss-EAP on Azure** deployed on WildFly
+- Storage Account
+
+You have the option to choose an existing Virtual Network setup or create a new Virtual Network by providing the VNET and subnet details in the parameters. Note that the template will not allow you to create a new subnet in the existing virtual network.
 
 Following is the Architecture:
 
@@ -45,23 +44,23 @@ Following is the Architecture:
 
 ## Subscriptions and Costs 
 
-This ARM template uses an Azure CentOS 8 image which is a Pay-As-You-Go (PAYG) VM image and does not require the user to license. The VM will be licensed automatically after the instance is launched for the first time and the user will be charged hourly in addition to Microsoft's Linux VM rates. [Linux Virtual Machine](https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#linux) provides pricing details. WildFly is free to download and use and does not require a Red Hat Subscription or License.
+This ARM template uses an Azure CentOS 8 image which is a Pay-As-You-Go (PAYG) VM image and does not require the user to license. The VM will be licensed automatically after the instance is launched for the first time and the user will be charged hourly in addition to Microsoft's Linux VM rates. [Linux Virtual Machine](https://azure.microsoft.com/pricing/details/virtual-machines/linux/#linux) provides pricing details. WildFly is free to download and use and does not require a Red Hat Subscription or License.
 
 ## Prerequisites 
 
 1. Azure Subscription with specified payment method. CentOS-Based 8.0 is an Azure Marketplace product and requires a payment method to be specified in the Azure Subscription.
 
-2. To create the VM, you will need:
+2. To deploy the template, you will need:
 
-    - **Admin Username** and password or SSH key data which is an SSH RSA public key for your VM.
+    - **Admin Username** and password or SSH key data which is an SSH RSA public key for the VM.
 
     - **WildFly Username** and password to enable the WildFly Admin Console and Deployment method.
 
 ## Deployment Steps  
 
-Build your environment with WildFly 18.0.1.Final on top of CentOS 8.0 on Azure in a few simple steps:  
+Build your environment with WildFly 18.0.1.Final on a VM by running CentOS 8.0 on Azure in a few simple steps:  
 1. Launch the template by clicking on the **Deploy to Azure** button.  
-2. Complete the following parameter values, accept the Terms and Conditions and click on the **Purchase** button.
+2. Complete the following parameter values, accept the Terms and Conditions, and click on the **Purchase** button.
 
     - **Subscription** - Choose the appropriate subscription for deployment.
 
@@ -75,13 +74,25 @@ Build your environment with WildFly 18.0.1.Final on top of CentOS 8.0 on Azure i
 
     - **Admin Password or SSH key** - User account password or SSH key data which is an SSH RSA public key for logging into the CentOS VM.
 
-    - **WildFly Username** - Username for WildFly Console Manager.
+    - **Virtual Network New or Existing** - Choose whether you want to deploy the resources in an existing virtual network or create a new virtual network.
 
-    - **WildFly Password** - User account password for WildFly Console Manager.
+    - **Virtual Network Name** - Enter the name of the virtual network.
+
+    - **Address Prefix** - Enter the address prefix of the virtual network.
+
+    - **Subnet Name** - Enter the subnet name.
+
+    - **Subnet Prefix** - Enter the subnet prefix of the virtual network.
+
+    - **Virtual Network Resource Group Name** - Enter the name of the resource group if you intend to deploy the resources in an existing virtual network or else if you want to create a new VNET, the default value will deploy a new VNET in the resource group where the template is deployed.
+
+    - **WildFly Username** - Username for WildFly Admin Console Manager.
+
+    - **WildFly Password** - User account password for WildFly Admin Console Manager.
 
     - **VM Size** - Select the appropriate size of the VM from the dropdown options.
 
-    - Leave the rest of the parameter values (Artifacts and Location) as is, accept the Terms & Conditions and proceed to purchase.
+    - Leave the rest of the parameter values (Artifacts and Location) as is, accept the Terms & Conditions, and proceed to purchase.
 
 ## Deployment Time 
 
@@ -89,17 +100,111 @@ The deployment takes less than 10 minutes to complete.
 
 ## Validation Steps
 
-- Once the deployment is successful, go to the Outputs section of the deployment to obtain the **VM DNS name**, **app URL** and the **Admin Console URL**:
+Once the deployment is successful, go to the outputs section of the deployment to obtain the **Private IP of the CentOS VM**, **app URL** and the **Admin Console URL**. You can access the CentOS VM and the application by following one of the 5 options:
 
-  ![alt text](images/output.png)
+1. Create a Jump VM in a different Virtual Network and access the CentOS VM using Virtual Network Peering. (recommended method)
+2. Create a Public IP to access the CentOS VM and WildFly Admin Console.
+3. Create a Jump VM in a different subnet (new subnet) in the same Virtual Network and access the CentOS VM via a Jump VM.
+4. Using an Application Gateway.
+5. Using an External Load Balancer (ELB).
 
-- Paste the app URL that you copied from the Output page in a browser to view the JBoss-EAP on Azure web page.
+   ![alt text](images/output.png)
 
-  ![alt text](images/app.png)
+**Option 1 of 5**. Create a Jump VM in a different Virtual Network and access the CentOS VM using Virtual Network Peering.
 
-- Paste the Admin Console URL that you copied from the Output page in a browser to access the WildFly Admin Console and enter the Wildfly Username and password to login.
+   - [Create a Windows Virtual Machine](https://docs.microsoft.com/azure/virtual-machines/windows/quick-create-portal#create-virtual-machine) - in a new Azure Resource Group, create a Windows VM. This should be in the same location as CentOS VM. Provide the required details and leave other configurations as default. This will create the Jump VM in a new Virtual Network.
 
-  ![alt text](images/wildfly-console.png)
+   - [Peer the Virtual Networks](https://docs.microsoft.com/azure/virtual-network/tutorial-connect-virtual-networks-portal#peer-virtual-networks) - this is how you associate the CentOS VM with the Jump VM. Once the Virtual Network peering is successful, both the VMs can communicate with each other.
+
+   - Go to the Jump VM details page and copy the Public IP. Log into the Jump VM using this Public IP.
+
+   - Copy the Private IP of CentOS VM from the output page and use it to log into the CentOS VM from the Jump VM.
+
+   - Paste the app URL that you copied from the output page in a browser inside the Jump VM to view the JBoss EAP on Azure web page.
+
+     <a href="mailto:appdevonazure@redhat.com">
+       <img src="images/app.png"/>
+     </a>
+     
+   - Access the WildFly Admin Console - paste the Admin Console URL copied from the output page in a browser inside the Jump VM, enter the WilldFly username and password to log in.
+
+     ![alt text](images/wildfly-console.png)
+
+**Option 2 of 5**. Create Public IP to access the CentOS VM and WildFly Admin Console
+
+   - The CentOS VM you created does not have a Public IP associated to it. You can [create a Public IP](https://docs.microsoft.com/azure/virtual-network/virtual-network-public-ip-address#create-a-public-ip-address) for accessing the VM and [associate the Public IP to the VM](https://docs.microsoft.com/azure/virtual-network/associate-public-ip-address-vm). All this can be done using Azure Portal or Powershell commands or CLI commands.
+
+   - Obtain the Public IP of the VM - go to the VM details page and copy the Public IP. You can use this Public IP to access the VM and WildFly Admin Console.
+
+   - View the JBoss EAP on Azure web page - open a web browser and go to *http://<PUBLIC_HOSTNAME>:8080/JBoss-EAP_on_Azure/* and you should see the application running.
+
+     <a href="mailto:appdevonazure@redhat.com">
+       <img src="images/app.png"/>
+     </a>
+
+   - Log into the WildFly Admin Console - open a web browser and go to *http://<PUBLIC_HOSTNAME>:9990*. Enter the WildFly username and password to log in.
+
+     ![alt text](images/wildfly-console.png)
+
+**Option 3 of 5**. Create a Jump VM in a different subnet (new subnet) in the same Virtual Network and access the CentOS VM via Jump VM.
+
+   - [Add a new subnet](https://docs.microsoft.com/azure/virtual-network/virtual-network-manage-subnet#add-a-subnet) in the existing Virtual Network which is associated with the CentOS VM.
+
+   - [Create a Windows Virtual Machine](https://docs.microsoft.com/azure/virtual-machines/windows/quick-create-portal#create-virtual-machine) in Azure in the same Resource Group as the CentOS VM. Provide the required details and leave other configurations as default except for the Virtual Network and subnet. Make sure you select the existing Virtual Network associated with the deployed resources in the Resource Group and select the subnet you just created in the step above. This will be your Jump VM.
+
+   - Access Jump VM Public IP - once successfully deployed, go to the VM details page and copy the Public IP. Log into the Jump VM using this Public IP.
+
+   - Log into CentOS VM - copy the Private IP of CentOS VM from the output page and use it to log into the CentOS VM from the Jump VM.
+
+   - Access the JBoss EAP on Azure web page - in your Jump VM, open a browser and paste the app URL that you copied from the output page of the deployment.
+
+     <a href="mailto:appdevonazure@redhat.com">
+       <img src="images/app.png"/>
+     </a>
+     
+   - Access the WildFly Admin Console - paste the Admin Console URL that you copied from the output page in a browser inside the Jump VM to access the WildFly Admin Console and enter the WildFly username and password to log in.
+
+     ![alt text](images/wildfly-console.png)
+
+**Option 4 of 5**. Using an Application Gateway
+
+   - [Create an Application Gateway](https://docs.microsoft.com/azure/application-gateway/quick-create-portal#create-an-application-gateway) - to access the ports of the CentOS VM, create an Application Gateway in a different subnet. This subnet must only contain the Application Gateway.
+
+   - Set *Frontends* parameters - make sure you select Public IP or both and provide the required details. Under *Backends* section, select **Add a backend pool** option and add the CentOS VM to the backend pool of the Application Gateway.
+
+   - Set access ports - under *Configuration* section add routing rules to access the ports 8080 and 9990 of the CentOS VM.
+
+   - Copy Public IP of Application Gateway - once the Application Gateway is created with the required configurations, go to the overview page and copy the Public IP of the Application Gateway.
+
+   - To view the JBoss EAP on Azure web page - open a web browser and go to *http://<PUBLIC_IP_AppGateway>:8080/JBoss-EAP_on_Azure/* and you should see the application running.
+
+     <a href="mailto:appdevonazure@redhat.com">
+       <img src="images/app.png"/>
+     </a>
+
+   - To log into the WildFly Admin Console - open a web browser and go to *http://<PUBLIC_IP_AppGateway>:9990*. Enter the WildFly username and password to log in.
+
+     ![alt text](images/wildfly-console.png)
+
+**Option 5 of 5**. Using an External Load Balancer.
+
+   - [Create a Load Balancer](https://docs.microsoft.com/azure/load-balancer/tutorial-load-balancer-standard-manage-portal#create-a-standard-load-balancer) to access the ports of the CentOS VM. Provide the required details to deploy the external Load Balancer and leave other configurations as default. Leave the SKU as Basic for this configuration.
+
+   - Add Load Balancer rules - once the Load balancer has been created successfully, [create Load Balancer resources](https://docs.microsoft.com/azure/load-balancer/tutorial-load-balancer-standard-manage-portal#create-load-balancer-resources), add Load Balancer rules to access the ports 8080 and 9990 of the CentOS VM.
+
+   - Add the CentOS VM to the backend pool of the Load Balancer - click on *Backend pools* under settings section and then select the backend pool you created in the step above. Select the Virtual Machine corresponding to the option *Associated to* and then add the CentOS VM.
+
+   - To obtain the Public IP of the Load Balancer - go to the Load Balancer overview page and copy the Public IP of the Load Balancer.
+
+   - To view the JBoss EAP on Azure web page - open a web browser and go to *http://<PUBLIC_IP_LoadBalancer>:8080/JBoss-EAP_on_Azure/* and you should see the application running.
+
+     <a href="mailto:appdevonazure@redhat.com">
+       <img src="images/app.png"/>
+     </a>
+
+   - To log into the WildFly Admin Console - open a web browser and go to *http://<PUBLIC_IP_LoadBalancer>:9990*. Enter the WildFly username and password to log in.
+
+     ![alt text](images/wildfly-console.png)
 
 ## Troubleshooting
 
@@ -113,30 +218,44 @@ This section includes common errors faced during deployments and details on how 
 
 - If your deployment fails at the **VM Custom Script Extension** resource, a more detailed failure message is available in the VM log file. Please refer to the next section for further troubleshooting.
 
-#### Troubleshooting EAP deployment extension
+#### Troubleshooting WildFly deployment extension
 
-Follow the steps below to troubleshoot VM Custom Script Extension failures further:
+This quickstart template uses VM Custom Script Extension to deploy and configure WildFly with a sample application. Follow the steps below to troubleshoot VM Custom Script Extension failures further:
 
-1. Log into the provisioned VM through SSH. You can retrieve the Public IP of the VM using the Azure portal VM *Overview* page.
+1. Log into the provisioned VM through SSH as mentioned in the 'Validation section'.
 
 2. Switch to root user
 
-    `sudo su -`
+    ```
+    sudo su -
+    ```
 
-3. Enter your VM admin password if prompted.
+3. Enter the VM admin password if prompted.
 
 4. Change directory to logging directory
 
-    `cd /var/lib/waagent/custom-script/download/0`
+    ```
+    cd /var/lib/waagent/custom-script/download/0
+    ```
 
 5. Review the logs in wildfly.install.log log file.
 
-    `more wildfly.install.log`
+    ```
+    more wildfly.install.log
+    ```
 
 This log file will have details that include deployment failure reason and possible solutions.
 
-Please refer to [Using the Azure Custom Script Extension Version 2 with Linux VMs](https://docs.microsoft.com/en-us/azure/virtual-machines/extensions/custom-script-linux) for more details on troubleshooting VM custom script extensions.
+Please refer to [Using the Azure Custom Script Extension Version 2 with Linux VMs](https://docs.microsoft.com/azure/virtual-machines/extensions/custom-script-linux) for more details on troubleshooting VM custom script extensions.
+
+#### Cleanup
+
+If your deployment fails due to any reason (like the ones mentioned above), make sure you delete the whole resource group so that you are not charged for any of the resources deployed so far before failure occurred. In case of successful deployment, follow the same process of deleting the resource group created by the template and related resources (if created in other resource groups) to optimize Azure cost. Note that if you want to keep any resources in the resource group, you can delete other resources manually which does not have dependencies on the resources that you want to retain.
+
+`Tags: WildFly 18.0.1.Final, Red Hat, CentOS, Java, Java EE, Jakarta EE, Azure, Azure VM`
 
 ## Support 
 
-For any support related questions, issues or customization requirements, please contact [Spektra Systems](info@spektrasystems.com) or [Red Hat Support](https://www.redhat.com/en/services/support).
+For any support related questions, issues or customization requirements with the GitHub template please contact [Spektra Systems](mailto:info@spektrasystems.com).
+
+If you are experiencing production deployment issues please contact [Red Hat Support](https://www.redhat.com/en/services/support).

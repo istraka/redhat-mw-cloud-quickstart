@@ -34,7 +34,7 @@ This Azure Resource Manager (ARM) template creates all the Azure compute resourc
 - Sample Java application called **eap-session-replication** deployed on JBoss EAP
 - Storage Account
 
-You have the option to choose an existing Virtual Network setup or create a new Virtual Network with the provided VNET and subnet details in the parameters. Note that the template will not allow you to create a new subnet in the existing virtual network. You also have the option to choose between the Red Hat Enterprise Linux versions 7.7 and 8.0 and JBoss EAP versions 7.2 and 7.3. Users can select one of the following combinations for deployment.
+You have the option to choose an existing Virtual Network setup or create a new Virtual Network by providing the VNET and subnet details in the parameters. Note that the template will not allow you to create a new subnet in the existing virtual network. You also have the option to choose between the Red Hat Enterprise Linux versions 7.7 and 8.0 and JBoss EAP versions 7.2 and 7.3. Users can select one of the following combinations for deployment.
 
 - JBoss EAP 7.2 on RHEL 7.7
 - JBoss EAP 7.2 on RHEL 8.0
@@ -186,7 +186,7 @@ The deployment takes approximately 10 minutes to complete.
 
 Once the deployment is successful, go to the outputs section of the deployment to obtain the **app URL**. You can access the RHEL VMSS instance and the application by following one of the 3 options:
 
-1. Create a Jump VM in a different Virtual Network and access the Load Balancer and RHEL VMSS instance using Virtual Network Peering. (recommended method).
+1. Create a Jump VM in a different Virtual Network and access the Load Balancer and RHEL VMSS instance using Virtual Network Peering. (recommended method)
 2. Create a Jump VM in a different subnet (new subnet) in the same Virtual Network and access the Load Balancer and RHEL VMSS instance via Jump VM.
 3. Using an Application Gateway.
 

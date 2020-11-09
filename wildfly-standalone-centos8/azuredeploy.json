@@ -169,12 +169,12 @@
       "name": "[variables('bootStorageAccountName')]",
       "location": "[parameters('location')]",
       "sku": {
-          "name": "[variables('storageAccountType')]"
+        "name": "[variables('storageAccountType')]"
       },
       "kind": "Storage",
       "tags": {
-                "QuickstartName": "WildFly 18 on CentOS 8 (stand-alone VM)"
-            }
+        "QuickstartName": "WildFly 18 on CentOS 8 (stand-alone VM)"
+      }
     },
     {
       "condition": "[equals(parameters('virtualNetworkNewOrExisting'), 'new')]",
@@ -183,8 +183,8 @@
       "name": "[parameters('virtualNetworkName')]",
       "location": "[parameters('location')]",
       "tags": {
-                "QuickstartName": "WildFly 18 on CentOS 8 (stand-alone VM)"
-            },
+        "QuickstartName": "WildFly 18 on CentOS 8 (stand-alone VM)"
+      },
       "properties": {
         "addressSpace": {
           "addressPrefixes": [
@@ -210,8 +210,8 @@
         "[parameters('virtualNetworkName')]"
       ],
       "tags": {
-                "QuickstartName": "WildFly 18 on CentOS 8 (stand-alone VM)"
-            },
+        "QuickstartName": "WildFly 18 on CentOS 8 (stand-alone VM)"
+      },
       "properties": {
         "ipConfigurations": [
           {
@@ -228,7 +228,7 @@
     },
     {
       "type": "Microsoft.Compute/virtualMachines",
-      "apiVersion":  "2019-12-01",
+      "apiVersion": "2019-12-01",
       "name": "[variables('vmName')]",
       "location": "[parameters('location')]",
       "dependsOn": [
@@ -236,8 +236,8 @@
         "[variables('bootStorageAccountName')]"
       ],
       "tags": {
-                "QuickstartName": "WildFly 18 on CentOS 8 (stand-alone VM)"
-            },
+        "QuickstartName": "WildFly 18 on CentOS 8 (stand-alone VM)"
+      },
       "properties": {
         "hardwareProfile": {
           "vmSize": "[parameters('vmSize')]"
@@ -285,8 +285,8 @@
         "[variables('vmName')]"
       ],
       "tags": {
-                "QuickstartName": "WildFly 18 on CentOS 8 (stand-alone VM)"
-            },
+        "QuickstartName": "WildFly 18 on CentOS 8 (stand-alone VM)"
+      },
       "properties": {
         "publisher": "Microsoft.Azure.Extensions",
         "type": "CustomScript",
