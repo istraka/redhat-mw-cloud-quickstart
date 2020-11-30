@@ -4,12 +4,12 @@ description: How to deploy Red Hat JBoss EAP on Azure RHEL VM and Virtual Machin
 author: theresa-nguyen
 ms.author: bicnguy
 ms.topic: quickstart
-ms.date: 10/30/2020
+ms.date: 11/30/2020
 ---
 
 # Deploy Red Hat JBoss EAP on Azure RHEL VM and VMSS using the offer in Azure Marketplace
 
-Azure Marketplace has offers using which you can deploy Azure [Red Hat Enterprise Linux (RHEL)](https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux) Virtual Machine (VM) or Virtual Machine Scale Set (VMSS) with [JBoss Enterprise (EAP)](https://www.redhat.com/en/technologies/jboss-middleware/application-platform) pre-installed. JBoss EAP is an open-source application server platform that delivers enterprise grade security, scalability, and performance. RHEL is an open-source operating system (OS) platform. You can scale existing apps and roll out emerging technologies across all environments. JBoss EAP and RHEL include everything you need to build, run, deploy, and manage enterprise Java applications in any environment. This includes on-premises, virtual environments, and in private, public, or hybrid clouds.
+Azure Marketplace has offers using which you can deploy Azure [Red Hat Enterprise Linux (RHEL)](https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux) Virtual Machine (VM) or Virtual Machine Scale Set (VMSS) with [JBoss Enterprise (EAP)](https://www.redhat.com/en/technologies/jboss-middleware/application-platform) pre-installed. JBoss EAP is an open-source application server platform that delivers enterprise-grade security, scalability, and performance. RHEL is an open-source operating system (OS) platform. You can scale existing apps and roll out emerging technologies across all environments. JBoss EAP and RHEL include everything you need to build, run, deploy, and manage enterprise Java applications in any environment. This includes on-premises, virtual environments, and in private, public, or hybrid clouds.
 
 ## Prerequisites
 
@@ -42,9 +42,9 @@ This Marketplace offer includes various combinations of EAP and RHEL versions to
 
 #### Using RHEL OS with PAYG Model
 
-This Azure Marketplace offer allows you to deploy Red Hat Enterprise Linux OS with PAYG Model. PAYG plans will have additional hourly RHEL subscription charge on top of the normal compute, network and storage costs. Make sure you do not register your system again with RHEL license, or else it will lead to double billing. To avoid this issue, you can deploy RHEL OS with BYOS model via Red Hat Gold Image using your [Red Hat Cloud Access](https://access.redhat.com/).
+This Azure Marketplace offer allows you to deploy Red Hat Enterprise Linux OS with PAYG Model. PAYG plans will have additional hourly RHEL subscription charge on top of the normal compute, network, and storage costs. Make sure you do not register your system again with RHEL license, or else it will lead to double billing. To avoid this issue, you can deploy RHEL OS with BYOS model via Red Hat Gold Image using your [Red Hat Cloud Access](https://access.redhat.com/).
 
-Check out [Red Hat Enterprise Linux pricing](https://azure.microsoft.com/pricing/details/virtual-machines/red-hat/) for details on the PAYG model. In order to use RHEL in PAYG model, you will need an Azure Subscription with the specified payment method ([RHEL 7.7 Azure Marketplace](https://azuremarketplace.microsoft.com/marketplace/apps/RedHat.RedHatEnterpriseLinux77-ARM) and [RHEL 8.0 Azure Marketplace](https://azuremarketplace.microsoft.com/marketplace/apps/RedHat.RedHatEnterpriseLinux80-ARM) are offers that require a payment method to be specified in the Azure Subscription).
+Check out [Red Hat Enterprise Linux pricing](https://azure.microsoft.com/pricing/details/virtual-machines/red-hat/) for details on the PAYG model. To use RHEL in PAYG model, you will need an Azure Subscription with the specified payment method ([RHEL 7.7 Azure Marketplace](https://azuremarketplace.microsoft.com/marketplace/apps/RedHat.RedHatEnterpriseLinux77-ARM) and [RHEL 8.0 Azure Marketplace](https://azuremarketplace.microsoft.com/marketplace/apps/RedHat.RedHatEnterpriseLinux80-ARM) are offers that require a payment method to be specified in the Azure Subscription).
 
 #### Using RHEL OS with BYOS Model
 
@@ -128,9 +128,9 @@ This section includes common errors faced during deployments and details on how 
 
 #### Azure Platform
 
-- Your deployment will not start if the parameter criteria are not fulfilled (ex - the admin password criteria was not met) or if any mandatory parameters aren't provided in the parameters section. You can review the details of parameters before clicking on *Create*.
+- Your deployment will not start if the parameter criteria are not fulfilled (ex - the admin password criteria were not met) or if any mandatory parameters aren't provided in the parameters section. You can review the details of parameters before clicking on *Create*.
 
-- Once the deployment starts the resources being deployed will be visible on the deployment page. If there is deployment failure after parameter validation process, a more detailed failure message is available.
+- Once the deployment starts the resources being deployed will be visible on the deployment page. If there is a deployment failure after the parameter validation process, a more detailed failure message is available.
 
 - If your deployment fails at the **VM Custom Script Extension** resource, a more detailed failure message is available in the VM log file. Please refer to the next section for further troubleshooting.
 
@@ -143,7 +143,7 @@ The offers with PAYG RHEL OS uses VM Custom Script Extension to deploy JBoss EAP
 
 Follow the steps below to troubleshoot this further:
 
-1. Log into the provisioned virtual machine through SSH. You can retrieve the Public IP of the VM from the Azure portal VM overview page.
+1. Log in to the provisioned virtual machine through SSH. You can retrieve the Public IP of the VM from the Azure portal VM overview page.
 
 2. Switch to root user
 
