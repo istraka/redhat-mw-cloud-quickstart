@@ -9,7 +9,7 @@ ms.date: 10/30/2020
 
 # Deploy Red Hat JBoss EAP on Azure RHEL VM and VMSS using the offer in Azure Marketplace
 
-Azure Marketplace has offers using which you can deploy Azure [Red Hat Enterprise Linux (RHEL)](https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux) Virtual Machine (VM) or Virtual Machine Scale Set (VMSS) with [JBoss Enterprise (EAP)](https://www.redhat.com/en/technologies/jboss-middleware/application-platform) pre-installed. JBoss EAP is an open source application server platform that delivers enterprise-grade security, scalability, and performance. RHEL is an open source operating system (OS) platform, where you can scale existing apps and roll out emerging technologies across all environments. JBoss EAP and RHEL includes everything needed to build, run, deploy, and manage enterprise Java applications in any environment, including on-premises, virtual environments, and in private, public, or hybrid clouds.
+Azure Marketplace has offers using which you can deploy Azure [Red Hat Enterprise Linux (RHEL)](https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux) Virtual Machine (VM) or Virtual Machine Scale Set (VMSS) with [JBoss Enterprise (EAP)](https://www.redhat.com/en/technologies/jboss-middleware/application-platform) pre-installed. JBoss EAP is an open-source application server platform that delivers enterprise grade security, scalability, and performance. RHEL is an open-source operating system (OS) platform. You can scale existing apps and roll out emerging technologies across all environments. JBoss EAP and RHEL include everything you need to build, run, deploy, and manage enterprise Java applications in any environment. This includes on-premises, virtual environments, and in private, public, or hybrid clouds.
 
 ## Prerequisites
 
@@ -48,7 +48,7 @@ Check out [Red Hat Enterprise Linux pricing](https://azure.microsoft.com/pricing
 
 #### Using RHEL OS with BYOS Model
 
-To use BYOS for RHEL OS, you need to have a valid Red Hat subscription with entitlements to use RHEL OS in Azure. Note that the JBoss EAP on RHEL BYOS plans are private offers, so you need to complete the following prerequisites in order to use RHEL OS through BYOS model before you deploy the EAP on RHEL BYOS Plan from Azure Marketplace. You need to accept the Marketplace Terms and Conditions in Azure for the RHEL BYOS plans. You can complete this by running Azure CLI commands, as given below. Make sure you are running the latest Azure CLI version before moving on.
+To use BYOS for RHEL OS, you're required to have a valid Red Hat subscription with entitlements to use RHEL OS in Azure. These JBoss EAP on RHEL BYOS plans are private offers, so you need to complete the following prerequisites in order to use RHEL OS through BYOS model before you deploy the EAP on RHEL BYOS Plan from Azure Marketplace. You will be required to accept the Marketplace Terms and Conditions (T&C) in Azure for the RHEL BYOS plans. You can complete this by running Azure CLI commands, as given below. Make sure you're running the latest Azure CLI version before moving on.
 
 1. Ensure you have RHEL OS and JBoss EAP entitlements attached to your Red Hat subscription.
 
@@ -128,9 +128,9 @@ This section includes common errors faced during deployments and details on how 
 
 #### Azure Platform
 
-- If the parameter criteria are not fulfilled (ex - the admin password criteria was not met) or if any mandatory parameters are not provided in the parameters section then the deployment will not start. You can review the details of parameters before clicking on *Create*.
+- Your deployment will not start if the parameter criteria are not fulfilled (ex - the admin password criteria was not met) or if any mandatory parameters aren't provided in the parameters section. You can review the details of parameters before clicking on *Create*.
 
-- Once the deployment starts the resources being deployed will be visible on the deployment page. In the case of any deployment failure, after parameter validation process, a more detailed failure message is available.
+- Once the deployment starts the resources being deployed will be visible on the deployment page. If there is deployment failure after parameter validation process, a more detailed failure message is available.
 
 - If your deployment fails at the **VM Custom Script Extension** resource, a more detailed failure message is available in the VM log file. Please refer to the next section for further troubleshooting.
 
@@ -169,7 +169,7 @@ Follow the steps below to troubleshoot this further:
     more eap.log
     ```
 
-This log file will have details that include deployment failure reason and possible solutions. If your deployment failed due to RHSM account or entitlements, please refer to 'Support and subscription notes' section to complete the prerequisites and try again. If you are deploying EAP on RHEL clustered plan, you should also make sure that the deployment does not hit the quota limit, hence check your regional vCPU quotas and VM series vCPU quotas before you provide the instance count for deployment. If your subscription or region does not have enough quota limit [request for quota](https://docs.microsoft.com/azure/azure-portal/supportability/regional-quota-requests) from you Azure portal. 
+This log file will have details that include deployment failure reason and possible solutions. If your deployment failed due to RHSM account or entitlements, please refer to 'Support and subscription notes' section to complete the prerequisites and try again. If you are deploying EAP on RHEL clustered plan, you should also make sure that the deployment doesn't hit the quota limit, hence check your regional vCPU quotas and VM series vCPU quotas before you provide the instance count for deployment. If your subscription or region doesn't have enough quota limit [request for quota](https://docs.microsoft.com/azure/azure-portal/supportability/regional-quota-requests) from your Azure portal. 
 
 Please refer to [Using the Azure Custom Script Extension Version 2 with Linux VMs](https://docs.microsoft.com/azure/virtual-machines/extensions/custom-script-linux) for more details on troubleshooting VM custom script extensions.
 
