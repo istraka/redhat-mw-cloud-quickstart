@@ -9,17 +9,13 @@ ms.date: 09/10/2020
 
 # Red Hat JBoss EAP on Azure Best Practices
 
-This quickstart is a Best Practices guide for using Red Hat JBoss Enterprise Application Platform on Microsoft Azure. JBoss EAP 7 can be used with the Microsoft Azure platform, as long as you use it within the specific supported configurations for running JBoss EAP in Azure. If you are configuring a clustered JBoss EAP environment, you must apply the specific configurations necessary to use JBoss EAP clustering features in Azure. This quickstart details the supported configurations of using JBoss EAP in Microsoft Azure.
+This quickstart is a Best Practices guide for using Red Hat JBoss Enterprise Application Platform on Microsoft Azure. JBoss EAP can be used with the Microsoft Azure platform, as long as you use it within the specific supported configurations for running JBoss EAP in Azure. If you are manually configuring a clustered JBoss EAP environment, you must apply the specific configurations necessary to use JBoss EAP clustering features in Azure. This quickstart details the supported configurations of using JBoss EAP in Microsoft Azure.
 
-Red Hat JBoss Enterprise Application Platform (JBoss EAP) 7.3 is a Jakarta EE 8 compatible implementation for both Web Profile and Full Platform specifications and is also a certified implementation of the Java Enterprise Edition (Java EE) 8 specification. Major versions of JBoss EAP are forked from the WildFly community project at certain points when the community project has reached the desired feature completeness level. After that point, an extended period of testing and productization takes place in which JBoss EAP is stabilized, certified, and enhanced for production use. During the lifetime of a JBoss EAP major version, selected features may be cherry-picked and back-ported from the community project into a series of feature enhancing minor releases within the same major version family.
+Red Hat JBoss Enterprise Application Platform (JBoss EAP) is a Jakarta EE 8 compatible implementation for both Web Profile and Full Platform specifications and is also a certified implementation of the Java Enterprise Edition (Java EE) 8 specification. Major versions of JBoss EAP are forked from the WildFly community project at certain points when the community project has reached the desired feature completeness level. After that point, an extended period of testing and productization takes place in which JBoss EAP is stabilized, certified, and enhanced for production use. During the lifetime of a JBoss EAP major version, selected features may be cherry-picked and back-ported from the community project into a series of feature enhancing minor releases within the same major version family.
 
 ## Supported and Unsupported Configurations
 
-The only virtual machine operating systems supported for using JBoss EAP in Microsoft Azure are:
-
-* Red Hat Enterprise Linux 7 or above
-* Microsoft Windows Server 2012 R2
-* Microsoft Windows Server 2016
+See the [JBoss EAP Supported Configurations](https://access.redhat.com/articles/2026253) for details on Operating Systems, Java platforms, and other supported platforms on which EAP can be used.
 
 The Red Hat Cloud Access program allows you to use a JBoss EAP subscription to install JBoss EAP on your Azure virtual machine or one of the above On-Demand operating systems from the Microsoft Azure Marketplace. Note that virtual machine operating system subscriptions are separate from a JBoss EAP subscription. Red Hat Cloud Access is a Red Hat subscription feature that provides support for JBoss EAP on Red Hat certified cloud infrastructure providers, such as Microsoft Azure. Red Hat Cloud Access allows you to move your subscriptions between traditional servers and public cloud-based resources in a simple and cost-effective manner.
 
@@ -33,7 +29,7 @@ There are some unsupported features when using JBoss EAP in a Microsoft Azure en
 
 * ActiveMQ Artemis High Availability Using a Shared Store - JBoss EAP messaging high availability using Artemis shared stores is not supported in Microsoft Azure.
 
-* mod_custer Advertising - You cannot use JBoss EAP as an Undertow mod_cluster proxy load balancer, the mod_cluster advertisement functionally is unsupported because of Azure UDP multicast limitations.
+* `mod_custer` Advertising - You cannot use JBoss EAP as an Undertow `mod_cluster` proxy load balancer, the mod_cluster advertisement functionally is unsupported because of Azure UDP multicast limitations.
 
 ## Other Features of JBoss EAP
 
@@ -57,15 +53,19 @@ JBoss EAP provides pre-configured options for features such as high-availability
 
 You must create the virtual machines that will host your JBoss EAP instances in your Microsoft Azure environment. The virtual machines must use an Azure size of Standard_A2 or higher. You can use either the Azure On-Demand premium images to create your virtual machines or create your own virtual machines manually. For example, you can deploy Red Hat Enterprise Linux virtual machines as follows :
 
-* Using the On-Demand Marketplace Red Hat Enterprise Linux 7 image in Azure - There are several offers in Azure Marketplace from where you can select the RHEL VM that you want to set up the JBoss EAP. Visit [deploy RHEL 7 VM from Azure Marketplace](https://access.redhat.com/articles/2421451). While choosing Red Hat Enterprise Linux image from Azure Marketplace, you have 2 options for choosing the RHEL OS licensing, you can either choose Pay-As-You-Go (PAYG) or Bring-Your-Own-Subscription (BYOS) via Red Hat Gold Image model. Note that if you have deployed Red Hat Enterprise Linux VM using PAYG plan, do not register your system again with RHEL license, or else it will lead to double billing. You can deploy Red Hat Enterprise Linux with BYOS plan using Red Hat Cloud Access.
+* Using the On-Demand Marketplace Red Hat Enterprise Linux image in Azure - There are several offers in Azure Marketplace from where you can select the RHEL VM that you want to set up the JBoss EAP. Visit [deploy RHEL 8 VM from Azure Marketplace](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/deploying_red_hat_enterprise_linux_8_on_public_cloud_platforms/assembly_deploying-a-rhel-image-as-a-virtual-machine-on-microsoft-azure_cloud-content). While choosing Red Hat Enterprise Linux image from Azure Marketplace, you have 2 options for choosing the RHEL OS licensing, you can either choose Pay-As-You-Go (PAYG) or Bring-Your-Own-Subscription (BYOS) via Red Hat Gold Image model. Note that if you have deployed Red Hat Enterprise Linux VM using PAYG plan, only your JBoss EAP subscription details are used to subscribe the resulting deployment to a Red Hat subscription.
 
-* [Manually creating and provisioning a Red Hat Enterprise Linux 7 image for Azure](https://access.redhat.com/articles/uploading-rhel-image-to-azure). Use the latest minor version of each major version of RHEL.
+* [Manually creating and provisioning a Red Hat Enterprise Linux image for Azure](https://access.redhat.com/articles/uploading-rhel-image-to-azure). Use the latest minor version of each major version of RHEL.
 
 For Microsoft Windows Server virtual machines, see the [Microsoft Azure documentation](https://docs.microsoft.com/azure/virtual-machines/windows/overview) for instructions on creating a Windows Server virtual machine in Microsoft Azure.
 
 ## JBoss EAP Installation
 
-Once your virtual machine is set up, you can install the JBoss EAP. For installing JBoss EAP you need access to [Red Hat Customer Portal](https://access.redhat.com), which is the centralized platform for Red Hat knowledge and subscription resources. To get familiarized with EAP, you can try out [JBoss EAP evaluation subscription](https://access.redhat.com/products/red-hat-jboss-enterprise-application-platform/evaluation) before you get started. Note that this subscription is not intended for production use.
+> Note that if you are using the JBoss EAP on RHEL offer through Azure Marketplace, JBoss EAP is > automatically installed and configured for the Microsoft Azure environment.
+>
+> The below steps apply if you are manually deploying EAP to a RHEL VM deployed on Microsoft Azure.
+
+Once your virtual machine is set up, you can install the JBoss EAP. For installing JBoss EAP you need access to [Red Hat Customer Portal](https://access.redhat.com), which is the centralized platform for Red Hat knowledge and subscription resources. If you don't have EAP subscrption, you can sign up for a free developer subscription through the [Red Hat Developer Subscription for Individuals](https://developers.redhat.com/register). Once registered, you can find the necessary credentials (Pool IDs) at the [Red Hat Customer Portal](https://access.redhat.com/management/). Note that this subscription is not intended for production use.
 
 We have used the variable *EAP_HOME* to denote the path to the JBoss EAP installation. Replace this variable with the actual path to your JBoss EAP installation.
 
@@ -86,20 +86,14 @@ Red Hat and Microsoft have partnered to bring a set of Azure solution templates 
 
 Red Hat in partnership with Microsoft has published the following offerings in Azure Marketplace. You can access these offers from [Azure Marketplace](https://azuremarketplace.microsoft.com/)
 
-It includes various combinations of EAP and RHEL versions to support your requirements on either standalone RHEL VM or clustered RHEL VMSS. JBoss EAP licensing is always BYOS(Bring-Your-Own-Subscription) whereas for RHEL OS you can choose from BYOS(Bring-Your-Own-Subscription) or PAYG(Pay-As-You-Go). Following are the 12 plans we provide for EAP on RHEL offer.
+This Marketplace offer includes various combinations of EAP and RHEL versions to support your requirements. JBoss EAP is always Bring-Your-Own-Subscription (BYOS) but for RHEL OS you can choose between BYOS or Pay-As-You-Go (PAYG). The Azure Marketplace offer includes plan options for JBoss EAP on RHEL as stand-alone or clustered VMs. This Azure Marketplace offer for Red Hat JBoss EAP on RHEL have 6 plans:
 
-* JBoss EAP 7.2 on RHEL 7.7 VM(BYOS)
-* JBoss EAP 7.2 on RHEL 7.7 VM(PAYG)
-* JBoss EAP 7.2 on RHEL 8.0 VM(BYOS)
-* JBoss EAP 7.2 on RHEL 8.0 VM(PAYG)
-* JBoss EAP 7.3 on RHEL 8.0 VM(BYOS)
-* JBoss EAP 7.3 on RHEL 8.0 VM(PAYG)
-* JBoss EAP 7.2 on RHEL 7.7 VMSS(BYOS)
-* JBoss EAP 7.2 on RHEL 7.7 VMSS(PAYG)
-* JBoss EAP 7.2 on RHEL 8.0 VMSS(BYOS)
-* JBoss EAP 7.2 on RHEL 8.0 VMSS(PAYG)
-* JBoss EAP 7.3 on RHEL 8.0 VMSS(BYOS)
-* JBoss EAP 7.3 on RHEL 8.0 VMSS(PAYG)
+- **JBoss EAP 7.3 on RHEL 8.3 VM (PAYG)**
+- **JBoss EAP 7.3 on RHEL 8.3 VM (BYOS)**
+- **JBoss EAP 7.3 on RHEL 8.3 Clustered VM (PAYG)**
+- **JBoss EAP 7.3 on RHEL 8.3 Clustered VM (BYOS)**
+- **JBoss EAP 7.3 on RHEL 8.3 VMSS (PAYG)**
+- **JBoss EAP 7.3 on RHEL 8.3 VMSS (BYOS)**
 
 **Azure QuickStart Templates**
 
@@ -139,7 +133,7 @@ JBoss EAP is supported on Red Hat Enterprise Linux, and Windows Server, and runs
     $EAP_HOME/bin/standalone.sh
     ```
 
-- For Windows Server use the `EAP_HOME\bin\standalone.bat` script to start the JBoss EAP as a Standalone server. 
+- For Windows Server use the `EAP_HOME\bin\standalone.bat` script to start the JBoss EAP as a Standalone server.
 
 - Starting JBoss EAP is different for an RPM installation compared to a ZIP or installer installation. For example, for Red Hat Enterprise Linux 7 and later, you must use the following command :
 
