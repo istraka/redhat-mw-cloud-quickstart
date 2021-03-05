@@ -23,14 +23,14 @@ If none of the existing offers is a good starting point, you'll have to reproduc
 
 Red Hat in partnership with Microsoft has published the following offerings in Azure Marketplace. You can access these offers from [Azure Marketplace](https://azuremarketplace.microsoft.com/)
 
-It includes various combinations of EAP and RHEL versions to support your requirements. JBoss EAP licensing is always BYOS(Bring-Your-Own-Subscription) whereas for RHEL OS you can choose from BYOS(Bring-Your-Own-Subscription) or PAYG(Pay-As-You-Go).
+This Marketplace offer includes various combinations of EAP and RHEL versions to support your requirements. JBoss EAP is always Bring-Your-Own-Subscription (BYOS) but for RHEL OS you can choose between BYOS or Pay-As-You-Go (PAYG). The Azure Marketplace offer includes plan options for JBoss EAP on RHEL as stand-alone or clustered VMs. This Azure Marketplace offer for Red Hat JBoss EAP on RHEL have 6 plans:
 
-* JBoss EAP 7.2 on RHEL 7.7 VM(BYOS)
-* JBoss EAP 7.2 on RHEL 7.7 VM(PAYG)
-* JBoss EAP 7.2 on RHEL 8.0 VM(BYOS)
-* JBoss EAP 7.2 on RHEL 8.0 VM(PAYG)
-* JBoss EAP 7.3 on RHEL 8.0 VM(BYOS)
-* JBoss EAP 7.3 on RHEL 8.0 VM(PAYG)
+- **JBoss EAP 7.3 on RHEL 8.3 VM (PAYG)**
+- **JBoss EAP 7.3 on RHEL 8.3 VM (BYOS)**
+- **JBoss EAP 7.3 on RHEL 8.3 Clustered VM (PAYG)**
+- **JBoss EAP 7.3 on RHEL 8.3 Clustered VM (BYOS)**
+- **JBoss EAP 7.3 on RHEL 8.3 VMSS (PAYG)**
+- **JBoss EAP 7.3 on RHEL 8.3 VMSS (BYOS)**
 
 **Azure QuickStart Templates**
 
@@ -54,7 +54,7 @@ You can choose to start with one of the quickstart templates with required JBoss
 
 * <a href="https://github.com/Azure/azure-quickstart-templates/tree/master/jboss-eap-clustered-vmss-rhel" target="_blank"> JBoss EAP on RHEL (clustered, VMSS)</a> - This Azure template deploys a web application called eap-session-replication on JBoss EAP 7.2/EAP 7.3 cluster running on RHEL 7.7/8.0 VMSS instances.
 
-## Prerequisites 
+## Prerequisites
 
 **Prerequisites**
 
@@ -106,7 +106,7 @@ The following table describes the most common supported migration paths.
 | IBM WebSphere Application Server  |&#x2714;|&#x2714;|
 | JBoss EAP 4                       |&#x2714;|&#x2718;|
 | JBoss EAP 5                       |&#x2714;|&#x2714;|
-| JBoss EAP 6                       |  N/A   |&#x2714;|   
+| JBoss EAP 6                       |  N/A   |&#x2714;|
 | JBoss EAP 7                       |  N/A   |&#x2714;|
 | Oracle JDK                        |&#x2043;|&#x2043;|
 | Apache Camel 2                    |&#x2043;|&#x2043;|
@@ -217,7 +217,7 @@ Please refer to the getting started with Azure Marketplace section to evaluate y
 
 ### Perform the Migration
 
-There are tools that can assist you in Migration : 
+There are tools that can assist you in Migration :
 
 * [Red Hat Application Migration Toolkit to Analyze Applications for Migration](https://access.redhat.com/documentation/en/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/index#use_windup_to_analyze_applications_for_migration).
 * [JBoss Server Migration Tool to Migrate Server Configurations](https://access.redhat.com/documentation/en/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/index#migration_tool_server_migration_tool)
