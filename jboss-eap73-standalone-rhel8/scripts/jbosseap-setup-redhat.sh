@@ -40,7 +40,7 @@ RHSM_USER=${11}
 RHSM_PASSWORD=${12}
 RHEL_OS_LICENSE_TYPE=${13}
 RHSM_POOL=${14}
-IP_ADDR=$(hostname -I)
+IP_ADDR=0.0.0.0
 
 echo "JBoss EAP admin user : " ${JBOSS_EAP_USER} | adddate >> jbosseap.install.log
 echo "Initial JBoss EAP 7.3 setup" | adddate >> jbosseap.install.log
